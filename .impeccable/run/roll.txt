@@ -1,0 +1,105 @@
+SURFACE CONCEPT SEED (key: e796c405; mode: unscoped; source: api; approved pool: 94ff10ff20de; 281/531 human-approved; rerun with --scope surface --from e796c405 --candidate-count 7 to reproduce this roll against this catalog revision)
+ASSIGNED INDEX: 6
+  After ordering the task's grounded structural candidates by resonance,
+  build candidate 6 of your own grounded list; the assignment never
+  points at a challenger. The assignment is the roll, not a suggestion.
+  In an attended run, present the assigned structure and offer re-roll; never
+  present a ranked lineup to choose from. Re-roll yourself only when the
+  assignment fails audience identification or product clarity on named
+  factual grounds.
+  The assignment exists to refuse the model's ranking rut, never to outrank
+  the user or the brief. Never expose assignment metadata in user-facing labels.
+CHALLENGERS:
+  1. a hand-cranked paper menagerie of tabs, bellows, and pinned joints, where humble folds produce a surprising procession of motion
+     SOURCE ID: kinetic-sculpture-automata-crank-paper-menagerie
+     CREATIVE SPARK: The crank turns; a white fox bows, a crimson bird opens concertina wings, and their shadows cross on the paper wall behind them.
+     SYSTEM GRAMMAR:
+       - Palette/material: cut white paper on kraft board as the ground, charcoal cast shadow as body ink, one crimson fold reserved for the figure currently in motion
+       - Type/composition: hand-cut letterpress caps with visible tab and slot marks, captions on folded paper strips beneath each figure, one crank line ruling the base
+       - Topology/navigation: Advance through a procession while each figure opens into its own linkage and supporting details.
+       - Controls/state: Turn, pause, reverse, and inspect joints with folded, tensioned, extended, and resting states.
+       - Responsive/motion: Reduce the procession to one figure per viewport and provide illustrated keyframes beside every control.
+     WEB LEVERAGE: Pointer and keyboard input can drive a common crank timeline, synchronizing SVG cut-paper layers with accessible step descriptions.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie.webp · hero https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie-hero.webp
+  2. a cephalopod skin becoming a living display, with expanding chromatophores, traveling patterns, texture change, and context-dependent signals
+     SOURCE ID: reefs-bioluminescent-nocturnal-chromatophore-skin-language
+     CREATIVE SPARK: A pale animal crosses patterned stone and its skin becomes waves, eyes, and ridges in less than a heartbeat.
+     SYSTEM GRAMMAR:
+       - Palette/material: pale mantle-cream as ground, red-brown chromatophores as body ink, one iridophore blue-green flash marking the active signal, dark ridges as texture
+       - Type/composition: a variable typeface whose weight tracks pigment expansion, patterns traveling body to skin-cell as waves, signals drawn directly onto the surface
+       - Topology/navigation: Navigate whole body, skin region, pigment cell, pattern wave, and environmental trigger.
+       - Controls/state: Change context, draw signals, and show neutral, camouflaging, warning, and communicating states.
+       - Responsive/motion: Flatten skin into an inspectable living textile on phones; pattern speed is adjustable.
+     WEB LEVERAGE: GPU cellular shaders and displacement textures render signal, color, and texture together.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language.webp · hero https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language-hero.webp
+  3. a bath of thickened water where pigment floats and is combed into figures before being lifted onto paper in one contact, every mark made by moving liquid rather than by drawing on a surface
+     SOURCE ID: medium-native-ebru-floated-pigment
+     CREATIVE SPARK: Every drop pushes the last one into a ring, and you comb through the whole thing with a single hair before laying a sheet down once and lifting the only copy there will ever be.
+     SYSTEM GRAMMAR:
+       - Palette/material: pigment floating on a thickened bath, colours never mixing but displacing each other, lifted onto sized paper in a single contact
+       - Type/composition: figures drawn by dragging a stylus through floating colour, with each new drop pushing the previous ones outward into rings
+       - Topology/navigation: everything is made on one surface in one pass, so navigation is intervening in a liquid rather than moving between views
+       - Controls/state: controls are stylus strokes, each one permanently displaces the colour around it, and a lift ends the composition
+       - Responsive/motion: the bath fills any frame and figures redistribute, and motion is pigment displacing outward from each new drop
+     WEB LEVERAGE: a fluid-displacement canvas simulation with stylus interaction, irreversible stroke state, and a one-shot lift transition
+     QUALITY BAR: board https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment.webp · hero https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment-hero.webp
+  4. a printing darkroom under amber safelight, where enlarger beams, timed baths, and drying lines stage photographs into slow deliberate existence
+     SOURCE ID: signals-instruments-darkroom-safelight-bay
+     CREATIVE SPARK: In the developer tray, gray ghosts gather into a face; the timer ticks, and pulling the print too early is a real loss.
+     SYSTEM GRAMMAR:
+       - Palette/material: amber safelight washing every surface as the ground, wet-print silver grays deepening to black as the image ink, enamel tray white at the edges
+       - Type/composition: grease-pencil notes and printed timer digits under amber, labels sparse on bottles and trays; test strips band the field into stepped exposures
+       - Topology/navigation: work moves through fixed stations in order: compose, expose, develop, fix, wash, dry.
+       - Controls/state: progress is chemical and irreversible past marked points; test strips preview before committing.
+       - Responsive/motion: stations linearize on phones; the develop reveal is one continuous emergence, shown statically under
+     WEB LEVERAGE: Canvas-simulated development curves let previews emerge in real time before an action commits.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay.webp · hero https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp
+  5. a saul bass title sequence, cut-paper shapes and a single jittering line building meaning across timed cards on a flat color field
+     SOURCE ID: posters-covers-sleeves-saul-bass-title
+     CREATIVE SPARK: A black cut-paper arm reaches across a burnt-orange field while brass stabs, and in ninety seconds of jittering silhouettes an entire story is told without showing a single face.
+     SYSTEM GRAMMAR:
+       - Palette/material: one flat saturated field per card, burnt orange, ink black, and bone white, the field color swapping per act while silhouettes stay black
+       - Type/composition: skinny hand-set caps sitting slightly off baseline, one idea per card in hard asymmetry, credits ranked as timed cards rather than columns
+       - Topology/navigation: a timed sequence of full-bleed cards, one idea per card; jumping ahead scrubs the sequence rather than abandoning it
+       - Controls/state: everything is a cut-paper symbol, states change by swapping the silhouette rather than decorating it; a jittery hand-drawn line marks the live element
+       - Responsive/motion: shapes are flat and scale-free so cards recompose at any width; motion is staccato paper-cut jumps
+     WEB LEVERAGE: SVG shape morphs animate the paper-cut swaps, with scroll-driven animation timelines advancing each card.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title.webp · hero https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title-hero.webp
+  6. a jet-age airline ticket wallet, where carbon-copy coupons, route maps, and baggage tags choreograph one journey through crisp official color
+     SOURCE ID: vernacular-ephemera-jet-age-ticket-wallet
+     CREATIVE SPARK: Red carbon numerals, a fold-out route arc, a stapled baggage stub: the whole Atlantic crossing fits in a paper wallet.
+     SYSTEM GRAMMAR:
+       - Palette/material: carrier navy and red over crisp white coupon stock, carbon purple for every filled figure, the red VOID stamp owning the cancelled state
+       - Type/composition: airline grotesk caps on tabbed coupon heads, fare and flight boxes ruled in hairlines, carbon numerals striking fixed fields, one leg per sheet
+       - Topology/navigation: the flow is a coupon book; each leg tears off in sequence and the wallet always shows what remains.
+       - Controls/state: validated, used, and void states stamp themselves onto the coupon; nothing disappears, it cancels.
+       - Responsive/motion: coupons stack into a single stub column on phones; tear-off animates once
+     WEB LEVERAGE: Printable, deep-linkable coupon states with URL-addressable legs and offline-capable stubs.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet.webp · hero https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet-hero.webp
+A challenger wins only when its fused result beats the grounded list on
+  audience identification and product clarity. It may change task topology or
+  interaction, but never the committed visual identity.
+When you can view images, open the QUALITY BAR board and hero for any
+challenger you weigh seriously and for the world you build. They exist as a
+craft bar, the finish level and commitment the build is expected to reach,
+never as a mockup to copy; your surface serves this product, not that render.
+PRODUCT.md and DESIGN.md constrain every surface candidate's identity
+vocabulary; they do not cancel task-level composition. The seed never
+authorizes a new palette, type system, material world, or unfamiliar control
+behavior.
+The CREATIVE SPARK is a complete visual system, not a theme or decorative
+reference. Translate every supplied system rule into the product: palette and
+material, type and composition, topology, controls and states, and adaptation.
+Keep the source's visible character, scale, rhythm, and interaction instead of
+reducing vivid grammar to generic nouns. When the source is already a credible
+interface language, commit to it across navigation, content, controls, and
+states. Otherwise keep a literal carrier only when it becomes functional.
+Ambitious motion, spatial media, or interaction is welcome when it strengthens
+the product without weakening semantics, performance, or fallback behavior.
+TELEMETRY: if the resolved direction uses one of these challengers, rerun
+  this script once with --chosen <challenger-id> --from e796c405 --scope surface
+  after resolution. The ping is anonymous (chosen id only) and is skipped
+  automatically when DO_NOT_TRACK or IMPECCABLE_NO_TELEMETRY is set.
+A user- or brief-pinned decision beats the roll, always.
+ASSIGNED INDEX (restated for truncated readers): 6. Build candidate
+6 of your own grounded list; seed key e796c405.

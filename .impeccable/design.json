@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-12T00:00:00Z",
+  "title": "Design System: Henna by Hamna — The Craft Book",
+  "extensions": {
+    "colorMeta": {
+      "ivory":    { "role": "neutral",  "displayName": "Laid-Paper Ivory",   "canonical": "#F6EDDD", "tonalRamp": ["#100A02", "#2C2519", "#4B4437", "#6D6557", "#8D8577", "#B2AA9B", "#D5CDBD", "#F6EDDD"] },
+      "paper":    { "role": "neutral",  "displayName": "Ledger Sheet Cream", "canonical": "#FBF4E7", "tonalRamp": ["#0F0A04", "#2B261C", "#4A443A", "#6B655A", "#8C857A", "#B1AA9E", "#D4CDC0", "#F5EEE1"] },
+      "inkbrown": { "role": "neutral",  "displayName": "Browning Ink",       "canonical": "#4A2C16", "tonalRamp": ["#1B0300", "#3B1E07", "#5C3D27", "#7F5E47", "#A17E66", "#C7A289", "#EBC5AB", "#FFE6CB"] },
+      "henna":    { "role": "primary",  "displayName": "Henna Ink",          "canonical": "#8C2E2A", "tonalRamp": ["#2F0000", "#550000", "#7C1E1C", "#A3433D", "#C8645C", "#F1897F", "#FFACA1", "#FFCCC1"] },
+      "rust":     { "role": "tertiary", "displayName": "Brief Rust",         "canonical": "#B04A2C", "tonalRamp": ["#320000", "#580000", "#7F1A00", "#A74123", "#CC6345", "#F58869", "#FFAB8B", "#FFCCAA"] },
+      "gold":     { "role": "secondary","displayName": "Gold Leaf",          "canonical": "#C29A4B", "tonalRamp": ["#1F0100", "#3F1D00", "#613D00", "#845F00", "#A67F2E", "#CCA455", "#F1C778", "#FFE899"] },
+      "clay":     { "role": "neutral",  "displayName": "Warm Clay",          "canonical": "#6B4A2A", "tonalRamp": ["#1C0300", "#3C1E00", "#5D3D1D", "#805E3E", "#A27E5D", "#C8A380", "#EDC5A2", "#FFE6C2"] },
+      "sandline": { "role": "neutral",  "displayName": "Sandline Hairline",  "canonical": "#DDC9A8", "tonalRamp": ["#160800", "#332305", "#534225", "#756345", "#968364", "#BBA888", "#DFCBAA", "#FFECCA"] },
+      "cream":    { "role": "neutral",  "displayName": "Muted Cream Wash",   "canonical": "#EFE0C6", "tonalRamp": ["#130900", "#30240F", "#4F432D", "#71644D", "#92846C", "#B7A990", "#DBCCB2", "#FCEDD2"] }
+    },
+    "typographyMeta": {
+      "display":   { "displayName": "Display",   "purpose": "Masthead brand line only; balance-wrap, -0.01em track." },
+      "title":     { "displayName": "Title",     "purpose": "Service entry names, each led by a gold index numeral." },
+      "headline":  { "displayName": "Headline",  "purpose": "House booking quote; henna ink, brief rust underline." },
+      "body":      { "displayName": "Body",      "purpose": "Service descriptions and ledger copy; 38-46ch max-width." },
+      "label":     { "displayName": "Label",     "purpose": "Folio, counters, tags, appointment labels; wide-tracked uppercase." }
+    },
+    "shadows": [
+      { "name": "page-fall", "value": "0 1px 0 rgba(74,44,22,0.08), 0 18px 40px -24px rgba(74,44,22,0.35)", "purpose": "The ledger sheet resting on the field; the only structural depth in the system." },
+      { "name": "card-lift", "value": "inset 0 0 0 1px rgba(246,237,221,0.6), 0 14px 30px -22px rgba(74,44,22,0.4)", "purpose": "The appointment card lifted one level off the ruled paper." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "background .18s ease-out, transform .18s ease-out", "purpose": "Default state transition for the reserve button." },
+      { "name": "reduce-safe", "value": "transition: none under prefers-reduced-motion: reduce", "purpose": "Kill button transitions when reduced motion is requested." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px" },
+      { "name": "md", "value": "760px" },
+      { "name": "lg", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Reserve Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single action in the ledger, printed like a stamp on the appointment card.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Reserve this slot</button>",
+      "css": ".ds-btn-primary {\n  display: inline-block;\n  width: 100%;\n  font-family: var(--serif, Fraunces, Georgia, \"Times New Roman\", serif);\n  font-weight: 600; font-size: 15px; letter-spacing: 0.04em;\n  color: var(--ivory, #F6EDDD);\n  background: var(--henna, #8C2E2A);\n  text-align: center; text-decoration: none;\n  padding: 14px 12px;\n  border: none; border-radius: 2px; cursor: pointer;\n  transition: background .18s ease-out, transform .18s ease-out;\n}\n.ds-btn-primary:hover { background: var(--inkbrown, #4A2C16); }\n.ds-btn-primary:focus-visible { outline: 2px solid var(--rust, #B04A2C); outline-offset: 2px; }\n.ds-btn-primary:disabled { opacity: .6; cursor: default; }"
+    },
+    {
+      "name": "Appointment Card",
+      "kind": "card",
+      "refersTo": "appointment-card",
+      "description": "The one threaded surface in the ledger — the bride's actual booking, dated and held.",
+      "html": "<div class=\"ds-appointment\">\n  <div class=\"ds-ahead\">Your appointment</div>\n  <div class=\"ds-date\">\n    <span class=\"ds-lbl\">Date</span><b>Your wedding</b>\n    <span class=\"ds-lbl\">Hold</span><span class=\"ds-slot\"><i>30 min</i> reserved at booking</span>\n  </div>\n  <button class=\"ds-btn-primary\" type=\"button\">Reserve this slot</button>\n  <div class=\"ds-instock\">\n    <span>This date is open</span>\n    <span class=\"ds-ticks\"><i>·····</i></span>\n  </div>\n</div>",
+      "css": ".ds-appointment {\n  border: 1px solid var(--sandline, #DDC9A8);\n  background: var(--ivory, #F6EDDD);\n  padding: 24px 26px 26px;\n  display: flex; flex-direction: column; gap: 18px;\n  box-shadow: inset 0 0 0 1px rgba(246,237,221,0.6), 0 14px 30px -22px rgba(74,44,22,0.4);\n}\n.ds-ahead {\n  font-family: var(--serif, Fraunces, Georgia, serif);\n  font-size: 11px; letter-spacing: .24em; text-transform: uppercase;\n  color: var(--henna, #8C2E2A);\n  display: flex; align-items: center; gap: 10px;\n}\n.ds-ahead::before { content: \"\"; width: 22px; height: 1px; background: var(--henna, #8C2E2A); }\n.ds-date { display: grid; grid-template-columns: auto 1fr; gap: 2px 18px; align-items: baseline; font-size: 15px; color: var(--clay, #6B4A2A); }\n.ds-date b { font-weight: 600; color: var(--inkbrown, #4A2C16); font-variant-numeric: tabular-nums; }\n.ds-lbl { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold, #C29A4B); }\n.ds-slot { font-size: 13px; color: var(--clay, #6B4A2A); display: flex; align-items: center; gap: 8px; }\n.ds-slot i { font-style: normal; color: var(--henna, #8C2E2A); font-variant-numeric: tabular-nums; }\n.ds-slot::before { content: \"\"; width: 6px; height: 6px; border-radius: 50%; background: var(--henna, #8C2E2A); flex: none; }\n.ds-instock { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--clay, #6B4A2A); }\n.ds-ticks { letter-spacing: .34em; color: var(--henna, #8C2E2A); font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Ledger Row",
+      "kind": "card",
+      "refersTo": "nothing",
+      "description": "A working ledger entry: gold index numeral, service name, one line of description, thin italic note.",
+      "html": "<div class=\"ds-service\">\n  <h3><span class=\"ds-n\">&amp;</span> Bridal Mehndi</h3>\n  <p>Full hand &amp; foot artistry for the day — composed around your lehenga and silhouette.</p>\n  <div class=\"ds-note\">Composed to order.</div>\n</div>",
+      "css": ".ds-service { padding: 16px 0 18px; border-bottom: 1px solid var(--sandline, #DDC9A8); }\n.ds-service:last-child { border-bottom: none; }\n.ds-service h3 {\n  font-family: var(--serif, Fraunces, Georgia, serif);\n  font-weight: 600; font-size: clamp(20px, 3.4vw, 24px);\n  color: var(--inkbrown, #4A2C16);\n  display: flex; align-items: baseline; gap: 10px; text-wrap: balance;\n  margin: 0;\n}\n.ds-n { font-size: 13px; color: var(--gold, #C29A4B); font-weight: 500; letter-spacing: .1em; }\n.ds-service p { font-family: var(--serif, Fraunces, Georgia, serif); font-size: 15px; color: var(--clay, #6B4A2A); margin: 7px 0 0; max-width: 38ch; }\n.ds-note { font-family: var(--serif, Fraunces, Georgia, serif); font-size: 13px; font-style: italic; color: var(--henna, #8C2E2A); margin-top: 8px; }"
+    },
+    {
+      "name": "Masthead",
+      "kind": "custom",
+      "refersTo": "nothing",
+      "description": "The ledger's opening: title small in ink brown, brand name in henna, folio in the corner.",
+      "html": "<header class=\"ds-masthead\">\n  <h1>Henna by <span class=\"ds-henna\">Hamna</span><br><em>The Craft Book</em></h1>\n  <div class=\"ds-folio\"><b>2026</b>Folio I</div>\n</header>",
+      "css": ".ds-masthead { display: flex; align-items: baseline; gap: 48px; border-bottom: 2px solid var(--inkbrown, #4A2C16); padding-bottom: 18px; }\n.ds-masthead h1 { font-family: var(--serif, Fraunces, Georgia, serif); font-weight: 600; font-size: clamp(28px, 4.5vw, 44px); line-height: .95; letter-spacing: -0.01em; text-wrap: balance; color: var(--inkbrown, #4A2C16); margin: 0; }\n.ds-henna { color: var(--henna, #8C2E2A); }\n.ds-masthead h1 em { font-style: italic; font-weight: 400; }\n.ds-folio { margin-left: auto; text-align: right; font-family: var(--serif, Fraunces, Georgia, serif); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--clay, #6B4A2A); white-space: nowrap; }\n.ds-folio b { display: block; font-weight: 600; color: var(--henna, #8C2E2A); font-size: 16px; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "House Quote",
+      "kind": "custom",
+      "refersTo": "house-quote",
+      "description": "The booking push in the brand voice with an action underline; contact block alongside.",
+      "html": "<section class=\"ds-house\">\n  <p class=\"ds-c2\">Book a date with the hand.</p>\n  <div class=\"ds-attr\"><b>301.555.4321</b>@henna-designer</div>\n</section>",
+      "css": ".ds-house { border-top: 2px solid var(--inkbrown, #4A2C16); padding-top: 26px; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }\n.ds-c2 { font-family: var(--serif, Fraunces, Georgia, serif); font-size: clamp(22px, 3.6vw, 30px); font-weight: 600; color: var(--henna, #8C2E2A); text-decoration: underline; text-decoration-color: var(--rust, #B04A2C); text-decoration-thickness: 2px; text-underline-offset: 6px; text-wrap: balance; margin: 0; }\n.ds-attr { margin-left: auto; font-family: var(--serif, Fraunces, Georgia, serif); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--clay, #6B4A2A); text-align: right; }\n.ds-attr b { display: block; font-weight: 600; color: var(--inkbrown, #4A2C16); font-size: 16px; white-space: nowrap; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Ruled Ledger Page",
+      "kind": "custom",
+      "refersTo": "nothing",
+      "description": "The sheet itself: laid-paper ground, fixed 34px row pitch, 1px needle-hole gutter, foot soak.",
+      "html": "<div class=\"ds-ruled-page\">\n  <p>Entries sit on ruled lines at a 34px pitch, with the needle-hole gutter at the left edge.</p>\n</div>",
+      "css": ".ds-ruled-page {\n  background: linear-gradient(rgba(74,44,22,0.048) 1px, transparent 1px) 0 0 / 100% 34px, var(--paper, #FBF4E7);\n  border: 1px solid var(--sandline, #DDC9A8);\n  padding: 64px;\n  box-shadow: 0 1px 0 rgba(74,44,22,0.08), 0 18px 40px -24px rgba(74,44,22,0.35);\n  position: relative;\n}\n.ds-ruled-page::before {\n  content: \"\"; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;\n  background: linear-gradient(rgba(74,44,22,0.12) 2px, transparent 2px);\n  background-size: 100% 34px;\n}\n.ds-ruled-page::after {\n  content: \"\"; position: absolute; left: 0; right: 0; bottom: 0; height: 160px;\n  background: linear-gradient(to top, rgba(74,44,22,0.05), transparent);\n  pointer-events: none;\n}\n.ds-ruled-page p { font-family: var(--serif, Fraunces, Georgia, serif); font-size: 16px; line-height: 1.55; color: var(--clay, #6B4A2A); max-width: 46ch; margin: 0; }"
+    },
+    {
+      "name": "The Stain",
+      "kind": "custom",
+      "refersTo": "nothing",
+      "description": "The signature: one hand-drawn henna curl that becomes the booking; state line answers at reserve.",
+      "html": "<div class=\"ds-stain\">\n  <div class=\"ds-stain-wrap\">\n    <p class=\"ds-stain-line\">Every design starts as one clean line — nothing printed, nothing traced, the hand decides.</p>\n    <svg class=\"ds-stain-mark\" viewBox=\"0 0 118 58\" focusable=\"false\" aria-hidden=\"true\">\n      <path d=\"M3 58 C 12 34 26 24 43 20 C 62 16 80 14 92 22 C 103 30 112 44 115 58\" fill=\"none\" stroke=\"#8C2E2A\" stroke-width=\"1.4\"/>\n    </svg>\n  </div>\n  <div class=\"ds-stain-state\">The day awaits the hand.</div>\n</div>",
+      "css": ".ds-stain { margin: 34px 0 0; border-top: 1px solid var(--sandline, #DDC9A8); padding-top: 20px; overflow: hidden; }\n.ds-stain-wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }\n.ds-stain-line { font-family: var(--serif, Fraunces, Georgia, serif); font-size: 16px; font-style: italic; color: var(--clay, #6B4A2A); max-width: 46ch; margin: 0; }\n.ds-stain-mark { flex: none; width: 118px; height: 58px; }\n.ds-stain-state { font-family: var(--serif, Fraunces, Georgia, serif); font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--clay, #6B4A2A); width: 100%; text-align: right; margin-top: 10px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Studio Ledger",
+    "overview": "Hamna's working studio ledger sits open on a screen: a laid-paper folio in warm ivory-gold, ruled in fine browned-ink hairlines at a fixed 34px row pitch, with a maroon henna stamp as the voice and a single gold numeral where the artist's hand counts. The bride's wedding day is an entry inside the book — a dated appointment card threaded through the ruled page like a real booking, with the reserve action living in the card. Nothing is posterized; the surface reads as the artist's own record, opened to a day being drawn.\n\nThe palette is a five-strata ink world, not a color system: laid-paper field, browned ink for structure, maroon henna for voice, rust for a brief underline of action, gold for the hand. Type is one warm serif setting every word — no secondary face, no system UI face — with a thin italic reserved for annotations, marginal voices in the ledger's own hand. Borders are drawable one-pixel hairlines; depth is a ruled line, a whisper of the stain, and the book's own soft fall shadow. Density is comfortable and airy; the page breathes between the masthead rule, the service entries, and the close.",
+    "keyCharacteristics": [
+      "Ledger: laid-paper pages, 2px browning-ink rules, 34px hairline row pitch, needle-hole gutter, tabular figures in dates and counters",
+      "Voice: maroon henna ink for the brand, gold numerals for the hand, rust underlines for the words that act",
+      "One serif voice: Fraunces for every word; thin italic only for annotations and the closing line",
+      "The card: an appointment is the one threaded surface in the ledger, carrying the primary action",
+      "The stain: one hand-drawn svg curl under the closing line; becomes the booking that fills the day"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Henna is the voice; gold is the hand. Henna owns words that brand or count; gold appears only as small numerals and labels. Neither is ever a fill across a large surface, and the two never compete on the same element.", "section": "colors" },
+      { "name": "The Warm-Ink Rule", "body": "No pure white, no pure black, no gray. The lightest surface is #FBF4E7 paper, the darkest is #4A2C16 ink brown, and every neutral is warmed by the ivory field it sits on.", "section": "colors" },
+      { "name": "The Hairline Rule", "body": "Structure is drawn with 1px or 2px lines of sandline and ink brown. The page's one hard rule is the 2px ink-brown masthead line; below everything sits on hairlines, never thick borders.", "section": "colors" },
+      { "name": "The One Serif Rule", "body": "One serif family sets every word — Fraunces with Georgia fallback. No sans, no mono, no system UI face anywhere. A second face signals the poster; this system never leaves the ledger.", "section": "typography" },
+      { "name": "The Thin Italic Rule", "body": "Italic means annotation. Only the marginal notes, the masthead sub-line, and the closing hand-line are set italic, always thinned to 400 weight; nothing else on the page is allowed an italic.", "section": "typography" },
+      { "name": "The Ruled-Page Rule", "body": "Structure is drawn on the paper with ink lines, never embossed with shadow. Shadow belongs only to the sheet's own fall and to the one card lifted off it; an element that needs to feel present is drawn with a rule, not raised with a hard offset shadow.", "section": "elevation" },
+      { "name": "The Warm-Shadow Rule", "body": "All shadows are tinted ink brown (rgba(74,44,22,…)), never pure black. A black shadow looks like a digital overlay; a warm shadow looks like paper resting on paper.", "section": "elevation" },
+      { "name": "The No-Corner Rule", "body": "Surfaces are square, squared off at 2px at most. Rounded corners, pills, and chips read as generic product UI; a ledger sheet is never pillowed.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do set every word in Fraunces (Georgia fallback); the one serif voice is the system.",
+      "Do rule structure with 1px sandline hairlines and reserve the paper's hard 2px ink-brown line for ledger mastheads and the house rule.",
+      "Do let henna own the words that brand or count — the name, the notes, the button, the counters.",
+      "Do show gold as small numerals and labels only, never as fill.",
+      "Do keep the appointment card on ivory with its sandline border and warm lift — the one raised surface in the ledger.",
+      "Do let the reserve button's label speak at booking (\"Drawing the day…\" → \"This slot is yours\"); paper that answers is the hand at work.",
+      "Do keep 34px as the row pitch for the page's hairline rules so entries sit on ruled lines."
+    ],
+    "donts": [
+      "Don't introduce a second typeface, a sans face, or a monospace — the ledger has one voice.",
+      "Don't use a pure white, pure black, or gray; every surface is warmed by the ivory field.",
+      "Don't set italic anywhere except annotations, the masthead sub-line, and the closing hand-line.",
+      "Don't use rounded corners, pills, or chips; surfaces are squared at 2px max and the page is square.",
+      "Don't raise hard offset shadows; depth is 2px ink rules, the page's fall, and the card's warm lift.",
+      "Don't move the needle-hole gutter or the colored stain beyond the ledger's own paper — the system lives inside the page.",
+      "Don't apply the wide-tracked uppercase ledger labels inside body prose; the uppercase voice is reserved for labels, folios, and counters."
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "title": "Choose the visual world for Henna by Hamna",
+  "question": "The roll assigned Wedding Ephemera. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Wedding Ephemera",
+      "kicker": "THE ROLL",
+      "lineage": "South Asian wedding stationery and heirloom invitation suites",
+      "thesis": "The wedding invitation as a living keepsake — every service a card in the bride's suite.",
+      "palette": [
+        "#7B2D26",
+        "#A8432A",
+        "#D9A63E",
+        "#F7E9D0",
+        "#3A2215"
+      ],
+      "materials": [
+        "deckle-edge card stock",
+        "gold foil",
+        "letterpress"
+      ],
+      "viewport": "A wedding-invitation suite opening onto the brand — a foil-stamped name card, then services as keepsake cards.",
+      "risk": "Risks reading as a static greeting card if the cards don't interact or lift like real keepsakes.",
+      "sketch": ".impeccable/sketches/assigned.webp",
+      "hero": "https://impeccable.style/worlds/cards/south-asian-wedding-stationery-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/south-asian-wedding-stationery.webp"
+    },
+    {
+      "id": "challenger-ticket-wallet",
+      "label": "The Journey Wallet",
+      "lineage": "jet-age airline ticket wallets and boarding stubs",
+      "thesis": "Booking Henna by Hamna as one leg of the bride's journey — a coupon book where each service tears off in sequence.",
+      "case": "Fuses well: services map cleanly to tear-off coupons, but the aviation vocabulary is foreign to a wedding-bound bride's world.",
+      "sketch": ".impeccable/sketches/challenger-ticket-wallet.webp",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet.webp"
+    },
+    {
+      "id": "challenger-bridal-arrangement",
+      "label": "The Bridal Arrangement",
+      "lineage": "bridal trousseau and wedding-day styling boards",
+      "thesis": "The wedding-day styling board — each service a piece of the bride's trousseau, styled like the art she commissions.",
+      "case": "Fuses well: services as trousseau pieces, warm and bridal; risks treading near the category's expected look.",
+      "sketch": ".impeccable/sketches/challenger-bridal-arrangement.webp",
+      "hero": "https://impeccable.style/worlds/cards/wedding-trousseau-styling-board-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/wedding-trousseau-styling-board.webp"
+    },
+    {
+      "id": "challenger-henna-craft-book",
+      "label": "The Henna Craft Book",
+      "lineage": "skilled artisan's ledger — the hand, the recipe, the process",
+      "thesis": "The craft book of the henna artist: the hand that draws, the paste she mixes, the design she drafts — as pages of a working studio ledger.",
+      "case": "Fuses cleanly: an artist's process ledger reads as expertise; risks losing the bridal occasion in favor of the craft.",
+      "sketch": ".impeccable/sketches/challenger-henna-craft-book.webp",
+      "hero": "https://impeccable.style/worlds/cards/henna-artist-process-ledger-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/henna-artist-process-ledger.webp"
+    }
+  ],
+  "reroll": true,
+  "canon": true,
+  "steer": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What this category ships, executed impeccably — the elegant warm-toned bridal promo, at full craft.",
+    "viewport": "The arrangement a visitor expects, at full craft.",
+    "sketch": ".impeccable/sketches/canon.webp"
+  }
+}
