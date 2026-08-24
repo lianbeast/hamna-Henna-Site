@@ -99,7 +99,7 @@ export default function BookingInquiry() {
         <span className="booking-success-tick" aria-hidden="true">✓</span>
         <h3 className="booking-success-title">Inquiry received.</h3>
         <p className="booking-success-body">
-          Hamna will reply within 48 hours. In the meantime, follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
+          Hamna will reply within 48 hours. In the meantime, follow <a href="https://www.instagram.com/dmvflowerbar/" target="_blank" rel="noopener">@dmvflowerbar</a> for the latest work.
         </p>
       </div>
     );

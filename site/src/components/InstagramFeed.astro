@@ -1,0 +1,97 @@
+---
+const handle = 'dmvflowerbar';
+const profileUrl = `https://www.instagram.com/${handle}/`;
+const embedUrl = `https://www.instagram.com/${handle}/embed/`;
+---
+
+<section class="section-wrap" aria-labelledby="instagram-heading">
+  <div class="glass-panel">
+    <p class="section-label label">On Instagram</p>
+    <h2 id="instagram-heading" class="section-h2">Fresh from the feed.</h2>
+    <p class="ig-intro">
+      Daily work, behind-the-scenes, and the stain after it sets — follow along at
+      <a class="ig-intro-link" href={profileUrl} target="_blank" rel="noopener">@{handle}</a>.
+    </p>
+
+    <div class="ig-frame">
+      <iframe
+        class="ig-embed"
+        src={embedUrl}
+        title={`Instagram feed of @${handle}`}
+        loading="lazy"
+        scrolling="no"
+        frameborder="0"
+        allowtransparency="true"
+      ></iframe>
+    </div>
+
+    <p class="ig-follow">
+      <a class="ig-follow-btn" href={profileUrl} target="_blank" rel="noopener">
+        Follow @{handle} on Instagram
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .ig-intro {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--color-clay);
+    margin: 0 0 20px;
+  }
+  .ig-intro-link {
+    color: var(--color-henna);
+    text-decoration: underline;
+    text-decoration-color: var(--color-rust);
+    text-underline-offset: 3px;
+  }
+
+  .ig-frame {
+    max-width: 658px;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(221, 201, 168, 0.45);
+    background: #fff;
+    box-shadow: 0 18px 36px -24px rgba(74, 44, 22, 0.35);
+    transition: background-color 0.45s ease, border-color 0.45s ease;
+  }
+  /* The embed auto-grows as posts are added (each ~3-post row adds ~220px).
+     Fits a header + one row (~460px); bump to ~680px when the feed passes 6 posts. */
+  .ig-embed {
+    display: block;
+    width: 100%;
+    height: 460px;
+    border: 0;
+    background: #fff;
+  }
+
+  .ig-follow {
+    text-align: center;
+    margin: 22px 0 0;
+  }
+  .ig-follow-btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: var(--color-henna);
+    color: #fdf8ee;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid rgba(194, 154, 75, 0.55);
+    box-shadow: 0 10px 24px -12px rgba(140, 46, 42, 0.6);
+    transition: transform 0.25s ease, background-color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+  }
+  .ig-follow-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 480px) {
+    .ig-embed {
+      height: 430px;
+    }
+  }
+</style>

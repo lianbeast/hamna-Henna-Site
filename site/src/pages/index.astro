@@ -8,6 +8,7 @@ import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Portfolio from '../components/Portfolio.astro';
 import Testimonials from '../components/Testimonials.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
 import FAQAccordion from '../components/FAQAccordion.tsx';
 import BookingInquiry from '../components/BookingInquiry.tsx';
 import Footer from '../components/Footer.astro';
@@ -42,6 +43,10 @@ import faq from '../data/faq.json';
     </ScrollReveal>
 
     <ScrollReveal delay={400}>
+      <InstagramFeed />
+    </ScrollReveal>
+
+    <ScrollReveal delay={450}>
       <section class="section-wrap" aria-labelledby="faq-heading">
         <div class="glass-panel">
           <p class="section-label label">Questions</p>
@@ -51,7 +56,7 @@ import faq from '../data/faq.json';
       </section>
     </ScrollReveal>
 
-    <ScrollReveal delay={500}>
+    <ScrollReveal delay={550}>
       <section class="section-wrap" aria-labelledby="booking-heading">
         <div class="glass-panel">
           <p class="section-label label">Inquire</p>
@@ -64,7 +69,7 @@ import faq from '../data/faq.json';
       </section>
     </ScrollReveal>
 
-    <ScrollReveal delay={600}>
+    <ScrollReveal delay={650}>
       <Footer />
     </ScrollReveal>
 
