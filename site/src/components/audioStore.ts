@@ -15,10 +15,18 @@ interface Tanpura {
   stop(onStopped?: () => void): void;
   setRoot(freq: number): void;
   setVolume(v: number): void;
+  setType(type: OscillatorType): void;
 }
 
 const BASE_GAIN = 0.42;
 const FADE_OUT_MS = 2000;
+
+/** Sound characters: oscillator waveform + matching jawari buzz level. */
+export const AUDIO_TYPES: Array<{ value: OscillatorType; label: string; noise: number }> = [
+  { value: 'sine', label: 'Soft', noise: 0.028 },
+  { value: 'triangle', label: 'Mellow', noise: 0.042 },
+  { value: 'sawtooth', label: 'Rich', noise: 0.06 },
+];
 
 /** Pitch choices — Sa (tonic) offered as natural keys in octave 3. */
 export const AUDIO_NOTES = ['C', 'D', 'E', 'F', 'G', 'A', 'B'] as const;
@@ -34,7 +42,10 @@ export const NOTE_FREQ: Record<AudioNote, number> = {
   B: 246.94,
 };
 
-function buildTanpura(ctx: AudioContext, initial: { rootFreq: number; volume: number }): Tanpura {
+function buildTanpura(
+  ctx: AudioContext,
+  initial: { rootFreq: number; volume: number; type: OscillatorType; noise: number },
+): Tanpura {
   const masterGain = ctx.createGain();
   masterGain.gain.value = 0;
   masterGain.connect(ctx.destination);
@@ -61,7 +72,7 @@ function buildTanpura(ctx: AudioContext, initial: { rootFreq: number; volume: nu
   for (const v of voices) {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = 'sawtooth';
+    osc.type = initial.type;
     osc.frequency.value = initial.rootFreq * v.mult;
     osc.detune.value = v.detune;
     gain.gain.value = v.gain;
@@ -80,7 +91,8 @@ function buildTanpura(ctx: AudioContext, initial: { rootFreq: number; volume: nu
   }
 
   const noiseGain = ctx.createGain();
-  noiseGain.gain.value = 0.06;
+  noiseGain.gain.value = initial.noise;
+  const noiseGainRef = { current: initial.noise };
 
   const bandpass = ctx.createBiquadFilter();
   bandpass.type = 'bandpass';
@@ -136,6 +148,14 @@ function buildTanpura(ctx: AudioContext, initial: { rootFreq: number; volume: nu
       const now = ctx.currentTime;
       masterGain.gain.setTargetAtTime(BASE_GAIN * v, now, 0.08);
     },
+    setType(type) {
+      const now = ctx.currentTime;
+      for (const osc of oscillators) osc.type = type;
+      const entry = AUDIO_TYPES.find((t) => t.value === type);
+      const noise = entry ? entry.noise : 0.06;
+      noiseGainRef.current = noise;
+      noiseGain.gain.setTargetAtTime(noise, now, 0.1);
+    },
   };
 }
 
@@ -151,6 +171,7 @@ let drone: Tanpura | null = null;
 let playing = false;
 let note: AudioNote = 'C';
 let volume = 70;
+let type: OscillatorType = 'sawtooth';
 
 function loadPrefs(): void {
   try {
@@ -159,12 +180,13 @@ function loadPrefs(): void {
     const p = JSON.parse(raw);
     if (typeof p.note === 'string' && p.note in NOTE_FREQ) note = p.note as AudioNote;
     if (typeof p.volume === 'number' && p.volume >= 0 && p.volume <= 100) volume = Math.round(p.volume);
+    if (typeof p.type === 'string' && AUDIO_TYPES.some((t) => t.value === p.type)) type = p.type as OscillatorType;
   } catch { /* ignore */ }
 }
 
 function persist(): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ note, volume }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ note, volume, type }));
   } catch { /* ignore */ }
 }
 
@@ -173,7 +195,8 @@ function ensureEngine(): { ctx: AudioContext; drone: Tanpura } {
     ctx = new AudioContext();
   }
   if (!drone) {
-    drone = buildTanpura(ctx, { rootFreq: NOTE_FREQ[note], volume: volume / 100 });
+    const char = AUDIO_TYPES.find((t) => t.value === type) ?? AUDIO_TYPES[2];
+    drone = buildTanpura(ctx, { rootFreq: NOTE_FREQ[note], volume: volume / 100, type: char.value, noise: char.noise });
   }
   return { ctx, drone };
 }
@@ -215,8 +238,16 @@ export function setVolume(v: number): void {
   emit();
 }
 
-export function getAudioState(): { playing: boolean; note: AudioNote; volume: number } {
-  return { playing, note, volume };
+export function setType(t: OscillatorType): void {
+  if (!AUDIO_TYPES.some((c) => c.value === t)) return;
+  type = t;
+  persist();
+  drone?.setType(t);
+  emit();
+}
+
+export function getAudioState(): { playing: boolean; note: AudioNote; volume: number; type: OscillatorType } {
+  return { playing, note, volume, type };
 }
 
 export function onAudioChange(fn: Listener): () => void {

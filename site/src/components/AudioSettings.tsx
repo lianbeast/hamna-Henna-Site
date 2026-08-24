@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { AUDIO_NOTES, setNote, setVolume, onAudioChange, getAudioState } from './audioStore';
+import { AUDIO_NOTES, AUDIO_TYPES, setNote, setVolume, setType, onAudioChange, getAudioState } from './audioStore';
 
 export default function AudioSettings() {
   const [open, setOpen] = useState(false);
   const [note, setNoteState] = useState(getAudioState().note);
   const [volume, setVolumeState] = useState(getAudioState().volume);
+  const [type, setTypeState] = useState(getAudioState().type);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Keep local state in sync with the store
@@ -13,6 +14,7 @@ export default function AudioSettings() {
       const s = getAudioState();
       setNoteState(s.note);
       setVolumeState(s.volume);
+      setTypeState(s.type);
     });
   }, []);
 
@@ -76,6 +78,23 @@ export default function AudioSettings() {
                   aria-pressed={n === note}
                 >
                   {n}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="audio-row">
+            <span className="audio-row-label" id="audio-type-label">Character</span>
+            <div className="audio-notes" role="group" aria-labelledby="audio-type-label">
+              {AUDIO_TYPES.map((c) => (
+                <button
+                  key={c.value}
+                  type="button"
+                  className={`audio-note${c.value === type ? ' audio-note--active' : ''}`}
+                  onClick={() => setType(c.value)}
+                  aria-pressed={c.value === type}
+                >
+                  {c.label}
                 </button>
               ))}
             </div>
