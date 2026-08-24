@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AudioToggle from './AudioToggle';
+import AudioSettings from './AudioSettings';
 import ThemeToggle from './ThemeToggle';
 
 export default function FloatingToolbar() {
@@ -13,6 +14,8 @@ export default function FloatingToolbar() {
       <ThemeToggle compact />
       <span className="toolbar-divider" aria-hidden="true" />
       <AudioToggle compact />
+      <span className="toolbar-divider" aria-hidden="true" />
+      <AudioSettings />
     </div>
   );
 }

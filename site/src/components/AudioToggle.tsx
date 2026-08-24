@@ -1,112 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
-
-/**
- * Web Audio API tanpura drone synthesizer.
- *
- * Tanpura fundamentals: Sa (middle C ~ 261.63 Hz) and Pa (G ~ 392 Hz),
- * with detuned copies and filtered noise to approximate the jawari buzz.
- */
-function buildTanpura(ctx: AudioContext): {
-  masterGain: GainNode;
-  start(): void;
-  stop(onStopped?: () => void): void;
-} {
-  const masterGain = ctx.createGain();
-  masterGain.gain.value = 0;
-  masterGain.connect(ctx.destination);
-
-  const oscillators: OscillatorNode[] = [];
-
-  // ── Drone voices ──────────────────────────────────────
-  const voices: Array<{ freq: number; detune: number; gain: number }> = [
-    // Sa (tonic) — 3 detuned copies for rich chorusing
-    { freq: 130.81, detune: -8, gain: 0.22 },   // C3
-    { freq: 130.81, detune: 0, gain: 0.25 },
-    { freq: 130.81, detune: +8, gain: 0.22 },
-    // Sa octave
-    { freq: 261.63, detune: -5, gain: 0.10 },
-    // Pa (fifth) — 2 copies
-    { freq: 196.00, detune: -6, gain: 0.16 },
-    { freq: 196.00, detune: +6, gain: 0.16 },
-    // Higher shimmer
-    { freq: 392.00, detune: -4, gain: 0.06 },
-  ];
-
-  for (const v of voices) {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sawtooth';
-    osc.frequency.value = v.freq;
-    osc.detune.value = v.detune;
-    gain.gain.value = v.gain;
-    osc.connect(gain);
-    gain.connect(masterGain);
-    osc.start();
-    oscillators.push(osc);
-  }
-
-  // ── Jawari buzz (filtered noise) ──────────────────────
-  const noiseLen = 4; // seconds, will loop
-  const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * noiseLen, ctx.sampleRate);
-  const data = noiseBuf.getChannelData(0);
-  for (let i = 0; i < data.length; i++) {
-    data[i] = (Math.random() * 2 - 1) * 0.5;
-  }
-
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.value = 0.06;
-
-  // Bandpass centered around 1–3 kHz for the bridge buzz
-  const bandpass = ctx.createBiquadFilter();
-  bandpass.type = 'bandpass';
-  bandpass.frequency.value = 1800;
-  bandpass.Q.value = 0.7;
-
-  const highpass = ctx.createBiquadFilter();
-  highpass.type = 'highpass';
-  highpass.frequency.value = 600;
-
-  noiseGain.connect(bandpass);
-  bandpass.connect(highpass);
-  highpass.connect(masterGain);
-
-  const noiseSrc = ctx.createBufferSource();
-  noiseSrc.buffer = noiseBuf;
-  noiseSrc.loop = true;
-  noiseSrc.connect(noiseGain);
-  noiseSrc.start();
-
-  // ── Gentle amplitude wobble LFO ───────────────────────
-  const lfo = ctx.createOscillator();
-  const lfoGain = ctx.createGain();
-  lfo.type = 'sine';
-  lfo.frequency.value = 0.09; // very slow
-  lfoGain.gain.value = 0.04;
-  lfo.connect(lfoGain);
-  lfoGain.connect(masterGain.gain);
-  lfo.start();
-
-  const FADE_OUT_MS = 2000;
-
-  return {
-    masterGain,
-    start() {
-      const now = ctx.currentTime;
-      masterGain.gain.cancelScheduledValues(now);
-      masterGain.gain.setValueAtTime(masterGain.gain.value, now);
-      masterGain.gain.linearRampToValueAtTime(0.42, now + 2.5);
-    },
-    stop(onStopped) {
-      const now = ctx.currentTime;
-      masterGain.gain.cancelScheduledValues(now);
-      masterGain.gain.setValueAtTime(masterGain.gain.value, now);
-      masterGain.gain.linearRampToValueAtTime(0, now + FADE_OUT_MS / 1000);
-      if (onStopped) window.setTimeout(onStopped, FADE_OUT_MS + 120);
-    },
-  };
-}
-
-/* ── React component ──────────────────────────────────────── */
+import { togglePlay, onAudioChange, getAudioState } from './audioStore';
 
 interface AudioToggleProps {
   /** When true, removes fixed positioning & circular shape (toolbar owns layout). */
@@ -114,64 +7,26 @@ interface AudioToggleProps {
 }
 
 export default function AudioToggle({ compact = false }: AudioToggleProps) {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(() => getAudioState().playing);
   const [mounted, setMounted] = useState(false);
-  const ctxRef = useRef<AudioContext | null>(null);
-  const droneRef = useRef<ReturnType<typeof buildTanpura> | null>(null);
-  const playingRef = useRef(false);
+  const mountedRef = useRef(true);
 
-  // Only mount (and show) on the client
   useEffect(() => {
     setMounted(true);
     return () => {
-      droneRef.current?.stop();
-      if (ctxRef.current && ctxRef.current.state !== 'closed') {
-        ctxRef.current.close();
-      }
+      mountedRef.current = false;
     };
   }, []);
 
-  const toggle = useCallback(async () => {
-    const shouldPlay = !playingRef.current;
+  // Keep local state in sync with the store
+  useEffect(() => {
+    return onAudioChange(() => {
+      if (mountedRef.current) setPlaying(getAudioState().playing);
+    });
+  }, []);
 
-    try {
-      let ctx = ctxRef.current;
-      if (!ctx || ctx.state === 'closed') {
-        ctx = new AudioContext();
-        ctxRef.current = ctx;
-      }
-
-      // Build the drone lazily on first play
-      if (!droneRef.current) {
-        droneRef.current = buildTanpura(ctx);
-      }
-
-      if (shouldPlay) {
-        // Autoplay policy: the context may be suspended — resume before
-        // scheduling ramps so the fade-in actually starts from time 0.
-        if (ctx.state === 'suspended') {
-          await ctx.resume();
-        }
-        droneRef.current.start();
-        playingRef.current = true;
-        setPlaying(true);
-      } else {
-        // Fade out, then suspend the context so the synth uses no CPU
-        // while paused. Play again resumes it.
-        droneRef.current.stop(() => {
-          const c = ctxRef.current;
-          if (c && c.state === 'running') {
-            c.suspend();
-          }
-        });
-        playingRef.current = false;
-        setPlaying(false);
-      }
-    } catch (err) {
-      console.error('Ambient audio error:', err);
-      playingRef.current = false;
-      setPlaying(false);
-    }
+  const toggle = useCallback(() => {
+    void togglePlay();
   }, []);
 
   if (!mounted) return null;

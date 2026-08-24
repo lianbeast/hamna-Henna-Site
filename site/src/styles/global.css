@@ -359,6 +359,8 @@
   .toolbar-pill,
   .audio-btn--compact,
   .theme-btn--compact,
+  .tune-btn,
+  .audio-note,
   .faq-trigger,
   .faq-accordion,
   .faq-item,
@@ -448,6 +450,158 @@
 @keyframes audioPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
+}
+
+/* ── Audio Settings (tune popover) ────────────────────────── */
+@layer components {
+  .audio-settings {
+    position: relative;
+    display: flex;
+  }
+
+  .tune-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-henna);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .tune-btn:hover {
+    background: rgba(140, 46, 42, 0.08);
+    transform: scale(1.1);
+    color: var(--color-inkbrown);
+  }
+  .tune-btn:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+  .tune-btn[aria-expanded='true'] {
+    background: rgba(140, 46, 42, 0.12);
+    color: var(--color-inkbrown);
+  }
+
+  .audio-panel {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    right: -8px;
+    width: 260px;
+    padding: 18px 18px 16px;
+    background: rgba(251, 244, 231, 0.92);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    border: 1px solid rgba(221, 201, 168, 0.55);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px -28px rgba(74, 44, 22, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 101;
+    transition: background-color 0.45s ease, border-color 0.45s ease;
+  }
+
+  .audio-panel-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .audio-row {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .audio-row-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+  }
+
+  .audio-notes {
+    display: flex;
+    gap: 6px;
+  }
+  .audio-note {
+    flex: 1;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(221, 201, 168, 0.5);
+    background: rgba(251, 244, 231, 0.6);
+    color: var(--color-inkbrown);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  }
+  .audio-note:hover {
+    border-color: var(--color-rust);
+    color: var(--color-henna);
+  }
+  .audio-note--active {
+    background: var(--color-henna);
+    border-color: var(--color-henna);
+    color: #fdf8ee;
+  }
+  .audio-note--active:hover {
+    color: #fdf8ee;
+  }
+  .audio-note:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 1px;
+  }
+
+  .audio-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--color-sandline);
+    outline: none;
+    cursor: pointer;
+  }
+  .audio-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-henna);
+    border: 2px solid #fdf8ee;
+    box-shadow: 0 2px 8px -2px rgba(74, 44, 22, 0.5);
+    cursor: pointer;
+  }
+  .audio-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-henna);
+    border: 2px solid #fdf8ee;
+    box-shadow: 0 2px 8px -2px rgba(74, 44, 22, 0.5);
+    cursor: pointer;
+  }
+  .audio-range:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 4px;
+  }
+
+  .audio-vol {
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-clay);
+    align-self: flex-end;
+  }
 }
 
 /* ── Dark Mode Overrides ───────────────────────────────────── */
@@ -563,18 +717,64 @@ html.theme-dark .toolbar-divider {
 }
 
 html.theme-dark .audio-btn--compact,
-html.theme-dark .theme-btn--compact {
+html.theme-dark .theme-btn--compact,
+html.theme-dark .tune-btn {
   color: var(--color-gold);
 }
 
 html.theme-dark .audio-btn--compact:hover,
-html.theme-dark .theme-btn--compact:hover {
+html.theme-dark .theme-btn--compact:hover,
+html.theme-dark .tune-btn:hover {
   background: rgba(108, 92, 231, 0.15);
   color: var(--color-henna);
 }
 
 html.theme-dark .audio-btn--compact[data-playing='true'] {
   color: var(--color-henna);
+}
+
+html.theme-dark .tune-btn[aria-expanded='true'] {
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--color-henna);
+}
+
+/* Dark mode: audio settings popover */
+html.theme-dark .audio-panel {
+  background: rgba(26, 21, 68, 0.92);
+  border-color: rgba(61, 58, 110, 0.55);
+  box-shadow: 0 24px 60px -28px rgba(15, 12, 41, 0.7);
+}
+
+html.theme-dark .audio-note {
+  background: rgba(26, 21, 68, 0.6);
+  border-color: rgba(61, 58, 110, 0.5);
+  color: var(--color-inkbrown);
+}
+
+html.theme-dark .audio-note:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+html.theme-dark .audio-note--active,
+html.theme-dark .audio-note--active:hover {
+  background: var(--color-henna);
+  border-color: var(--color-henna);
+  color: #0f0c29;
+}
+
+html.theme-dark .audio-range {
+  background: rgba(61, 58, 110, 0.8);
+}
+
+html.theme-dark .audio-range::-webkit-slider-thumb {
+  background: var(--color-gold);
+  border-color: #1a1544;
+}
+
+html.theme-dark .audio-range::-moz-range-thumb {
+  background: var(--color-gold);
+  border-color: #1a1544;
 }
 
 /* Dark mode: FAQ */
