@@ -53,6 +53,60 @@ function themeColors(dark: boolean) {
       };
 }
 
+/* ── Animated theme palette ──────────────────────────────────
+ * On theme change, interpolate every palette color from its current
+ * value to the target over ~650ms (ease-out), re-rendering the scene
+ * each frame. Materials/lights pick up the new hex strings via R3F. */
+
+function lerpHex(a: string, b: string, t: number): string {
+  const pa = parseInt(a.slice(1), 16);
+  const pb = parseInt(b.slice(1), 16);
+  const ar = (pa >> 16) & 255, ag = (pa >> 8) & 255, ab = pa & 255;
+  const br = (pb >> 16) & 255, bg = (pb >> 8) & 255, bb = pb & 255;
+  const r = Math.round(ar + (br - ar) * t);
+  const g = Math.round(ag + (bg - ag) * t);
+  const bl = Math.round(ab + (bb - ab) * t);
+  return `#${((1 << 24) + (r << 16) + (g << 8) + bl).toString(16).slice(1)}`;
+}
+
+function useAnimatedTheme(dark: boolean): ThemeColors {
+  const [colors, setColors] = useState<ThemeColors>(() => themeColors(dark));
+  const currentRef = useRef<ThemeColors>(themeColors(dark));
+  const firstRef = useRef(true);
+
+  useEffect(() => {
+    // Initial mount: apply the theme instantly (no intro animation).
+    if (firstRef.current) {
+      firstRef.current = false;
+      return;
+    }
+
+    const from = { ...currentRef.current };
+    const to = themeColors(dark);
+    const DURATION = 650;
+    const start = performance.now();
+    let raf = 0;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DURATION);
+      const e = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const next = {} as ThemeColors;
+      for (const key of Object.keys(to) as Array<keyof ThemeColors>) {
+        const a = from[key];
+        const b = to[key];
+        next[key] = (typeof a === 'string' && typeof b === 'string' ? lerpHex(a, b, e) : b) as never;
+      }
+      currentRef.current = next;
+      setColors(next);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [dark]);
+
+  return colors;
+}
+
 /* ── Floating Mandala Ring ────────────────────────────────── */
 function MandalaRing({
   radius = 1.8,
@@ -320,7 +374,8 @@ function SceneContent() {
   const [dark, setDark] = useState(() => isDark());
   useEffect(() => onThemeChange(setDark), []);
 
-  const c = useMemo(() => themeColors(dark), [dark]);
+  // Cross-fading palette — colors lerp toward the new theme on change
+  const c = useAnimatedTheme(dark);
 
   return (
     <>
@@ -333,8 +388,8 @@ function SceneContent() {
       <spotLight position={[0, 5, 5]} angle={0.5} penumbra={0.6} intensity={dark ? 2 : 3} color={c.spotLight} />
       <directionalLight position={[-2, 2, -1]} intensity={dark ? 0.5 : 0.6} color={c.dirLight} />
 
-      {/* Background fog for atmosphere */}
-      <fog attach="fog" args={[c.fogColor, 12, 30]} />
+      {/* Background fog for atmosphere — color prop so it cross-fades with the theme */}
+      <fog attach="fog" color={c.fogColor} near={12} far={30} />
 
       {/* Stars: denser and brighter in dark mode */}
       <Stars
