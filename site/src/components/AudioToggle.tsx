@@ -37,7 +37,7 @@ export default function AudioToggle({ compact = false }: AudioToggleProps) {
       className={`audio-btn ${compact ? 'audio-btn--compact' : 'audio-toggle'}`}
       onClick={toggle}
       aria-label={playing ? 'Pause ambient drone' : 'Play ambient drone'}
-      title={playing ? 'Pause tanpura drone' : 'Play tanpura drone'}
+      title={playing ? 'Pause tanpura drone (M)' : 'Play tanpura drone (M)'}
       data-playing={playing ? 'true' : 'false'}
     >
       {/* Speaker icon with sound-wave bars */}

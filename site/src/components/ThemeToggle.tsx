@@ -30,7 +30,7 @@ export default function ThemeToggle({ compact = false }: ThemeToggleProps) {
       className={`theme-btn ${compact ? 'theme-btn--compact' : 'theme-toggle'}`}
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={dark ? 'Switch to light mode (T)' : 'Switch to dark mode (T)'}
       data-dark={dark ? 'true' : 'false'}
     >
       {/* Moon / Sun icon */}
