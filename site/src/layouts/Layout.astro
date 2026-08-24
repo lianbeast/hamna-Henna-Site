@@ -108,8 +108,167 @@ const ogImageURL = new URL(ogImage, SITE_URL);
         } catch (e) { /* ignore */ }
       })();
     </script>
+
+    <!-- Splash screen styles (inline so they paint instantly) -->
+    <style is:inline>
+      .splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        background: #f5ebdc;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+      html.theme-dark .splash { background: #0f0c29; }
+
+      .splash.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* ── Mandala SVG ─────────────────────────────────── */
+      .splash-mandala {
+        width: 140px;
+        height: 140px;
+        animation: splashSpin 6s linear infinite, splashPulse 2.4s ease-in-out infinite;
+      }
+      html.theme-dark .splash-mandala { filter: hue-rotate(200deg) brightness(1.2); }
+
+      @keyframes splashSpin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      @keyframes splashPulse {
+        0%, 100% { transform: scale(1); opacity: 0.85; }
+        50%      { transform: scale(1.06); opacity: 1; }
+      }
+
+      /* ── Text ────────────────────────────────────────── */
+      .splash-title {
+        font-family: 'Fraunces', serif;
+        font-size: 26px;
+        font-weight: 600;
+        color: #643214;
+        letter-spacing: 0.03em;
+        opacity: 0;
+        animation: splashFadeIn 0.8s 0.4s ease forwards;
+      }
+      html.theme-dark .splash-title { color: #c8a86e; }
+
+      .splash-sub {
+        font-size: 13px;
+        color: #a07850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: splashFadeIn 0.8s 0.7s ease forwards;
+      }
+      html.theme-dark .splash-sub { color: #7a6a9a; }
+
+      @keyframes splashFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Reduced motion ──────────────────────────────── */
+      @media (prefers-reduced-motion: reduce) {
+        .splash-mandala { animation: none; }
+        .splash-title, .splash-sub { animation: none; opacity: 1; }
+        .splash { transition-duration: 0.01s; }
+      }
+    </style>
   </head>
   <body class="bg-ivory text-clay min-h-screen">
+    <!-- ── Splash Screen ──────────────────────────────── -->
+    <div class="splash" id="splash" aria-hidden="true">
+      <!-- Inline SVG mandala: 3 concentric rings of petals + dot ring -->
+      <svg class="splash-mandala" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer petal ring (12 petals) -->
+        <g fill="none" stroke="#b48232" stroke-width="1.2" opacity="0.7">
+          {Array.from({ length: 12 }).map((_, i) => {
+            const angle = (i * 30) * Math.PI / 180;
+            const x1 = 100 + 60 * Math.cos(angle);
+            const y1 = 100 + 60 * Math.sin(angle);
+            const x2 = 100 + 85 * Math.cos(angle);
+            const y2 = 100 + 85 * Math.sin(angle);
+            const cx1 = 100 + 75 * Math.cos(angle - 0.3);
+            const cy1 = 100 + 75 * Math.sin(angle - 0.3);
+            const cx2 = 100 + 75 * Math.cos(angle + 0.3);
+            const cy2 = 100 + 75 * Math.sin(angle + 0.3);
+            return <path d={`M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}`} />;
+          })}
+        </g>
+        <!-- Middle petal ring (8 petals) -->
+        <g fill="none" stroke="#a0522d" stroke-width="1.4" opacity="0.8">
+          {Array.from({ length: 8 }).map((_, i) => {
+            const angle = (i * 45 + 22.5) * Math.PI / 180;
+            const x1 = 100 + 35 * Math.cos(angle);
+            const y1 = 100 + 35 * Math.sin(angle);
+            const x2 = 100 + 58 * Math.cos(angle);
+            const y2 = 100 + 58 * Math.sin(angle);
+            const cx1 = 100 + 48 * Math.cos(angle - 0.35);
+            const cy1 = 100 + 48 * Math.sin(angle - 0.35);
+            const cx2 = 100 + 48 * Math.cos(angle + 0.35);
+            const cy2 = 100 + 48 * Math.sin(angle + 0.35);
+            return <path d={`M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}`} />;
+          })}
+        </g>
+        <!-- Dot ring -->
+        <g fill="#c87533" opacity="0.6">
+          {Array.from({ length: 20 }).map((_, i) => {
+            const angle = (i * 18) * Math.PI / 180;
+            const cx = 100 + 72 * Math.cos(angle);
+            const cy = 100 + 72 * Math.sin(angle);
+            return <circle cx={cx} cy={cy} r="2" />;
+          })}
+        </g>
+        <!-- Inner teardrop -->
+        <ellipse cx="100" cy="92" rx="16" ry="24" fill="#a0522d" opacity="0.6" />
+        <ellipse cx="100" cy="95" rx="9" ry="14" fill="#d4a060" opacity="0.5" />
+        <!-- Centre dot -->
+        <circle cx="100" cy="100" r="4" fill="#b48232" />
+        <!-- Outer ring -->
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#b48232" stroke-width="1" opacity="0.4" />
+      </svg>
+
+      <p class="splash-title">Henna by Hamna</p>
+      <p class="splash-sub">The Craft Book</p>
+    </div>
+
     <slot />
+
+    <!-- Dismiss splash once page is fully loaded -->
+    <script is:inline>
+      (function () {
+        var splash = document.getElementById('splash');
+        if (!splash) return;
+
+        // Respect reduced motion: skip splash entirely
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          splash.remove();
+          return;
+        }
+
+        function dismiss() {
+          splash.classList.add('is-hidden');
+          setTimeout(function () { splash.remove(); }, 700);
+        }
+
+        // Dismiss after page loads (or after 3s max so it never hangs)
+        if (document.readyState === 'complete') {
+          setTimeout(dismiss, 400);
+        } else {
+          window.addEventListener('load', function () {
+            setTimeout(dismiss, 400);
+          });
+        }
+        setTimeout(dismiss, 3000);
+      })();
+    </script>
   </body>
 </html>
