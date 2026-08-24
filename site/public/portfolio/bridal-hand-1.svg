@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <rect width="800" height="800" fill="#fbf4e7"/>
+  <g transform="translate(400,400)">
+    <!-- hand outline (palm + fingers, henna glove style) -->
+    <g stroke="#8C2E2A" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- palm -->
+      <path d="M -80,200 C -110,180 -120,120 -95,60 C -80,25 -50,5 -15,10 C 10,14 25,35 30,60 C 35,90 20,120 -5,140 C -20,150 -45,155 -60,170"/>
+      <path d="M 80,200 C 110,180 120,120 95,60 C 80,25 50,5 15,10 C -10,14 -25,35 -30,60 C -35,90 -20,120 5,140 C 20,150 45,155 60,170"/>
+      <!-- wrist cuff -->
+      <path d="M -90,230 C -60,260 60,260 90,230" />
+      <!-- fingers -->
+      <path d="M -95,60 C -100,20 -85,-20 -60,-40 C -30,-62 0,-40 -15,-10"/>
+      <path d="M -50,-30 C -55,-80 -35,-120 -5,-140 C 25,-155 45,-120 20,-95"/>
+      <path d="M -15,-120 C -10,-175 15,-210 45,-215 C 75,-215 85,-175 55,-155"/>
+      <path d="M 30,-140 C 45,-185 80,-205 110,-195 C 140,-185 140,-145 110,-130"/>
+      <path d="M 95,-100 C 120,-130 155,-135 175,-115 C 195,-95 185,-60 155,-55"/>
+    </g>
+    <!-- palm motif: small mandala -->
+    <g transform="translate(0,95)" stroke="#C29A4B" stroke-width="5" fill="none" stroke-linecap="round">
+      <circle r="42"/>
+      <path d="M 0,-42 C 15,-42 22,-30 22,-18 C 22,-5 15,7 0,7 C -15,7 -22,-5 -22,-18 C -22,-30 -15,-42 0,-42 Z"/>
+      <path d="M 0,-42 C 15,-42 22,-30 22,-18 C 22,-5 15,7 0,7 C -15,7 -22,-5 -22,-18 C -22,-30 -15,-42 0,-42 Z" transform="rotate(90)"/>
+      <path d="M 0,-42 C 15,-42 22,-30 22,-18 C 22,-5 15,7 0,7 C -15,7 -22,-5 -22,-18 C -22,-30 -15,-42 0,-42 Z" transform="rotate(180)"/>
+      <path d="M 0,-42 C 15,-42 22,-30 22,-18 C 22,-5 15,7 0,7 C -15,7 -22,-5 -22,-18 C -22,-30 -15,-42 0,-42 Z" transform="rotate(270)"/>
+    </g>
+    <circle cx="0" cy="95" r="10" fill="#8C2E2A"/>
+    <!-- finger rings -->
+    <g stroke="#8C2E2A" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M -42,-38 C -48,-52 -40,-64 -28,-62"/>
+      <path d="M -12,-118 C -18,-132 -10,-144 2,-142"/>
+      <path d="M 38,-172 C 32,-186 40,-198 52,-196"/>
+      <path d="M 88,-152 C 82,-166 90,-178 102,-176"/>
+      <path d="M 132,-92 C 126,-106 134,-118 146,-116"/>
+    </g>
+    <!-- wrist band -->
+    <path d="M -88,205 C -60,225 60,225 88,205" stroke="#8C2E2A" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g fill="#C29A4B">
+      <circle cx="-60" cy="218" r="7"/>
+      <circle cx="-30" cy="224" r="7"/>
+      <circle cx="0" cy="226" r="7"/>
+      <circle cx="30" cy="224" r="7"/>
+      <circle cx="60" cy="218" r="7"/>
+    </g>
+  </g>
+</svg>

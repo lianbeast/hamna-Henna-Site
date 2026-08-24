@@ -1,0 +1,87 @@
+---
+interface Testimonial {
+  quote: string;
+  name: string;
+  detail: string;
+}
+
+const items = (await import('../data/testimonials.json')).default as Testimonial[];
+---
+
+<section class="section-wrap" aria-labelledby="testimonials-heading">
+  <div class="glass-panel">
+    <p class="section-label label">Love Notes</p>
+    <h2 id="testimonials-heading" class="section-h2">From the hands that wore it.</h2>
+
+    {items.length > 0 ? (
+      <div class="testi-grid">
+        {items.map((t, i) => (
+          <blockquote class="testi-card" style={`--i: ${i}`}>
+            <p class="testi-quote">“{t.quote}”</p>
+            <footer class="testi-foot">
+              <span class="testi-name">{t.name}</span>
+              <span class="testi-detail">{t.detail}</span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    ) : (
+      <p class="testi-empty">Testimonials arriving soon.</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .testi-card {
+    margin: 0;
+    padding: 22px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: rgba(251, 244, 231, 0.5);
+    border-radius: 14px;
+    border: 1px solid rgba(221, 201, 168, 0.35);
+    transition: transform 0.3s ease, background-color 0.45s ease, border-color 0.45s ease;
+  }
+  .testi-card:hover {
+    transform: translateY(-3px);
+  }
+  .testi-quote {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-inkbrown);
+  }
+  .testi-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: auto;
+  }
+  .testi-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-henna);
+  }
+  .testi-detail {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--color-clay);
+  }
+  .testi-empty {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-clay);
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    .testi-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

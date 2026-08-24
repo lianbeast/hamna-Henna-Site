@@ -1,5 +1,14 @@
 import { useState, useCallback } from 'react';
 
+/**
+ * Where FormSubmit delivers submissions.
+ * First submission triggers an activation email from FormSubmit — click it once.
+ * Replace with Hamna's real inbox (e.g. hamna@example.com).
+ */
+const FORM_EMAIL = 'hamna-henna@example.com';
+
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
+
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 interface FormData {
@@ -46,25 +55,35 @@ export default function BookingInquiry() {
     setError(null);
 
     try {
-      const body = new URLSearchParams({
-        'form-name': 'inquiry',
+      const payload = {
         name: data.name,
         email: data.email,
         phone: data.phone,
         weddingDate: data.weddingDate,
-        service: data.service,
+        service: services.find((s) => s.value === data.service)?.label ?? data.service,
         message: data.message,
-        'bot-field': data['bot-field']
-      });
+        _subject: 'New booking inquiry — Henna by Hamna',
+        _template: 'table',
+        _captcha: 'false',
+        _honey: data['bot-field'] // honeypot: silently ignored if filled by bots
+      };
 
-      const response = await fetch('/', {
+      const response = await fetch(FORM_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString()
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
         throw new Error('Submission failed. Please try again.');
+      }
+
+      const result = await response.json();
+      if (result.success !== 'true' && result.success !== true) {
+        throw new Error(result.message || 'Submission failed. Please try again.');
       }
 
       setStatus('success');
@@ -87,7 +106,7 @@ export default function BookingInquiry() {
   }
 
   return (
-    <form className="booking-form" onSubmit={handleSubmit} name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" noValidate aria-busy={status === 'submitting'}>
+    <form className="booking-form" onSubmit={handleSubmit} name="inquiry" noValidate aria-busy={status === 'submitting'}>
       <p className="booking-honeypot" aria-hidden="true">
         <label>Don't fill this out if you're human: <input name="bot-field" value={data['bot-field']} onChange={handleChange} tabIndex={-1} autoComplete="off" /></label>
       </p>

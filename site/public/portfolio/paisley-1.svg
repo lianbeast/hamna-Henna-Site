@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <rect width="800" height="800" fill="#fbf4e7"/>
+  <g transform="translate(400,400)">
+    <!-- outer paisley teardrop -->
+    <path d="M 0,-330 C 120,-330 210,-240 210,-110 C 210,60 90,180 0,290 C -90,180 -210,60 -210,-110 C -210,-240 -120,-330 0,-330 Z"
+          fill="none" stroke="#8C2E2A" stroke-width="7" stroke-linecap="round"/>
+    <!-- inner paisley -->
+    <path d="M 0,-250 C 85,-250 150,-185 150,-95 C 150,40 60,135 0,215 C -60,135 -150,40 -150,-95 C -150,-185 -85,-250 0,-250 Z"
+          fill="none" stroke="#C29A4B" stroke-width="5" stroke-linecap="round"/>
+    <!-- heart dot -->
+    <circle cx="0" cy="-95" r="34" fill="#8C2E2A"/>
+    <circle cx="0" cy="-95" r="14" fill="#fbf4e7"/>
+    <!-- curled tail -->
+    <path d="M 0,-330 C -40,-360 -95,-355 -120,-320 C -140,-290 -120,-265 -90,-265"
+          fill="none" stroke="#8C2E2A" stroke-width="7" stroke-linecap="round"/>
+    <!-- side curls -->
+    <path d="M 210,-110 C 250,-130 275,-100 260,-60" fill="none" stroke="#8C2E2A" stroke-width="6" stroke-linecap="round"/>
+    <path d="M -210,-110 C -250,-130 -275,-100 -260,-60" fill="none" stroke="#8C2E2A" stroke-width="6" stroke-linecap="round"/>
+    <!-- dots along the spine -->
+    <circle cx="0" cy="20" r="9" fill="#C29A4B"/>
+    <circle cx="0" cy="80" r="9" fill="#C29A4B"/>
+    <circle cx="0" cy="140" r="9" fill="#C29A4B"/>
+    <circle cx="0" cy="200" r="9" fill="#C29A4B"/>
+  </g>
+</svg>

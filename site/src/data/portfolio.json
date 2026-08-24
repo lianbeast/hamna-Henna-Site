@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "src": "portfolio/paisley-1.svg",
+    "alt": "Classic henna paisley motif in rust red and gold on ivory",
+    "motif": "paisley",
+    "caption": "Classic paisley",
+    "occasion": "Bridal mehndi"
+  },
+  {
+    "src": "portfolio/mandala-1.svg",
+    "alt": "Symmetrical henna mandala with layered petals and dot ring",
+    "motif": "mandala",
+    "caption": "Layered mandala",
+    "occasion": "Engagement"
+  },
+  {
+    "src": "portfolio/vine-1.svg",
+    "alt": "Flowing henna vine with lobed leaves climbing the stem",
+    "motif": "vine",
+    "caption": "Climbing vine",
+    "occasion": "Sangeet night"
+  },
+  {
+    "src": "portfolio/floral-1.svg",
+    "alt": "Henna lotus bloom with layered petals and calyx leaves",
+    "motif": "floral",
+    "caption": "Lotus bloom",
+    "occasion": "Bridal party"
+  },
+  {
+    "src": "portfolio/peacock-1.svg",
+    "alt": "Henna peacock feather with dotted barbs and golden eye",
+    "motif": "paisley",
+    "caption": "Peacock feather",
+    "occasion": "Bridal mehndi"
+  },
+  {
+    "src": "portfolio/bridal-hand-1.svg",
+    "alt": "Henna glove drawing with palm mandala, finger rings and wrist band",
+    "motif": "mandala",
+    "caption": "Full hand glove",
+    "occasion": "Bridal mehndi"
+  }
+]

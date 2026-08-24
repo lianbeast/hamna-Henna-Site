@@ -5,10 +5,13 @@ interface PortfolioItem {
   src: string;
   alt: string;
   motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
+  caption?: string;
+  occasion?: string;
 }
 
 const items = (await import('../data/portfolio.json')).default as PortfolioItem[];
 const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley', 'mandala', 'vine', 'curl', 'paisley'];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <section class="section-wrap" aria-labelledby="portfolio-heading">
@@ -31,7 +34,13 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
       <div class="pf-grid">
         {items.map((item, i) => (
           <figure class="pf-card">
-            <img src={item.src} alt={item.alt} loading="lazy" />
+            <img src={`${base}/${item.src}`} alt={item.alt} loading="lazy" />
+            {(item.caption || item.occasion) && (
+              <figcaption class="pf-cap">
+                {item.caption && <span class="pf-cap-title">{item.caption}</span>}
+                {item.occasion && <span class="pf-cap-occasion">{item.occasion}</span>}
+              </figcaption>
+            )}
           </figure>
         ))}
       </div>
@@ -45,6 +54,7 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
     gap: 16px;
   }
   .pf-card {
+    position: relative;
     margin: 0;
     border-radius: 12px;
     overflow: hidden;
@@ -59,6 +69,42 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .pf-cap {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 14px;
+    background: linear-gradient(to top, rgba(74, 44, 22, 0.72), rgba(74, 44, 22, 0));
+    color: #fbf4e7;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .pf-card:hover .pf-cap {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .pf-cap-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .pf-cap-occasion {
+    font-size: 12px;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  @media (hover: none) {
+    .pf-cap {
+      opacity: 1;
+      transform: none;
+    }
   }
   .pf-empty-line {
     font-size: 14px;
