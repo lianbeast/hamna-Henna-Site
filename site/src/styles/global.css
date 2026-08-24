@@ -371,7 +371,8 @@
   .hero-gradient-top,
   .hero-gradient-bottom,
   .audio-toggle-thumb,
-  .audio-toggle-track {
+  .audio-toggle-track,
+  .scroll-top {
     transition: none !important;
   }
 }
@@ -453,6 +454,50 @@
 @keyframes audioPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
+}
+
+/* ── Scroll-to-Top ────────────────────────────────────────── */
+@layer components {
+  .scroll-top {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(180, 130, 50, 0.4);
+    background: rgba(245, 235, 220, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--color-henna);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s ease, border-color 0.2s ease;
+    z-index: 900;
+    box-shadow: 0 4px 12px -4px rgba(74, 44, 22, 0.2);
+  }
+
+  .scroll-top--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .scroll-top:hover {
+    background: rgba(140, 46, 42, 0.1);
+    border-color: var(--color-henna);
+    transform: translateY(-2px);
+  }
+
+  .scroll-top:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
 }
 
 /* ── Audio Settings (tune popover) ────────────────────────── */
@@ -876,6 +921,18 @@ html.theme-dark .audio-btn--compact,
 html.theme-dark .theme-btn--compact,
 html.theme-dark .tune-btn {
   color: var(--color-gold);
+}
+
+html.theme-dark .scroll-top {
+  background: rgba(26, 21, 68, 0.8);
+  border-color: rgba(61, 58, 110, 0.55);
+  color: var(--color-gold);
+  box-shadow: 0 4px 12px -4px rgba(15, 12, 41, 0.6);
+}
+
+html.theme-dark .scroll-top:hover {
+  background: rgba(61, 58, 110, 0.5);
+  border-color: var(--color-gold);
 }
 
 html.theme-dark .audio-btn--compact:hover,

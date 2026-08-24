@@ -14,6 +14,7 @@ import FAQAccordion from '../components/FAQAccordion.tsx';
 import BookingInquiry from '../components/BookingInquiry.tsx';
 import Footer from '../components/Footer.astro';
 import FloatingToolbar from '../components/FloatingToolbar.tsx';
+import ScrollToTop from '../components/ScrollToTop.tsx';
 import faq from '../data/faq.json';
 ---
 
@@ -80,6 +81,7 @@ import faq from '../data/faq.json';
 
     <!-- Floating toolbar (fixed bottom-right pill: theme + audio) -->
     <FloatingToolbar client:load />
+    <ScrollToTop client:idle />
   </main>
 </Layout>
 
