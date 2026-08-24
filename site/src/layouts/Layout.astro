@@ -14,7 +14,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Henna by Hamna — henna artistry for the DMV. Simple, detailed, special-detailed and Arabic henna for Eid, Chaand-Raat, weddings, showers and special events. Custom designs available. Serving DC, Maryland and Virginia. Sister brand of @dmvflowerbar." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.png`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet" />
@@ -24,60 +24,3 @@ const { title } = Astro.props;
     <slot />
   </body>
 </html>
-
-<style>
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 4rem;
-  }
-
-  body {
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(140, 46, 42, 0.14), transparent 55%),
-      radial-gradient(ellipse at 85% 30%, rgba(194, 154, 75, 0.12), transparent 50%),
-      radial-gradient(ellipse at 50% 90%, rgba(140, 46, 42, 0.08), transparent 60%),
-      var(--color-ivory);
-    background-attachment: fixed;
-  }
-
-  /* Content floats above the fixed 3D canvas */
-  .site-main {
-    position: relative;
-    z-index: 1;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 clamp(20px, 5vw, 56px);
-  }
-
-  /* Shared glass card for sections */
-  .glass-panel {
-    background: rgba(251, 244, 231, 0.62);
-    backdrop-filter: blur(18px) saturate(1.15);
-    -webkit-backdrop-filter: blur(18px) saturate(1.15);
-    border: 1px solid rgba(221, 201, 168, 0.55);
-    border-radius: 20px;
-    box-shadow:
-      0 24px 60px -32px rgba(74, 44, 22, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    padding: clamp(28px, 5vw, 48px);
-    transition:
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.45s ease,
-      border-color 0.45s ease;
-  }
-
-  .glass-panel:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 36px 80px -36px rgba(74, 44, 22, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  }
-
-  @media (max-width: 640px) {
-    .glass-panel {
-      padding: 22px 20px;
-      border-radius: 16px;
-    }
-  }
-</style>
