@@ -515,15 +515,9 @@
   }
 
   /* Button pulse on scroll-into-view */
-  .pricing-cta,
-  .ig-follow-btn {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-
   .pricing-cta.pulse-in,
   .ig-follow-btn.pulse-in {
-    animation: pulseReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: pulseReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   @keyframes pulseReveal {
