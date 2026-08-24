@@ -3,24 +3,93 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  description?: string;
+  ogImage?: string;
 }
 
-const { title } = Astro.props;
+const SITE_URL = 'https://lianbeast.github.io/hamna-Henna-Site';
+const DEFAULT_DESCRIPTION = 'Henna by Hamna — henna artistry for the DMV. Simple, detailed, special-detailed and Arabic henna for Eid, Chaand-Raat, weddings, showers and special events. Custom designs available. Serving DC, Maryland and Virginia. Sister brand of @dmvflowerbar.';
+
+const { title, description = DEFAULT_DESCRIPTION, ogImage = '/og-image.png' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const ogImageURL = new URL(ogImage, SITE_URL);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Henna by Hamna — henna artistry for the DMV. Simple, detailed, special-detailed and Arabic henna for Eid, Chaand-Raat, weddings, showers and special events. Custom designs available. Serving DC, Maryland and Virginia. Sister brand of @dmvflowerbar." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Henna by Hamna" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Henna by Hamna" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:creator" content="@dmvflowerbar" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.png`} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet" />
-    <title>{title}</title>
+
+    <!-- JSON-LD Structured Data (LocalBusiness) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Henna by Hamna",
+      "description": description,
+      "url": SITE_URL,
+      "image": ogImageURL.href,
+      "brand": {
+        "@type": "Organization",
+        "name": "DMV Flower Bar",
+        "url": "https://instagram.com/dmvflowerbar",
+        "sameAs": ["https://instagram.com/dmvflowerbar"]
+      },
+      "areaServed": [
+        { "@type": "State", "name": "District of Columbia" },
+        { "@type": "State", "name": "Maryland" },
+        { "@type": "State", "name": "Virginia" }
+      ],
+      "serviceType": [
+        "Henna Art",
+        "Bridal Henna",
+        "Eid Henna",
+        "Wedding Henna",
+        "Party Henna",
+        "Chaand-Raat Henna"
+      ],
+      "priceRange": "$$",
+      "sameAs": [
+        "https://instagram.com/dmvflowerbar"
+      ]
+    })} />
+
+    <!-- Apply saved theme before first paint -->
     <script is:inline>
-      /* Apply the saved (or system) theme before first paint to avoid a light-mode flash. */
       (function () {
         try {
           var stored = localStorage.getItem('henna-theme');
