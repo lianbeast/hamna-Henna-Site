@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { AUDIO_NOTES, AUDIO_TYPES, setNote, setVolume, setType, onAudioChange, getAudioState } from './audioStore';
+import { AUDIO_NOTES, AUDIO_TYPES, setNote, setVolume, setType, setReverb, setReverbMix, onAudioChange, getAudioState } from './audioStore';
 
 export default function AudioSettings() {
   const [open, setOpen] = useState(false);
   const [note, setNoteState] = useState(getAudioState().note);
   const [volume, setVolumeState] = useState(getAudioState().volume);
   const [type, setTypeState] = useState(getAudioState().type);
+  const [reverbOn, setReverbState] = useState(getAudioState().reverbEnabled);
+  const [reverbMix, setReverbMixState] = useState(getAudioState().reverbMix);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Keep local state in sync with the store
@@ -15,6 +17,8 @@ export default function AudioSettings() {
       setNoteState(s.note);
       setVolumeState(s.volume);
       setTypeState(s.type);
+      setReverbState(s.reverbEnabled);
+      setReverbMixState(s.reverbMix);
     });
   }, []);
 
@@ -114,6 +118,40 @@ export default function AudioSettings() {
             />
             <span className="audio-vol">{volume}%</span>
           </div>
+
+          <div className="audio-row audio-row--reverb">
+            <span className="audio-row-label" id="audio-reverb-label">Reverb</span>
+            <label className="audio-toggle-wrap" htmlFor="reverb-toggle">
+              <input
+                type="checkbox"
+                id="reverb-toggle"
+                className="audio-toggle-input"
+                checked={reverbOn}
+                onChange={(e) => setReverb(e.target.checked)}
+              />
+              <span className="audio-toggle-track">
+                <span className="audio-toggle-thumb" />
+              </span>
+              <span className="audio-toggle-label">{reverbOn ? 'On' : 'Off'}</span>
+            </label>
+          </div>
+
+          {reverbOn && (
+            <div className="audio-row">
+              <span className="audio-row-label" id="audio-reverb-mix-label">Space</span>
+              <input
+                type="range"
+                className="audio-range audio-range--reverb"
+                min={0}
+                max={100}
+                step={1}
+                value={reverbMix}
+                onChange={(e) => setReverbMix(Number(e.target.value))}
+                aria-labelledby="audio-reverb-mix-label"
+              />
+              <span className="audio-vol">{reverbMix}%</span>
+            </div>
+          )}
         </div>
       )}
     </div>

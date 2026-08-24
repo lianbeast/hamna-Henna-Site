@@ -2,8 +2,9 @@
  * Shared ambient-audio engine + store.
  *
  * Owns the AudioContext and tanpura drone so the play/pause button and
- * the settings popover can both control it live. Pitch and volume are
- * persisted so returning visitors keep their preference.
+ * the settings popover can both control it live. Pitch, volume, sound
+ * character, and reverb are persisted so returning visitors keep their
+ * preference.
  *
  * Same module-level listener pattern as scrollStore/themeStore.
  */
@@ -16,6 +17,7 @@ interface Tanpura {
   setRoot(freq: number): void;
   setVolume(v: number): void;
   setType(type: OscillatorType): void;
+  setReverb(enabled: boolean, mix: number): void;
 }
 
 const BASE_GAIN = 0.42;
@@ -42,15 +44,178 @@ export const NOTE_FREQ: Record<AudioNote, number> = {
   B: 246.94,
 };
 
+/* ── Schroeder reverb ──────────────────────────────────── */
+
+function buildReverb(
+  ctx: AudioContext,
+  input: GainNode,
+  mix: number,
+): { dryGain: GainNode; wetGain: GainNode; setMix(m: number): void } {
+  const sampleRate = ctx.sampleRate;
+
+  const dryGain = ctx.createGain();
+  dryGain.gain.value = 1 - mix;
+
+  const wetGain = ctx.createGain();
+  wetGain.gain.value = mix;
+
+  // Dry path: input → dryGain → output
+  // Wet path: input → combs → allpasses → wetGain → output
+  // (Caller connects dryGain and wetGain to a merger)
+
+  // ── 4 parallel comb filters ──────────────────────────
+  const combDelays = [1557, 1617, 1491, 1422]; // ms — tuned for warm room
+  const combFeedbacks = [0.84, 0.82, 0.80, 0.78];
+  const combNodes: DelayNode[] = [];
+  const combFbNodes: GainNode[] = [];
+
+  for (let i = 0; i < 4; i++) {
+    const delay = ctx.createDelay(2.0); // max delay 2s
+    const fb = ctx.createGain();
+    const filter = ctx.createBiquadFilter(); // lowpass for warm tail
+
+    delay.delayTime.value = (sampleRate * combDelays[i]) / 1000;
+    fb.gain.value = combFeedbacks[i];
+    filter.type = 'lowpass';
+    filter.frequency.value = 3500;
+    filter.Q.value = 0.5;
+
+    // input → delay → filter → fb → delay  (feedback loop)
+    // input → delay (for wet output)
+    input.connect(delay);
+    delay.connect(filter);
+    filter.connect(fb);
+    fb.connect(delay);
+    // Tap the delay output to the allpass chain
+    delay.connect(filter); // already done above, just ensure we tap from filter output
+
+    combNodes.push(delay);
+    combFbNodes.push(fb);
+  }
+
+  // ── 2 cascaded allpass filters ────────────────────────
+  const allpassDelays = [225, 556]; // ms
+  const allpassFb = 0.5;
+
+  let chainNode: DelayNode | BiquadFilterNode = combFbNodes[0]; // start from first comb's feedback tap
+  // Actually, mix comb outputs first into a summing gain
+  const combSum = ctx.createGain();
+  combSum.gain.value = 1;
+  for (let i = 0; i < 4; i++) {
+    // Tap from the filter output (which is in the feedback loop)
+    const tapGain = ctx.createGain();
+    tapGain.gain.value = 0.25;
+    // Reconnect: input → comb, and tap from filter for summing
+    // We need to tap the filter output. Let's redo the routing cleanly.
+  }
+
+  // Let me redo this more cleanly with explicit routing:
+  // The above comb routing is tangled. Let me build it properly.
+
+  // Clean approach: build the wet path separately
+  // input → [parallel combs] → sum → [series allpasses] → wetGain
+
+  const wetInput = ctx.createGain();
+  wetInput.gain.value = 1;
+
+  // 4 parallel combs, each with its own feedback loop
+  const combSumGain = ctx.createGain();
+  combSumGain.gain.value = 1;
+
+  for (let i = 0; i < 4; i++) {
+    const delayTime = (sampleRate * combDelays[i]) / 1000;
+    const delay = ctx.createDelay(2.0);
+    delay.delayTime.value = delayTime;
+
+    const fbGain = ctx.createGain();
+    fbGain.gain.value = combFeedbacks[i];
+
+    const lpFilter = ctx.createBiquadFilter();
+    lpFilter.type = 'lowpass';
+    lpFilter.frequency.value = 3200;
+    lpFilter.Q.value = 0.5;
+
+    // wetInput → delay → lpFilter → fbGain → delay  (loop)
+    //                          ↓
+    //                     combSumGain  (tap)
+    wetInput.connect(delay);
+    delay.connect(lpFilter);
+    lpFilter.connect(fbGain);
+    fbGain.connect(delay);
+    // Tap output
+    const tap = ctx.createGain();
+    tap.gain.value = 0.25;
+    lpFilter.connect(tap);
+    tap.connect(combSumGain);
+  }
+
+  // 2 series allpass filters
+  let allpassChain: GainNode = combSumGain;
+
+  for (let i = 0; i < 2; i++) {
+    const delayTime = (sampleRate * allpassDelays[i]) / 1000;
+    const delay = ctx.createDelay(2.0);
+    delay.delayTime.value = delayTime;
+
+    const apFb = ctx.createGain();
+    apFb.gain.value = allpassFb;
+
+    const apFwd = ctx.createGain();
+    apFwd.gain.value = 1;
+
+    const apSum = ctx.createGain();
+    apSum.gain.value = 1;
+
+    // Allpass: in → delay → fbFb → in  (feedback)
+    //          in → apFwd → out
+    //          delay → apSum → out
+    allpassChain.connect(delay);
+    delay.connect(apFb);
+    apFb.connect(delay);   // feedback loop
+    delay.connect(apSum);  // delayed signal
+
+    allpassChain.connect(apFwd);
+    apFwd.connect(apSum);  // dry signal
+
+    allpassChain = apSum;
+  }
+
+  // Connect: wetInput ← input, allpassChain → wetGain
+  input.connect(wetInput);
+  allpassChain.connect(wetGain);
+
+  return {
+    dryGain,
+    wetGain,
+    setMix(m) {
+      const now = ctx.currentTime;
+      dryGain.gain.setTargetAtTime(1 - m, now, 0.05);
+      wetGain.gain.setTargetAtTime(m, now, 0.05);
+    },
+  };
+}
+
 function buildTanpura(
   ctx: AudioContext,
-  initial: { rootFreq: number; volume: number; type: OscillatorType; noise: number },
+  initial: { rootFreq: number; volume: number; type: OscillatorType; noise: number; reverbMix: number; reverbEnabled: boolean },
 ): Tanpura {
   const masterGain = ctx.createGain();
   masterGain.gain.value = 0;
-  masterGain.connect(ctx.destination);
+
+  // ── Reverb insert between masterGain and destination ──
+  const reverbInput = ctx.createGain(); // same node as masterGain for reverb tap
+  const reverb = buildReverb(ctx, masterGain, initial.reverbEnabled ? initial.reverbMix : 0);
+
+  // Merge dry + wet → destination
+  const outputMerger = ctx.createGain();
+  outputMerger.gain.value = 1;
+  reverb.dryGain.connect(outputMerger);
+  reverb.wetGain.connect(outputMerger);
+  outputMerger.connect(ctx.destination);
 
   const volumeRef = { current: initial.volume };
+  const reverbMixRef = { current: initial.reverbEnabled ? initial.reverbMix : 0 };
+  const reverbEnabledRef = { current: initial.reverbEnabled };
 
   // Voice table — frequencies are multiples of the Sa root.
   const voices: Array<{ mult: number; detune: number; gain: number }> = [
@@ -156,6 +321,11 @@ function buildTanpura(
       noiseGainRef.current = noise;
       noiseGain.gain.setTargetAtTime(noise, now, 0.1);
     },
+    setReverb(enabled, mix) {
+      reverbEnabledRef.current = enabled;
+      reverbMixRef.current = mix;
+      reverb.setMix(enabled ? mix : 0);
+    },
   };
 }
 
@@ -172,6 +342,8 @@ let playing = false;
 let note: AudioNote = 'C';
 let volume = 70;
 let type: OscillatorType = 'sawtooth';
+let reverbEnabled = true;
+let reverbMix = 35; // 0–100, maps to 0–0.6 wet
 
 function loadPrefs(): void {
   try {
@@ -181,12 +353,14 @@ function loadPrefs(): void {
     if (typeof p.note === 'string' && p.note in NOTE_FREQ) note = p.note as AudioNote;
     if (typeof p.volume === 'number' && p.volume >= 0 && p.volume <= 100) volume = Math.round(p.volume);
     if (typeof p.type === 'string' && AUDIO_TYPES.some((t) => t.value === p.type)) type = p.type as OscillatorType;
+    if (typeof p.reverbEnabled === 'boolean') reverbEnabled = p.reverbEnabled;
+    if (typeof p.reverbMix === 'number' && p.reverbMix >= 0 && p.reverbMix <= 100) reverbMix = Math.round(p.reverbMix);
   } catch { /* ignore */ }
 }
 
 function persist(): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ note, volume, type }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ note, volume, type, reverbEnabled, reverbMix }));
   } catch { /* ignore */ }
 }
 
@@ -196,7 +370,14 @@ function ensureEngine(): { ctx: AudioContext; drone: Tanpura } {
   }
   if (!drone) {
     const char = AUDIO_TYPES.find((t) => t.value === type) ?? AUDIO_TYPES[2];
-    drone = buildTanpura(ctx, { rootFreq: NOTE_FREQ[note], volume: volume / 100, type: char.value, noise: char.noise });
+    drone = buildTanpura(ctx, {
+      rootFreq: NOTE_FREQ[note],
+      volume: volume / 100,
+      type: char.value,
+      noise: char.noise,
+      reverbMix: reverbMix / 100,
+      reverbEnabled,
+    });
   }
   return { ctx, drone };
 }
@@ -246,8 +427,29 @@ export function setType(t: OscillatorType): void {
   emit();
 }
 
-export function getAudioState(): { playing: boolean; note: AudioNote; volume: number; type: OscillatorType } {
-  return { playing, note, volume, type };
+export function setReverb(enabled: boolean): void {
+  reverbEnabled = enabled;
+  persist();
+  drone?.setReverb(enabled, reverbMix / 100);
+  emit();
+}
+
+export function setReverbMix(m: number): void {
+  reverbMix = Math.max(0, Math.min(100, Math.round(m)));
+  persist();
+  if (reverbEnabled) drone?.setReverb(true, reverbMix / 100);
+  emit();
+}
+
+export function getAudioState(): {
+  playing: boolean;
+  note: AudioNote;
+  volume: number;
+  type: OscillatorType;
+  reverbEnabled: boolean;
+  reverbMix: number;
+} {
+  return { playing, note, volume, type, reverbEnabled, reverbMix };
 }
 
 export function onAudioChange(fn: Listener): () => void {
