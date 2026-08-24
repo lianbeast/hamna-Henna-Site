@@ -1,0 +1,36 @@
+{
+  "name": "Henna by Hamna",
+  "short_name": "Henna by Hamna",
+  "description": "Henna artistry for the DMV — Eid, weddings, Chaand-Raat, showers and special events.",
+  "start_url": "/hamna-Henna-Site/",
+  "scope": "/hamna-Henna-Site/",
+  "display": "standalone",
+  "background_color": "#f5ebdc",
+  "theme_color": "#8c5123",
+  "orientation": "portrait-primary",
+  "categories": ["beauty", "lifestyle"],
+  "icons": [
+    {
+      "src": "/hamna-Henna-Site/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/hamna-Henna-Site/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/hamna-Henna-Site/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/hamna-Henna-Site/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
