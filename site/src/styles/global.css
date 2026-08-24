@@ -360,6 +360,7 @@
   .audio-btn--compact,
   .theme-btn--compact,
   .tune-btn,
+  .help-btn,
   .audio-note,
   .faq-trigger,
   .faq-accordion,
@@ -604,6 +605,95 @@
   }
 }
 
+/* ── Shortcut Help ────────────────────────────────────────── */
+@layer components {
+  .shortcut-help {
+    position: relative;
+    display: flex;
+  }
+
+  .help-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-henna);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .help-btn:hover {
+    background: rgba(140, 46, 42, 0.08);
+    transform: scale(1.1);
+    color: var(--color-inkbrown);
+  }
+  .help-btn:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+  .help-btn[aria-expanded='true'] {
+    background: rgba(140, 46, 42, 0.12);
+    color: var(--color-inkbrown);
+  }
+
+  .help-panel {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    right: -8px;
+    width: 240px;
+    padding: 16px 18px;
+    background: rgba(251, 244, 231, 0.92);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    border: 1px solid rgba(221, 201, 168, 0.55);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px -28px rgba(74, 44, 22, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 101;
+    transition: background-color 0.45s ease, border-color 0.45s ease;
+  }
+
+  .help-panel-title {
+    margin: 0 0 2px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .help-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .help-key {
+    min-width: 30px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    border-radius: 7px;
+    border: 1px solid rgba(221, 201, 168, 0.6);
+    background: rgba(251, 244, 231, 0.7);
+    box-shadow: 0 2px 0 rgba(74, 44, 22, 0.12);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-inkbrown);
+  }
+  .help-action {
+    font-size: 13.5px;
+    color: var(--color-clay);
+  }
+}
+
 /* ── Dark Mode Overrides ───────────────────────────────────── */
 /* Applied when <html> has .theme-dark via the themeStore */
 
@@ -775,6 +865,34 @@ html.theme-dark .audio-range::-webkit-slider-thumb {
 html.theme-dark .audio-range::-moz-range-thumb {
   background: var(--color-gold);
   border-color: #1a1544;
+}
+
+/* Dark mode: shortcut help */
+html.theme-dark .help-btn {
+  color: var(--color-gold);
+}
+
+html.theme-dark .help-btn:hover {
+  background: rgba(108, 92, 231, 0.15);
+  color: var(--color-henna);
+}
+
+html.theme-dark .help-btn[aria-expanded='true'] {
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--color-henna);
+}
+
+html.theme-dark .help-panel {
+  background: rgba(26, 21, 68, 0.92);
+  border-color: rgba(61, 58, 110, 0.55);
+  box-shadow: 0 24px 60px -28px rgba(15, 12, 41, 0.7);
+}
+
+html.theme-dark .help-key {
+  background: rgba(26, 21, 68, 0.6);
+  border-color: rgba(61, 58, 110, 0.5);
+  color: var(--color-inkbrown);
+  box-shadow: 0 2px 0 rgba(15, 12, 41, 0.5);
 }
 
 /* Dark mode: FAQ */

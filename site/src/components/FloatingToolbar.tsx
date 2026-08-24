@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AudioToggle from './AudioToggle';
 import AudioSettings from './AudioSettings';
+import ShortcutHelp from './ShortcutHelp';
 import ThemeToggle from './ThemeToggle';
 import { toggleTheme } from './themeStore';
 import { togglePlay } from './audioStore';
@@ -50,6 +51,8 @@ export default function FloatingToolbar() {
       <AudioToggle compact />
       <span className="toolbar-divider" aria-hidden="true" />
       <AudioSettings />
+      <span className="toolbar-divider" aria-hidden="true" />
+      <ShortcutHelp />
     </div>
   );
 }
