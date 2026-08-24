@@ -2,7 +2,7 @@ import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, Stars } from '@react-three/drei';
 import { onScrollProgress } from './scrollStore';
-import { onThemeChange } from './themeStore';
+import { isDark, onThemeChange } from './themeStore';
 import * as THREE from 'three';
 
 /* ── Theme-aware color palette ──────────────────────────── */
@@ -317,7 +317,7 @@ function CameraController() {
 
 /* ── Scene assembly ──────────────────────────────────────── */
 function SceneContent() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(() => isDark());
   useEffect(() => onThemeChange(setDark), []);
 
   const c = useMemo(() => themeColors(dark), [dark]);

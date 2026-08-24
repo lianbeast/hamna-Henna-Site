@@ -9,14 +9,13 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 function buildTanpura(ctx: AudioContext): {
   masterGain: GainNode;
   start(): void;
-  stop(): void;
+  stop(onStopped?: () => void): void;
 } {
   const masterGain = ctx.createGain();
   masterGain.gain.value = 0;
   masterGain.connect(ctx.destination);
 
   const oscillators: OscillatorNode[] = [];
-  const noiseSources: AudioBufferSourceNode[] = [];
 
   // ── Drone voices ──────────────────────────────────────
   const voices: Array<{ freq: number; detune: number; gain: number }> = [
@@ -87,6 +86,8 @@ function buildTanpura(ctx: AudioContext): {
   lfoGain.connect(masterGain.gain);
   lfo.start();
 
+  const FADE_OUT_MS = 2000;
+
   return {
     masterGain,
     start() {
@@ -95,11 +96,12 @@ function buildTanpura(ctx: AudioContext): {
       masterGain.gain.setValueAtTime(masterGain.gain.value, now);
       masterGain.gain.linearRampToValueAtTime(0.42, now + 2.5);
     },
-    stop() {
+    stop(onStopped) {
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
       masterGain.gain.setValueAtTime(masterGain.gain.value, now);
-      masterGain.gain.linearRampToValueAtTime(0, now + 2.0);
+      masterGain.gain.linearRampToValueAtTime(0, now + FADE_OUT_MS / 1000);
+      if (onStopped) window.setTimeout(onStopped, FADE_OUT_MS + 120);
     },
   };
 }
@@ -116,40 +118,61 @@ export default function AudioToggle({ compact = false }: AudioToggleProps) {
   const [mounted, setMounted] = useState(false);
   const ctxRef = useRef<AudioContext | null>(null);
   const droneRef = useRef<ReturnType<typeof buildTanpura> | null>(null);
+  const playingRef = useRef(false);
 
   // Only mount (and show) on the client
   useEffect(() => {
     setMounted(true);
     return () => {
       droneRef.current?.stop();
-      ctxRef.current?.close();
+      if (ctxRef.current && ctxRef.current.state !== 'closed') {
+        ctxRef.current.close();
+      }
     };
   }, []);
 
-  const toggle = useCallback(() => {
-    if (!ctxRef.current) {
-      ctxRef.current = new AudioContext();
-    }
+  const toggle = useCallback(async () => {
+    const shouldPlay = !playingRef.current;
 
-    const ctx = ctxRef.current;
+    try {
+      let ctx = ctxRef.current;
+      if (!ctx || ctx.state === 'closed') {
+        ctx = new AudioContext();
+        ctxRef.current = ctx;
+      }
 
-    // Resume if suspended (autoplay policy)
-    if (ctx.state === 'suspended') {
-      ctx.resume();
-    }
+      // Build the drone lazily on first play
+      if (!droneRef.current) {
+        droneRef.current = buildTanpura(ctx);
+      }
 
-    if (!droneRef.current) {
-      droneRef.current = buildTanpura(ctx);
-    }
-
-    if (playing) {
-      droneRef.current.stop();
+      if (shouldPlay) {
+        // Autoplay policy: the context may be suspended — resume before
+        // scheduling ramps so the fade-in actually starts from time 0.
+        if (ctx.state === 'suspended') {
+          await ctx.resume();
+        }
+        droneRef.current.start();
+        playingRef.current = true;
+        setPlaying(true);
+      } else {
+        // Fade out, then suspend the context so the synth uses no CPU
+        // while paused. Play again resumes it.
+        droneRef.current.stop(() => {
+          const c = ctxRef.current;
+          if (c && c.state === 'running') {
+            c.suspend();
+          }
+        });
+        playingRef.current = false;
+        setPlaying(false);
+      }
+    } catch (err) {
+      console.error('Ambient audio error:', err);
+      playingRef.current = false;
       setPlaying(false);
-    } else {
-      droneRef.current.start();
-      setPlaying(true);
     }
-  }, [playing]);
+  }, []);
 
   if (!mounted) return null;
 

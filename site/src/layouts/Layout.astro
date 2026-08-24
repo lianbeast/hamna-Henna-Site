@@ -19,6 +19,18 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet" />
     <title>{title}</title>
+    <script is:inline>
+      /* Apply the saved (or system) theme before first paint to avoid a light-mode flash. */
+      (function () {
+        try {
+          var stored = localStorage.getItem('henna-theme');
+          var dark =
+            stored === 'dark' ||
+            (stored === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('theme-dark');
+        } catch (e) { /* ignore */ }
+      })();
+    </script>
   </head>
   <body class="bg-ivory text-clay min-h-screen">
     <slot />
