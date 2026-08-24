@@ -14,7 +14,7 @@ const services = [
       {services.map((s) => (
         <li class="svc-entry">
           <div class="svc-row">
-            <span class="svc-n">{s.n}</span>
+            <span class="svc-n counter" data-count={parseInt(s.n, 10)}>{s.n}</span>
             <h3 class="svc-title">{s.title}</h3>
           </div>
           <p class="svc-desc">{s.desc}</p>
