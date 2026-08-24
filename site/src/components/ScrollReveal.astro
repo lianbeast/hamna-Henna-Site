@@ -1,0 +1,76 @@
+---
+export interface Props {
+  /** Stagger delay in ms. Defaults to 0. */
+  delay?: number;
+  /** CSS class to add to the wrapper (optional). */
+  class?: string;
+}
+
+const { delay = 0, class: className = '' } = Astro.props;
+const uid = `rv-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div
+  class="scroll-reveal ${className}"
+  data-reveal-delay={String(delay)}
+  id={uid}
+>
+  <slot />
+</div>
+
+<style>
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .scroll-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const el = document.getElementById('{uid}');
+    if (!el) return;
+
+    const delay = parseInt(el.dataset.revealDelay || '0', 10);
+
+    // Respect reduced-motion preference — show immediately
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-revealed');
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Apply the transition-delay from the data attr, then reveal
+          el.style.transitionDelay = delay + 'ms';
+          // Force a frame so the browser registers the initial hidden state
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.classList.add('is-revealed');
+            });
+          });
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+
+    observer.observe(el);
+  })();
+</script>

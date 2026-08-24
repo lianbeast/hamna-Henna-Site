@@ -1,0 +1,85 @@
+---
+import MotifPlaceholder from './MotifPlaceholder.astro';
+
+interface PortfolioItem {
+  src: string;
+  alt: string;
+  motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
+}
+
+const items = (await import('../data/portfolio.json')).default as PortfolioItem[];
+const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley', 'mandala', 'vine', 'curl', 'paisley'];
+---
+
+<section class="section-wrap" aria-labelledby="portfolio-heading">
+  <div class="glass-panel">
+    <p class="section-label label">The Portfolio</p>
+    <h2 id="portfolio-heading" class="section-h2">Recent hands, recent days.</h2>
+
+    {items.length === 0 ? (
+      <div class="pf-empty" role="status">
+        <p class="pf-empty-line">
+          Portfolio arriving soon — follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
+        </p>
+        <div class="pf-grid" aria-hidden="true">
+          {motifs.map((m, i) => (
+            <MotifPlaceholder motif={m} label={`Henna motif placeholder ${i + 1}`} />
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="pf-grid">
+        {items.map((item, i) => (
+          <figure class="pf-card">
+            <img src={item.src} alt={item.alt} loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+<style>
+  .pf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .pf-card {
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(221, 201, 168, 0.45);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.45s ease, border-color 0.45s ease;
+  }
+  .pf-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px -20px rgba(74, 44, 22, 0.4);
+  }
+  .pf-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .pf-empty-line {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-clay);
+    margin: 0 0 16px;
+  }
+  .pf-empty-line a {
+    color: var(--color-henna);
+    text-decoration: underline;
+    text-decoration-color: var(--color-rust);
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 768px) {
+    .pf-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 480px) {
+    .pf-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

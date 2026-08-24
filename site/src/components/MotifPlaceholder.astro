@@ -1,0 +1,42 @@
+---
+interface Props {
+  motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
+  label?: string;
+  class?: string;
+}
+const { motif = 'curl', label = 'Henna motif placeholder', class: className = '' } = Astro.props;
+const motifs: Record<string, string> = {
+  curl: 'M40 180 C 60 120 100 80 160 60 C 230 36 300 28 360 60 C 410 88 440 140 460 180',
+  paisley: 'M250 40 C 150 60 100 140 120 230 C 140 320 220 360 290 340 C 350 320 360 260 330 220 C 300 180 230 190 210 230 C 190 270 230 300 260 280',
+  mandala: 'M250 60 L 250 280 M150 170 L 350 170 M180 100 L 320 240 M320 100 L 180 240 M250 100 A 70 70 0 1 1 249.99 100 M180 200 A 70 70 0 1 1 179.99 200',
+  vine: 'M40 200 C 100 160 140 240 200 200 C 260 160 300 240 360 200 C 420 160 460 240 460 240'
+};
+const path = motifs[motif];
+---
+<svg
+  class={`motif-placeholder ${className}`}
+  viewBox="0 0 500 340"
+  preserveAspectRatio="xMidYMid meet"
+  role="img"
+  aria-label={label}
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect width="500" height="340" fill="var(--color-paper, #FBF4E7)" />
+  <path
+    d={path}
+    stroke="var(--color-henna, #8C2E2A)"
+    stroke-width="1.4"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <circle cx="250" cy="170" r="3" fill="var(--color-gold, #C29A4B)" />
+</svg>
+<style>
+  .motif-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 500 / 340;
+    display: block;
+  }
+</style>

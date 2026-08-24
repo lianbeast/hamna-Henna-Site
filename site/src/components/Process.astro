@@ -1,0 +1,72 @@
+---
+const steps = [
+  { n: 'I', title: 'Inquiry', body: 'Send a note with your wedding date, the bridal party size, and what you have in mind. Hamna replies within 48 hours.' },
+  { n: 'II', title: 'Confirmation', body: 'Once dates align, your slot is held. A short consultation follows to settle motifs, scope, and timing.' },
+  { n: 'III', title: 'Design', body: 'Compositions are drawn to order — hand sketches, motif libraries shared, and final sets agreed before the day.' },
+  { n: 'IV', title: 'Day-of', body: "Hamna arrives in person. The hand draws. The stain sets. The day carries it." }
+];
+---
+<section class="section-wrap" aria-labelledby="process-heading">
+  <div class="glass-panel">
+    <p class="section-label label">The Process</p>
+    <h2 id="process-heading" class="section-h2">From the first note to the last line.</h2>
+    <ol class="steps-list">
+      {steps.map((s) => (
+        <li class="step-card" style={`--i: ${steps.indexOf(s)}`}>
+          <span class="step-n">{s.n}</span>
+          <div class="step-body">
+            <h3 class="step-title">{s.title}</h3>
+            <p class="step-desc">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+<style>
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .step-card {
+    display: flex;
+    gap: 14px;
+    padding: 20px;
+    background: rgba(251, 244, 231, 0.5);
+    border-radius: 14px;
+    border: 1px solid rgba(221, 201, 168, 0.35);
+    transition: transform 0.3s ease, background-color 0.45s ease, border-color 0.45s ease;
+  }
+  .step-card:hover {
+    transform: translateY(-3px);
+  }
+  .step-n {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-henna);
+    margin: 0 0 4px;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--color-clay);
+    line-height: 1.55;
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    .steps-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

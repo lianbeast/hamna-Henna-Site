@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import Process from '../components/Process.astro';
+import Portfolio from '../components/Portfolio.astro';
+import FAQAccordion from '../components/FAQAccordion.tsx';
+import BookingInquiry from '../components/BookingInquiry.tsx';
+import Footer from '../components/Footer.astro';
+import FloatingToolbar from '../components/FloatingToolbar.tsx';
+import faq from '../data/faq.json';
+---
+
+<Layout title="Henna by Hamna — The Craft Book">
+  <!-- Static form so Netlify's build-time scanner detects the inquiry form.
+       The visible form is rendered by BookingInquiry.tsx (client:visible). -->
+  <form name="inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+    <input type="hidden" name="form-name" value="inquiry" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <input type="date" name="weddingDate" />
+    <select name="service">
+      <option value="bridal-mehndi"></option>
+      <option value="bridal-party"></option>
+      <option value="engagement-sangeet"></option>
+      <option value="natural-organic"></option>
+    </select>
+    <textarea name="message"></textarea>
+    <input name="bot-field" />
+  </form>
+
+  <!-- 3D Hero (full viewport canvas) — always visible, no reveal needed -->
+  <Hero />
+
+  <!-- Main content overlaid above 3D canvas -->
+  <main class="site-main" id="main-content">
+    <ScrollReveal>
+      <About />
+    </ScrollReveal>
+
+    <ScrollReveal delay={100}>
+      <Services />
+    </ScrollReveal>
+
+    <ScrollReveal delay={200}>
+      <Process />
+    </ScrollReveal>
+
+    <ScrollReveal delay={300}>
+      <Portfolio />
+    </ScrollReveal>
+
+    <ScrollReveal delay={400}>
+      <section class="section-wrap" aria-labelledby="faq-heading">
+        <div class="glass-panel">
+          <p class="section-label label">Questions</p>
+          <h2 id="faq-heading" class="section-h2">Asked, then answered.</h2>
+          <FAQAccordion client:visible items={faq} />
+        </div>
+      </section>
+    </ScrollReveal>
+
+    <ScrollReveal delay={500}>
+      <section class="section-wrap" aria-labelledby="booking-heading">
+        <div class="glass-panel">
+          <p class="section-label label">Inquire</p>
+          <h2 id="booking-heading" class="section-h2">A date, a hand, a reply.</h2>
+          <p class="booking-intro">
+            Send a note with your wedding date and what's in mind. Hamna replies within 48 hours.
+          </p>
+          <BookingInquiry client:visible />
+        </div>
+      </section>
+    </ScrollReveal>
+
+    <ScrollReveal delay={600}>
+      <Footer />
+    </ScrollReveal>
+
+    <!-- Floating toolbar (fixed bottom-right pill: theme + audio) -->
+    <FloatingToolbar client:load />
+  </main>
+</Layout>
+
+<style>
+  .section-wrap {
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    color: var(--color-henna);
+    margin: 0 0 4px;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .section-h2 {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 600;
+    color: var(--color-inkbrown);
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+
+  .booking-intro {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--color-clay);
+    margin: 0 0 20px;
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+const services = [
+  { n: '01', title: 'Bridal Mehndi', desc: 'Full hand and foot artistry, composed to order for the wedding day. Traditional or contemporary motifs tailored to the bride.', note: 'Composed to order.' },
+  { n: '02', title: 'Bridal Party Coordination', desc: 'Coordinated designs for maids, mothers, and sisters — a unified set that ties the celebration together.', note: 'By the party.' },
+  { n: '03', title: 'Engagement & Sangeet', desc: 'Occasion designs for engagement nights and sangeet — lighter, faster, made for the evening.', note: 'By the evening.' },
+  { n: '04', title: 'Natural / Organic Henna', desc: 'Organic, clove-free paste for sensitive brides and skin. Drawn in the same hand, in a gentler formula.', note: 'By arrangement.' }
+];
+---
+<section class="section-wrap" aria-labelledby="services-heading">
+  <div class="glass-panel">
+    <p class="section-label label">The Services</p>
+    <h2 id="services-heading" class="section-h2">Four ways Hamna's hand works.</h2>
+    <ol class="svc-list">
+      {services.map((s) => (
+        <li class="svc-entry">
+          <div class="svc-row">
+            <span class="svc-n">{s.n}</span>
+            <h3 class="svc-title">{s.title}</h3>
+          </div>
+          <p class="svc-desc">{s.desc}</p>
+          <p class="svc-note">{s.note}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
