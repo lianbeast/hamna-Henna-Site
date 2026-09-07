@@ -22,9 +22,13 @@ export default function AdminDashboard() {
         return;
       }
 
-      // 2. Load Profile
-      const { data: profData } = await supabase.from('profiles').select('*').single();
+      // 2. Load Profile (own row first, else any row)
+      const { data: profData } = await supabase.from('profiles').select('*').eq('id', user.id).maybeSingle();
       if (profData) setProfile(profData);
+      else {
+        const { data: anyData } = await supabase.from('profiles').select('*').maybeSingle();
+        if (anyData) setProfile(anyData);
+      }
 
       // 3. Load Inquiries
       const { data: inqData } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
@@ -40,10 +44,12 @@ export default function AdminDashboard() {
     setSaving(true);
     setMsg('');
 
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setMsg('Not signed in.'); setSaving(false); return; }
+
     const { error } = await supabase
       .from('profiles')
-      .update(profile)
-      .eq('id', (await supabase.auth.getUser()).data.user?.id);
+      .upsert({ ...profile, id: user.id }, { onConflict: 'id' });
 
     if (error) {
       setMsg('Error updating profile: ' + error.message);
