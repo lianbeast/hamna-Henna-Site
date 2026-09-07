@@ -11,14 +11,17 @@ export async function getBusinessProfile() {
     .select('*')
     .single()
 
-  if (error) {
-    console.error('Error fetching profile:', error)
-    return {
-      business_name: 'Plain-Jane Template',
-      contact_email: 'hello@example.com',
-      instagram_handle: '@yourhandle',
-      tagline: 'A short tagline goes here.'
-    }
+  const defaults = {
+    business_name: 'Plain-Jane Template',
+    contact_email: 'hello@example.com',
+    instagram_handle: '@yourhandle',
+    tagline: 'A short tagline goes here.'
+  };
+
+  if (error || !data) {
+    console.error('Error or no profile found, using defaults:', error);
+    return defaults;
   }
-  return data
+
+  return { ...defaults, ...data };
 }
