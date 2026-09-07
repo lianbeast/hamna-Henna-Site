@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import AudioToggle from './AudioToggle';
-import AudioSettings from './AudioSettings';
 import ShortcutHelp from './ShortcutHelp';
 import ThemeToggle from './ThemeToggle';
 import { toggleTheme } from './themeStore';
-import { togglePlay } from './audioStore';
 
 /**
- * Global keyboard shortcuts: T toggles the theme, M toggles the drone.
+ * Global keyboard shortcuts: T toggles the theme.
  * Ignored while typing in form fields or when modifier keys are held.
  */
 function useToolbarShortcuts() {
@@ -26,8 +23,6 @@ function useToolbarShortcuts() {
       const key = e.key.toLowerCase();
       if (key === 't') {
         toggleTheme();
-      } else if (key === 'm') {
-        void togglePlay();
       }
     };
 
@@ -47,10 +42,6 @@ export default function FloatingToolbar() {
   return (
     <div className="toolbar-pill" role="toolbar" aria-label="Site controls">
       <ThemeToggle compact />
-      <span className="toolbar-divider" aria-hidden="true" />
-      <AudioToggle compact />
-      <span className="toolbar-divider" aria-hidden="true" />
-      <AudioSettings />
       <span className="toolbar-divider" aria-hidden="true" />
       <ShortcutHelp />
     </div>
