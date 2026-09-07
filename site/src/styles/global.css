@@ -517,6 +517,9 @@
 html.theme-dark .glass-panel {
   box-shadow: 0 8px 32px -8px rgba(15, 12, 41, 0.5);
 }
+
+/* ── Shortcut Help Panel ────────────────────────────────────── */
+@layer components {
   .help-btn[aria-expanded='true'] {
     background: rgba(140, 46, 42, 0.12);
     color: var(--color-inkbrown);

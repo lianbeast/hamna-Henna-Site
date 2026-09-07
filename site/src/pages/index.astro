@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import faqs from '../data/faq.json';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
@@ -48,7 +49,7 @@ import FloatingToolbar from '../components/FloatingToolbar';
    </section>
 
     <section class="section-wrap" id="faq">
-      <FAQAccordion client:visible />
+      <FAQAccordion client:visible items={faqs} />
    </section>
 
     <section class="section-wrap" id="booking">
