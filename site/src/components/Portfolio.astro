@@ -27,15 +27,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <img src={`${base}/${item.src}`} alt={item.alt} loading="lazy" />
             {(item.caption || item.occasion) && (
               <figcaption class="pf-cap">
-                {item.caption && <span class="pf-cap-title">{item.caption</span>}
-                {item.occasion && <span class="pf-cap-occasion">{item.occasion</span>}
+                {item.caption && <span class="pf-cap-title">{item.caption}</span>}
+                {item.occasion && <span class="pf-cap-occasion">{item.occasion}</span>}
              </figcaption>
             )}
          </figure>
         ))}
      </div>
     )}
- </div>
+  </div>
 </section>
 <style>
   .pf-grid {
