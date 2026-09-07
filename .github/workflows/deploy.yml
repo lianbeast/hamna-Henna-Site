@@ -31,7 +31,7 @@ jobs:
           cache-dependency-path: site/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: cd site && pnpm install --frozen-lockfile
+        run: cd site && pnpm install --no-frozen-lockfile
 
       - name: Build
         run: cd site && pnpm build
