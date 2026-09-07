@@ -1,21 +1,23 @@
 ---
-// Static hero — no 3D, no canvas. Large heading, subtitle, single CTA.
+import { getBusinessProfile } from '../lib/supabase';
+
+const profile = await getBusinessProfile();
 ---
 
 <header class="hero-zone" id="hero">
   <div class="hero-content">
-    <p class="hero-eyebrow label">Plain-Jane Template</p>
+    <p class="hero-eyebrow label">{profile.business_name}</p>
     <h1 class="hero-title">A simple site starts here</h1>
     <p class="hero-tagline">
-      A practical, fast one-pager with sections a developer can re-skin in an afternoon.
-   </p>
+      {profile.tagline}
+    </p>
     <a href="#booking" class="hero-cta">Get in touch</a>
     <div class="hero-links">
       <a href="tel:+13015554321">+1 (000) 000-0000</a>
       <span class="hero-sep" aria-hidden="true">·</span>
-      <a href="https://instagram.com/" target="_blank" rel="noopener">@your-handle</a>
-   </div>
- </div>
+      <a href={`https://instagram.com/${profile.instagram_handle.replace('@', '')}`} target="_blank" rel="noopener">{profile.instagram_handle}</a>
+    </div>
+  </div>
 </header>
 
 <style>

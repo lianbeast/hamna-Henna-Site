@@ -1,14 +1,5 @@
 import { useState, useCallback } from 'react';
-
-/**
- * Where FormSubmit delivers submissions.
- * First submission triggers an activation email from FormSubmit — click it once.
- * Replace with the real inbox that should receive submissions
- * (e.g. hello@your-domain.com).
- */
-const FORM_EMAIL = 'hello@example.com';
-
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
+import { supabase } from '../lib/supabase';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -16,7 +7,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  weddingDate: string;
+  eventDate: string;
   service: string;
   message: string;
   'bot-field': string;
@@ -52,40 +43,26 @@ export default function BookingInquiry() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (data['bot-field']) return; // Bot detection
+
     setStatus('submitting');
     setError(null);
 
     try {
-      const payload = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        weddingDate: data.weddingDate,
-        service: services.find((s) => s.value === data.service)?.label ?? data.service,
-        message: data.message,
-        _subject: 'New booking inquiry',
-        _template: 'table',
-        _captcha: 'false',
-        _honey: data['bot-field'] // honeypot: silently ignored if filled by bots
-      };
+      const { error: insertError } = await supabase
+        .from('inquiries')
+        .insert([
+          {
+            customer_name: data.name,
+            customer_email: data.email,
+            customer_phone: data.phone,
+            event_date: data.eventDate,
+            service: services.find((s) => s.value === data.service)?.label ?? data.service,
+            message: data.message,
+          }
+        ]);
 
-      const response = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        throw new Error('Submission failed. Please try again.');
-      }
-
-      const result = await response.json();
-      if (result.success !== 'true' && result.success !== true) {
-        throw new Error(result.message || 'Submission failed. Please try again.');
-      }
+      if (insertError) throw insertError;
 
       setStatus('success');
     } catch (err) {

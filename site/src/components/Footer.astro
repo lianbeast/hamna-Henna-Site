@@ -1,16 +1,18 @@
 ---
+import { getBusinessProfile } from '../lib/supabase';
+const profile = await getBusinessProfile();
 const year = new Date().getFullYear();
 ---
 <footer class="footer-wrap">
   <div class="glass-panel footer-panel">
     <div class="footer-row">
-      <p class="footer-quote">A short tagline goes here.</p>
+      <p class="footer-quote">{profile.tagline}</p>
       <div class="footer-contact">
         <a href="tel:+13015554321" class="footer-phone">+1 (000) 000-0000</a>
-        <a href="https://instagram.com/" target="_blank" rel="noopener" class="footer-ig">@your-handle</a>
+        <a href={`https://instagram.com/${profile.instagram_handle.replace('@', '')}`} target="_blank" rel="noopener" class="footer-ig">{profile.instagram_handle}</a>
       </div>
     </div>
-    <p class="footer-copy">© {year} Your Name. Built on the plain-jane template.</p>
+    <p class="footer-copy">© {year} {profile.business_name}. Built on the plain-jane template.</p>
   </div>
 </footer>
 <style>
