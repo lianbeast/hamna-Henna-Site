@@ -357,11 +357,8 @@
   .booking-submit,
   .booking-success,
   .toolbar-pill,
-  .audio-btn--compact,
   .theme-btn--compact,
-  .tune-btn,
   .help-btn,
-  .audio-note,
   .faq-trigger,
   .faq-accordion,
   .faq-item,
@@ -370,8 +367,6 @@
   .hero-eyebrow,
   .hero-gradient-top,
   .hero-gradient-bottom,
-  .audio-toggle-thumb,
-  .audio-toggle-track,
   .scroll-top,
   .glass-panel,
   .pricing-cta,
@@ -521,14 +516,7 @@
 /* Dark mode: tilt shadow */
 html.theme-dark .glass-panel {
   box-shadow: 0 8px 32px -8px rgba(15, 12, 41, 0.5);
-}0, 46, 42, 0.08);
-    transform: scale(1.1);
-    color: var(--color-inkbrown);
-  }
-  .help-btn:focus-visible {
-    outline: 2px solid var(--color-rust);
-    outline-offset: 2px;
-  }
+}
   .help-btn[aria-expanded='true'] {
     background: rgba(140, 46, 42, 0.12);
     color: var(--color-inkbrown);
@@ -701,9 +689,7 @@ html.theme-dark .toolbar-divider {
   background: rgba(61, 58, 110, 0.55);
 }
 
-html.theme-dark .audio-btn--compact,
-html.theme-dark .theme-btn--compact,
-html.theme-dark .tune-btn {
+html.theme-dark .theme-btn--compact {
   color: var(--color-gold);
 }
 
@@ -719,67 +705,9 @@ html.theme-dark .scroll-top:hover {
   border-color: var(--color-gold);
 }
 
-html.theme-dark .audio-btn--compact:hover,
-html.theme-dark .theme-btn--compact:hover,
-html.theme-dark .tune-btn:hover {
+html.theme-dark .theme-btn--compact:hover {
   background: rgba(108, 92, 231, 0.15);
   color: var(--color-henna);
-}
-
-html.theme-dark .audio-btn--compact[data-playing='true'] {
-  color: var(--color-henna);
-}
-
-html.theme-dark .tune-btn[aria-expanded='true'] {
-  background: rgba(108, 92, 231, 0.2);
-  color: var(--color-henna);
-}
-
-/* Dark mode: audio settings popover */
-html.theme-dark .audio-panel {
-  background: rgba(26, 21, 68, 0.92);
-  border-color: rgba(61, 58, 110, 0.55);
-  box-shadow: 0 24px 60px -28px rgba(15, 12, 41, 0.7);
-}
-
-html.theme-dark .audio-note {
-  background: rgba(26, 21, 68, 0.6);
-  border-color: rgba(61, 58, 110, 0.5);
-  color: var(--color-inkbrown);
-}
-
-html.theme-dark .audio-note:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
-}
-
-html.theme-dark .audio-note--active,
-html.theme-dark .audio-note--active:hover {
-  background: var(--color-henna);
-  border-color: var(--color-henna);
-  color: #0f0c29;
-}
-
-html.theme-dark .audio-range {
-  background: rgba(61, 58, 110, 0.8);
-}
-
-html.theme-dark .audio-range::-webkit-slider-thumb {
-  background: var(--color-gold);
-  border-color: #1a1544;
-}
-
-html.theme-dark .audio-range::-moz-range-thumb {
-  background: var(--color-gold);
-  border-color: #1a1544;
-}
-
-html.theme-dark .audio-toggle-track {
-  background: rgba(61, 58, 110, 0.8);
-}
-
-html.theme-dark .audio-toggle-input:checked + .audio-toggle-track {
-  background: var(--color-gold);
 }
 
 /* Dark mode: shortcut help */

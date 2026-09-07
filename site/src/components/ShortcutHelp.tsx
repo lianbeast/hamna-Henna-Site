@@ -58,7 +58,7 @@ export default function ShortcutHelp() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-label="Keyboard shortcuts"
-        title="Keyboard shortcuts (T · M)"
+        title="Keyboard shortcuts (T)"
       >
         <svg
           width="16"
@@ -83,10 +83,6 @@ export default function ShortcutHelp() {
           <div className="help-row">
             <kbd className="help-key">T</kbd>
             <span className="help-action">Toggle light / dark theme</span>
-          </div>
-          <div className="help-row">
-            <kbd className="help-key">M</kbd>
-            <span className="help-action">Play / pause ambient drone</span>
           </div>
         </div>
       )}
