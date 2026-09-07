@@ -3,9 +3,10 @@ import { useState, useCallback } from 'react';
 /**
  * Where FormSubmit delivers submissions.
  * First submission triggers an activation email from FormSubmit — click it once.
- * Replace with Hamna's real inbox (e.g. hamna@example.com).
+ * Replace with the real inbox that should receive submissions
+ * (e.g. hello@your-domain.com).
  */
-const FORM_EMAIL = 'hamna-henna@example.com';
+const FORM_EMAIL = 'hello@example.com';
 
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
 
@@ -22,10 +23,10 @@ interface FormData {
 }
 
 const services = [
-  { value: 'bridal-mehndi', label: 'Bridal Mehndi' },
-  { value: 'bridal-party', label: 'Bridal Party Coordination' },
-  { value: 'engagement-sangeet', label: 'Engagement & Sangeet' },
-  { value: 'natural-organic', label: 'Natural / Organic Henna' }
+  { value: 'service-one', label: 'Service One' },
+  { value: 'service-two', label: 'Service Two' },
+  { value: 'service-three', label: 'Service Three' },
+  { value: 'service-four', label: 'Service Four' }
 ];
 
 export default function BookingInquiry() {
@@ -33,8 +34,8 @@ export default function BookingInquiry() {
     name: '',
     email: '',
     phone: '',
-    weddingDate: '',
-    service: 'bridal-mehndi',
+    eventDate: '',
+    service: 'service-one',
     message: '',
     'bot-field': ''
   });
@@ -62,7 +63,7 @@ export default function BookingInquiry() {
         weddingDate: data.weddingDate,
         service: services.find((s) => s.value === data.service)?.label ?? data.service,
         message: data.message,
-        _subject: 'New booking inquiry — Henna by Hamna',
+        _subject: 'New booking inquiry',
         _template: 'table',
         _captcha: 'false',
         _honey: data['bot-field'] // honeypot: silently ignored if filled by bots
@@ -99,7 +100,7 @@ export default function BookingInquiry() {
         <span className="booking-success-tick" aria-hidden="true">✓</span>
         <h3 className="booking-success-title">Inquiry received.</h3>
         <p className="booking-success-body">
-          Hamna will reply within 48 hours. In the meantime, follow <a href="https://www.instagram.com/dmvflowerbar/" target="_blank" rel="noopener">@dmvflowerbar</a> for the latest work.
+          Your inquiry has been received. We will reply within 48 hours. In the meantime, feel free to explore the portfolio.
         </p>
       </div>
     );
@@ -160,13 +161,13 @@ export default function BookingInquiry() {
         </div>
 
         <div className="booking-field">
-          <label htmlFor="weddingDate" className="booking-label">Wedding date</label>
+          <label htmlFor="eventDate" className="booking-label">Event date</label>
           <input
-            id="weddingDate"
-            name="weddingDate"
+            id="eventDate"
+            name="eventDate"
             type="date"
             required
-            value={data.weddingDate}
+            value={data.eventDate}
             onChange={handleChange}
             disabled={status === 'submitting'}
             className="booking-input"

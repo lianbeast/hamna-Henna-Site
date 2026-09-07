@@ -8,7 +8,7 @@ interface Props {
 }
 
 const SITE_URL = 'https://lianbeast.github.io/hamna-Henna-Site';
-const DEFAULT_DESCRIPTION = 'Henna by Hamna — henna artistry for the DMV. Simple, detailed, special-detailed and Arabic henna for Eid, Chaand-Raat, weddings, showers and special events. Custom designs available. Serving DC, Maryland and Virginia. Sister brand of @dmvflowerbar.';
+const DEFAULT_DESCRIPTION = 'A short, plain-Jane site. Replace this default description with your own. Keep it under 200 characters for best search-result display.';
 
 const { title, description = DEFAULT_DESCRIPTION, ogImage = '/og-image.png' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
@@ -24,7 +24,7 @@ const ogImageURL = new URL(ogImage, SITE_URL);
     <!-- Primary Meta -->
     <title>{title</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Henna by Hamna" />
+    <meta name="author" content="Your Brand" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
@@ -36,7 +36,7 @@ const ogImageURL = new URL(ogImage, SITE_URL);
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Henna by Hamna" />
+    <meta property="og:site_name" content="Your Brand" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
@@ -45,7 +45,7 @@ const ogImageURL = new URL(ogImage, SITE_URL);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:creator" content="@dmvflowerbar" />
+    <meta name="twitter:creator" content="@your-handle" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.png`} />
@@ -55,7 +55,7 @@ const ogImageURL = new URL(ogImage, SITE_URL);
     <meta name="theme-color" content="#8c5123" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Henna by Hamna" />
+    <meta name="apple-mobile-web-app-title" content="Your Brand" />
     <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icon-192.png`} />
 
     <!-- Fonts -->
@@ -67,32 +67,27 @@ const ogImageURL = new URL(ogImage, SITE_URL);
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Henna by Hamna",
+      "name": "Your Brand",
       "description": description,
       "url": SITE_URL,
       "image": ogImageURL.href,
       "brand": {
         "@type": "Organization",
-        "name": "DMV Flower Bar",
-        "url": "https://instagram.com/dmvflowerbar",
-        "sameAs": ["https://instagram.com/dmvflowerbar"]
+        "name": "Your Brand",
+        "url": "https://instagram.com/yourhandle",
+        "sameAs": ["https://instagram.com/yourhandle"]
       },
       "areaServed": [
-        { "@type": "State", "name": "District of Columbia" },
-        { "@type": "State", "name": "Maryland" },
-        { "@type": "State", "name": "Virginia" }
+        { "@type": "Place", "name": "Your Service Area" }
       ],
       "serviceType": [
-        "Henna Art",
-        "Bridal Henna",
-        "Eid Henna",
-        "Wedding Henna",
-        "Party Henna",
-        "Chaand-Raat Henna"
+        "Service One",
+        "Service Two",
+        "Service Three"
       ],
       "priceRange": "$$",
       "sameAs": [
-        "https://instagram.com/dmvflowerbar"
+        "https://instagram.com/your-handle"
       ]
     })} />
 

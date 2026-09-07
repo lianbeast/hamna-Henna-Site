@@ -10,8 +10,8 @@ const items = (await import('../data/testimonials.json')).default as Testimonial
 
 <section class="section-wrap" aria-labelledby="testimonials-heading">
   <div class="glass-panel">
-    <p class="section-label label">Love Notes</p>
-    <h2 id="testimonials-heading" class="section-h2">From the hands that wore it.</h2>
+    <p class="section-label label">Testimonials</p>
+    <h2 id="testimonials-heading" class="section-h2">A few words from clients.</h2>
 
     {items.length > 0 ? (
       <div class="testi-grid">
@@ -26,7 +26,7 @@ const items = (await import('../data/testimonials.json')).default as Testimonial
         ))}
       </div>
     ) : (
-      <p class="testi-empty">Testimonials arriving soon.</p>
+      <p class="testi-empty">Add entries to src/data/testimonials.json to populate this section.</p>
     )}
   </div>
 </section>
