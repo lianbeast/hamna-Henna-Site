@@ -1,0 +1,325 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Henna by Hamna — design tokens
+   Palette pinned by the brief. Dark values are a second set,
+   NOT an inversion: the emerald stays put, the grounds drop.
+   ============================================================ */
+
+@theme {
+  --color-ivory: #f8f1e5;
+  --color-cream: #efe3cf;
+  --color-floral: #fff9ef;
+  --color-emerald: #123c35;
+  --color-forest: #1f5145;
+  --color-gold: #c6a15b;
+  --color-beige: #cdb99a;
+  --color-espresso: #3b2118;
+
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-frame: 999px 999px 4px 4px;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-quick: 180ms;
+  --dur-slow: 640ms;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  :root.theme-dark {
+    color-scheme: dark;
+
+    --color-ivory: #171310;
+    --color-cream: #1f1814;
+    --color-floral: #f5efe4;
+    --color-emerald: #123c35;
+    --color-forest: #2a6d5c;
+    --color-gold: #c6a15b;
+    --color-beige: #8c7a5e;
+    --color-espresso: #efe3cf;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* sticky header must not cover an anchored heading */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-ivory);
+    color: var(--color-espresso);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    /* cream-on-cream paisley, kept faint enough to never fight text */
+    background-image: url('/textures/paisley.svg');
+    background-size: 180px 180px;
+    background-repeat: repeat;
+  }
+
+  :root.theme-dark body {
+    background-image: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.15;
+    /* display italic descenders (g y j p q) need room at tight leading */
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: 65ch;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-espresso);
+  }
+}
+
+@layer components {
+  /* ---------- layout ---------- */
+
+  .shell {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .section {
+    padding-block: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 8rem;
+    }
+  }
+
+  /* ---------- type ---------- */
+
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* gold as a heading-colour is decorative-only on light grounds;
+     it only becomes type on the emerald band or in dark mode */
+  .gold-ink {
+    color: var(--color-gold);
+  }
+
+  .script {
+    font-family: var(--font-script);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  /* ---------- ornament frame ---------- */
+
+  .arched {
+    position: relative;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+  }
+
+  @media (max-width: 767px) {
+    .arched {
+      border-top-left-radius: 12rem;
+      border-top-right-radius: 12rem;
+    }
+  }
+
+  .arch-rule {
+    border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+  }
+
+  /* corner botanicals sit behind content and can never eat a click */
+  .botanical {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.5;
+    color: var(--color-forest);
+    z-index: 0;
+  }
+
+  .has-text-over .botanical {
+    opacity: 0.28;
+  }
+
+  /* ---------- buttons ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid transparent;
+    transition:
+      background-color var(--dur-quick) var(--ease-out-soft),
+      color var(--dur-quick) var(--ease-out-soft),
+      border-color var(--dur-quick) var(--ease-out-soft);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background: var(--color-forest);
+    color: var(--color-floral);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-emerald);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-espresso);
+    border-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  }
+
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+  }
+
+  /* on the emerald band the primary inverts to ivory */
+  .btn-invert {
+    background: var(--color-floral);
+    color: var(--color-emerald);
+  }
+
+  .btn-invert:hover {
+    background: var(--color-gold);
+    color: var(--color-espresso);
+  }
+
+  /* ---------- divider ---------- */
+
+  .rule-floral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--color-gold);
+  }
+
+  .rule-floral::before,
+  .rule-floral::after {
+    content: '';
+    height: 1px;
+    width: clamp(3rem, 12vw, 7rem);
+    background: currentColor;
+  }
+
+  /* ---------- card ---------- */
+
+  .card {
+    background: var(--color-floral);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 40%, transparent);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-espresso) 6%, transparent);
+  }
+
+  :root.theme-dark .card {
+    background: var(--color-espresso);
+    box-shadow: none;
+  }
+
+  .card-featured {
+    border-color: var(--color-gold);
+    border-width: 2px;
+  }
+
+  /* ---------- placeholder photo frame ---------- */
+
+  .photo-slot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+    color: var(--color-beige);
+    overflow: hidden;
+  }
+
+  :root.theme-dark .photo-slot {
+    border-style: dashed;
+  }
+
+  .photo-slot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ============================================================
+   Scroll reveal — native CSS only, no observer, no layout shift.
+   Wrapped so reduced-motion users get everything visible at once.
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-rise both var(--dur-slow) var(--ease-out-soft);
+      animation-timeline: view();
+      animation-range: entry 5% cover 22%;
+    }
+
+    @keyframes reveal-rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
