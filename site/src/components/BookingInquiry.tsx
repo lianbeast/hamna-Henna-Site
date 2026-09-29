@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { supabase } from '../lib/supabase';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -7,17 +6,16 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  eventDate: string;
+  weddingDate: string;
   service: string;
   message: string;
-  'bot-field': string;
 }
 
 const services = [
-  { value: 'service-one', label: 'Service One' },
-  { value: 'service-two', label: 'Service Two' },
-  { value: 'service-three', label: 'Service Three' },
-  { value: 'service-four', label: 'Service Four' }
+  { value: 'bridal-mehndi', label: 'Bridal Mehndi' },
+  { value: 'bridal-party', label: 'Bridal Party Coordination' },
+  { value: 'engagement-sangeet', label: 'Engagement & Sangeet' },
+  { value: 'natural-organic', label: 'Natural / Organic Henna' }
 ];
 
 export default function BookingInquiry() {
@@ -25,10 +23,9 @@ export default function BookingInquiry() {
     name: '',
     email: '',
     phone: '',
-    eventDate: '',
-    service: 'service-one',
-    message: '',
-    'bot-field': ''
+    weddingDate: '',
+    service: 'bridal-mehndi',
+    message: ''
   });
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -43,26 +40,20 @@ export default function BookingInquiry() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (data['bot-field']) return; // Bot detection
-
     setStatus('submitting');
     setError(null);
 
     try {
-      const { error: insertError } = await supabase
-        .from('inquiries')
-        .insert([
-          {
-            customer_name: data.name,
-            customer_email: data.email,
-            customer_phone: data.phone,
-            event_date: data.eventDate,
-            service: services.find((s) => s.value === data.service)?.label ?? data.service,
-            message: data.message,
-          }
-        ]);
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-      if (insertError) throw insertError;
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({ error: 'Submission failed' }));
+        throw new Error(err.error || 'Submission failed');
+      }
 
       setStatus('success');
     } catch (err) {
@@ -77,17 +68,14 @@ export default function BookingInquiry() {
         <span className="booking-success-tick" aria-hidden="true">✓</span>
         <h3 className="booking-success-title">Inquiry received.</h3>
         <p className="booking-success-body">
-          Your inquiry has been received. We will reply within 48 hours. In the meantime, feel free to explore the portfolio.
+          Hamna will reply within 48 hours. In the meantime, follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
         </p>
       </div>
     );
   }
 
   return (
-    <form className="booking-form" onSubmit={handleSubmit} name="inquiry" noValidate aria-busy={status === 'submitting'}>
-      <p className="booking-honeypot" aria-hidden="true">
-        <label>Don't fill this out if you're human: <input name="bot-field" value={data['bot-field']} onChange={handleChange} tabIndex={-1} autoComplete="off" /></label>
-      </p>
+    <form className="booking-form" onSubmit={handleSubmit} noValidate aria-busy={status === 'submitting'}>
       <h3 className="booking-title">Inquire about a date</h3>
 
       <div className="booking-error-region" role="alert" aria-live="polite">
@@ -138,13 +126,13 @@ export default function BookingInquiry() {
         </div>
 
         <div className="booking-field">
-          <label htmlFor="eventDate" className="booking-label">Event date</label>
+          <label htmlFor="weddingDate" className="booking-label">Wedding date</label>
           <input
-            id="eventDate"
-            name="eventDate"
+            id="weddingDate"
+            name="weddingDate"
             type="date"
             required
-            value={data.eventDate}
+            value={data.weddingDate}
             onChange={handleChange}
             disabled={status === 'submitting'}
             className="booking-input"
