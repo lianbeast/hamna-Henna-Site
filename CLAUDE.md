@@ -6,6 +6,20 @@ Astro 7 + React 19 + Tailwind v4 + Supabase portfolio site for a henna artist.
 
 ---
 
+## Project Structure
+
+```
+/hamna-site
+├── site/              # Astro project (primary codebase)
+│   ├── src/           # Source code
+│   ├── public/        # Static assets
+│   └── package.json   # Project dependencies
+├── docs/              # Documentation & design specs
+└── .github/workflows/ # CI/CD (GitHub Pages deploy)
+```
+
+---
+
 ## Quick Start
 
 ```bash
@@ -16,7 +30,7 @@ pnpm build        # Production build
 pnpm preview      # Preview production build
 ```
 
-**Environment variables** (create `.env.local`):
+**Environment variables** (create `site/.env.local`):
 
 ```env
 SUPABASE_URL=your_supabase_project_url
@@ -37,6 +51,7 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 **Test setup** (recommended):
 
 ```bash
+cd site
 pnpm add -D vitest @vitest/ui jsdom @testing-library/react
 ```
 
@@ -80,7 +95,7 @@ Run tests: `pnpm test` or `pnpm test:ui` (Vitest UI).
 
 ---
 
-## Key File Locations
+## Key File Locations (in `site/`)
 
 | Category | Path |
 |----------|------|
