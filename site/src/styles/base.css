@@ -1,0 +1,23 @@
+@layer base {
+  html {
+    font-family: var(--font-serif);
+    background-color: var(--color-ivory);
+    color: var(--color-clay);
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+    /* Smooth theme transitions */
+    transition: background-color 0.45s ease, color 0.45s ease;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+    background: radial-gradient(ellipse at 20% 10%, rgba(140, 46, 42, 0.14), transparent 55%),
+                radial-gradient(ellipse at 85% 30%, rgba(194, 154, 75, 0.12), transparent 50%),
+                radial-gradient(ellipse at 50% 90%, rgba(140, 46, 42, 0.08), transparent 60%),
+                var(--color-ivory);
+    background-attachment: fixed;
+    transition: background 0.45s ease;
+  }
+}

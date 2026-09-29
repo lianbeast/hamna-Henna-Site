@@ -1,0 +1,16 @@
+@theme {
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+
+  --color-ivory: #FDFBF7;
+  --color-paper: #F5F0E6;
+  --color-inkbrown: #2D2D2D;
+  --color-henna: #B8553D;
+  --color-rose: #D48C9E;
+  --color-rust: #C96C5D;
+  --color-gold: #D4AF37;
+  --color-clay: #A67B5B;
+  --color-sandline: #C96C5D;
+  --color-cream: #EFE0C6;
+
+  --shadow-page-fall: 0 1px 0 rgba(74, 44, 22, 0.05), 0 18px 40px -24px rgba(74, 44, 22, 0.3);
+}

@@ -1,0 +1,32 @@
+@layer components {
+  /* Content floats above fixed 3D canvas */
+  .site-main {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .glass-panel {
+    background: rgba(251, 244, 231, 0.62);
+    backdrop-filter: saturate(1.15);
+    -webkit-backdrop-filter: saturate(1.15);
+    border-radius: 12px;
+    box-shadow: 0 0 32px rgba(251, 244, 231, 0.5), 0 0 0 1px rgba(221, 201, 168, 0.35);
+    border: 1px solid rgba(221, 201, 168, 0.55);
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    cubic-bezier(0.22, 1, 0.36, 1) box-shadow,
+    cubic-bezier(0.22, 1, 0.36, 1) cubic-bezier(0.22, 1, 0.36, 1),
+    background-color,
+    border-color;
+  }
+
+  .glass-panel:hover {
+    box-shadow: 0 0 40px rgba(251, 244, 231, 0.7), 0 0 0 1.5px rgba(221, 201, 168, 0.65);
+  }
+}
