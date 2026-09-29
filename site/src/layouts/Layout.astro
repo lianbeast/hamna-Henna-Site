@@ -21,7 +21,7 @@ const ogImageURL = new URL(ogImage, SITE_URL);
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="color-scheme" content="light dark" />
 
     <!-- Primary Meta -->
     <title>{title}</title>
@@ -105,8 +105,8 @@ const ogImageURL = new URL(ogImage, SITE_URL);
         } catch (e) { /* ignore */ }
       })();
    </script>
- </head>
-  <body class="bg-ivory text-clay min-h-screen">
+ <meta name="color-scheme" content="light dark" /></head>
+  <body class="bg-ivory text-clay min-h-[100dvh]">
     <slot />
  </body>
 </html>

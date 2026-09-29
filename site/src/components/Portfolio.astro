@@ -6,6 +6,7 @@ interface PortfolioItem {
   src: string;
   alt: string;
   motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
+  year?: number;
 }
 
 const items = (await import('../data/portfolio.json')).default as PortfolioItem[];
@@ -17,26 +18,32 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
   <p class="folio-label label">The Portfolio</p>
   <h2 id="portfolio-heading" class="folio-h2">Recent hands, recent days.</h2>
 
-  {items.length === 0 ? (
-    <div class="folio-portfolio-empty" role="status">
-      <p class="folio-empty-line">
-        Portfolio arriving soon — follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
-      </p>
-      <div class="folio-portfolio-grid" aria-hidden="true">
-        {motifs.map((m, i) => (
-          <MotifPlaceholder motif={m} label={`Henna motif placeholder ${i + 1}`} />
+  <div class="folio-portfolio-grid" role="grid">
+    {items.length === 0 ? (
+      <div class="folio-portfolio-empty" role="status">
+        <p class="folio-empty-line">
+          Portfolio arriving soon - follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
+        </p>
+        <div class="folio-portfolio-grid-skeleton" aria-hidden="true">
+          {motifs.map((m, i) => (
+            <MotifPlaceholder motif={m} label={`Henna motif placeholder ${i + 1}`} />
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="folio-portfolio-grid-view" role="grid">
+        {items.map((item, i) => (
+          <figure class="folio-portfolio-card" role="group" aria-label={`Henna design ${item.alt}, ${item.year || ''}`} key={item.src}>
+            <img src={item.src} alt={item.alt} loading="lazy" width={500} height={340} />
+            <figcaption class="folio-portfolio-caption">
+              <span class="folio-portfolio-caption-motif">{item.motif || 'mixed'}</span>
+              {item.year && <span class="folio-portfolio-caption-year">{item.year}</span>}
+            </figcaption>
+          </figure>
         ))}
       </div>
-    </div>
-  ) : (
-    <div class="folio-portfolio-grid">
-      {items.map((item, i) => (
-        <figure class="folio-portfolio-card">
-          <img src={item.src} alt={item.alt} loading="lazy" />
-        </figure>
-      ))}
-    </div>
-  )}
+    )}
+  </div>
 </section>
 
 <style>
@@ -50,7 +57,7 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
   }
 
   .label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -62,6 +69,23 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
     color: var(--color-inkbrown);
     margin: 0 0 24px;
     text-wrap: balance;
+  }
+
+  .folio-portfolio-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  @media (min-width: 768px) {
+    .folio-portfolio-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .folio-portfolio-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .folio-portfolio-empty {
@@ -84,28 +108,70 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
     text-underline-offset: 3px;
   }
 
-  .folio-portfolio-grid {
+  .folio-portfolio-grid-skeleton {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
 
+  @media (min-width: 768px) {
+    .folio-portfolio-grid-skeleton {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .folio-portfolio-grid-skeleton {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   .folio-portfolio-card {
-    margin: 0;
-    border: 1px solid var(--color-sandline);
-    background: var(--color-paper);
+    position: relative;
+    border-radius: 12px;
     overflow: hidden;
+    background: var(--color-paper);
   }
 
   .folio-portfolio-card img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .folio-portfolio-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .folio-portfolio-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(transparent, rgba(45, 45, 45, 0.85));
+    color: var(--color-ivory);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .folio-portfolio-caption-motif {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+  }
+
+  .folio-portfolio-caption-year {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-left: 4px;
   }
 
   @media (max-width: 600px) {
-    .folio-portfolio-grid {
-      grid-template-columns: 1fr;
+    .folio-portfolio-card img {
+      height: 180px;
     }
   }
 </style>

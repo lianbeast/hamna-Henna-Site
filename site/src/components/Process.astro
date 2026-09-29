@@ -1,27 +1,19 @@
 ---
 import Ornament from './Ornament.astro';
-
-const steps = [
-  { n: 'I', title: 'Inquiry', body: 'Send a note with your wedding date, the bridal party size, and what you have in mind. Hamna replies within 48 hours.' },
-  { n: 'II', title: 'Confirmation', body: 'Once dates align, your slot is held. A short consultation follows to settle motifs, scope, and timing.' },
-  { n: 'III', title: 'Design', body: 'Compositions are drawn to order — hand sketches, motif libraries shared, and final sets agreed before the day.' },
-  { n: 'IV', title: 'Day-of', body: 'Hamna arrives in person. The hand draws. The stain sets. The day carries it.' }
-];
 ---
-
 <section class="folio-process" aria-labelledby="process-heading">
   <Ornament variant="rule" />
   <p class="folio-label label">The Process</p>
   <h2 id="process-heading" class="folio-h2">From the first note to the last line.</h2>
 
-  <ol class="folio-steps">
+  <ol class="folio-process-steps" aria-label="Booking process steps">
     {steps.map((s) => (
-      <li class="folio-step">
-        <span class="folio-step-n">{s.n}</span>
-        <div class="folio-step-body">
-          <h3 class="folio-step-title">{s.title}</h3>
-          <p class="folio-step-desc">{s.body}</p>
+      <li class="folio-process-step" tabindex="0" role="button" aria-expanded="false" key={s.n}>
+        <div class="folio-process-row">
+          <span class="folio-process-n">{s.n}</span>
+          <h3 class="folio-process-title">{s.title}</h3>
         </div>
+        <p class="folio-process-desc">{s.body}</p>
       </li>
     ))}
   </ol>
@@ -38,7 +30,7 @@ const steps = [
   }
 
   .label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -52,28 +44,33 @@ const steps = [
     text-wrap: balance;
   }
 
-  .folio-steps {
+  .folio-process-steps {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 24px;
   }
 
-  .folio-step {
+  .folio-process-step {
+    @apply bg-[var(--color-paper)] border border-[var(--color-sandline)] rounded-xl p-6 transition-all hover:border-[var(--color-henna)] hover:bg-[var(--color-henna)/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-rust)] focus-visible:ring-offset-2;
+    cursor: pointer;
+  }
+
+  .folio-process-step:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+
+  .folio-process-row {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px 20px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--color-sandline);
+    align-items: start;
   }
 
-  .folio-step:last-child {
-    border-bottom: none;
-  }
-
-  .folio-step-n {
+  .folio-process-n {
     font-size: 22px;
     font-weight: 600;
     color: var(--color-gold);
@@ -81,18 +78,24 @@ const steps = [
     letter-spacing: 0.02em;
   }
 
-  .folio-step-title {
+  .folio-process-title {
     font-size: clamp(18px, 2.8vw, 22px);
     font-weight: 600;
     color: var(--color-henna);
     margin: 0 0 6px;
   }
 
-  .folio-step-desc {
+  .folio-process-desc {
     font-size: 15px;
     color: var(--color-clay);
     line-height: 1.55;
     margin: 0;
     max-width: 52ch;
+  }
+
+  @media (max-width: 600px) {
+    .folio-process-step {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -2,7 +2,7 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="folio-footer">
+<footer class="folio-footer" role="contentinfo" aria-label="Footer for Henna by Hamna">
   <div class="folio-footer-rule"></div>
   <div class="folio-footer-row">
     <p class="folio-footer-quote">The stain is drawn into the day.</p>
@@ -63,12 +63,9 @@ const year = new Date().getFullYear();
   }
 
   .folio-footer-ig {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
     color: var(--color-clay);
     text-decoration: none;
+    font-size: 13px;
   }
 
   .folio-footer-ig:hover {
@@ -80,11 +77,16 @@ const year = new Date().getFullYear();
     color: var(--color-clay);
     margin: 24px 0 0;
     letter-spacing: 0.06em;
+    text-align: center;
+    max-width: 64ch;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media (max-width: 600px) {
     .folio-footer-row {
       flex-direction: column;
+      align-items: flex-start;
     }
     .folio-footer-contact {
       align-items: flex-start;

@@ -1,17 +1,17 @@
 [
   {
-    "quote": "Replace this with a short testimonial from a client. Two to four sentences is the right length.",
-    "name": "Client Name",
-    "detail": "Service · City"
+    "quote": "Hamna captured the essence of my bridal day perfectly. The design flowed beautifully and held for weeks.",
+    "name": "Aisha M.",
+    "detail": "Bride · New York"
   },
   {
-    "quote": "Add a second testimonial here. Same shape, different angle — what they came back for, what they will tell their friends.",
-    "name": "Client Name",
-    "detail": "Service · City"
+    "quote": "The bridal party coordination looked stunning. Every hand was unique yet tied together beautifully.",
+    "name": "Radhika P.",
+    "detail": "Bridal party · London"
   },
   {
-    "quote": "Add a third testimonial here. Optional — remove entries from this array if you do not need three.",
-    "name": "Client Name",
-    "detail": "Service · City"
+    "quote": "Organic paste was gentle on my sensitive skin. The design was worth the wait.",
+    "name": "Sophie K.",
+    "detail": "Natural henna · Sydney"
   }
 ]

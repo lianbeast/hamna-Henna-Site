@@ -2,85 +2,83 @@
 import Ornament from './Ornament.astro';
 ---
 
-<header class="folio-masthead">
-  <div>
+<header class="folio-masthead" aria-label="Henna by Hamna — hero section">
+  <div class="folio-masthead-inner">
     <h1 class="folio-title">Henna by <span class="henna">Hamna</span></h1>
-    <p class="folio-subtitle">The Craft Book</p>
+    <p class="folio-subtitle folio-eyebrow">The Craft Book</p>
   </div>
   <div class="folio-folio">
-    <b>2026</b>
-    Folio I
+    <b>2026</b> Folio I
   </div>
 </header>
 
 <section class="folio-hero">
   <div>
-    <p class="folio-tag label">&amp; The Hand</p>
     <h2 class="folio-headline">A mehndi artist's folio, opened to your day.</h2>
     <p class="folio-body">
-      Every design starts as one clean line — nothing printed, nothing traced, the hand decides.
+      Every design starts as one clean line. Nothing printed, nothing traced, the hand decides.
     </p>
   </div>
-  <Ornament variant="curl" width={140} />
+  <Ornament variant="curl" width={180} />
 </section>
 
-<div class="folio-contact">
-  <a href="tel:+13015554321">301.555.4321</a>
-  <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a>
+<div class="folio-contact" aria-label="Contact information">
+  <a href="tel:+13015554321" class="folio-phone">301.555.4321</a>
+  <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="folio-ig">@henna-designer</a>
 </div>
 
 <style>
   .folio-hero {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 24px;
-    margin: 32px 0 24px;
+    margin: 0 0 32px;
+  }
+
+  @media (min-width: 640px) {
+    .folio-hero {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
   }
 
   .folio-tag {
-    color: var(--color-henna);
-    margin: 0 0 8px;
-  }
-
-  .label {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    @apply text-[var(--color-henna)] text-sm font-medium uppercase tracking-[0.1em] md:hidden;
   }
 
   .folio-headline {
-    font-size: clamp(22px, 3.6vw, 30px);
-    font-weight: 600;
-    color: var(--color-henna);
-    margin: 0 0 12px;
-    text-wrap: balance;
-    text-decoration: underline;
-    text-decoration-color: var(--color-rust);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
+    @apply text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-none tracking-tighter text-[var(--color-inkbrown)] text-wrap balance mb-4;
+    line-height: 1.1;
   }
 
   .folio-body {
-    font-size: 16px;
-    font-style: italic;
-    color: var(--color-clay);
-    line-height: 1.55;
-    max-width: 46ch;
-    margin: 0;
+    @apply text-base text-[var(--color-clay)] leading-relaxed max-w-[52ch] mb-6;
+    line-height: 1.6;
+  }
+
+  .folio-contact {
+    @apply flex gap-4;
+  }
+
+  .folio-phone {
+    @apply text-[var(--color-inkbrown)] font-medium text-lg hover:underline block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .folio-ig {
+    @apply text-[var(--color-clay)] text-sm hover:text-[var(--color-henna)] transition-colors block;
   }
 
   @media (max-width: 600px) {
     .folio-hero {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
     .folio-folio {
-      display: none;
+      @apply hidden;
     }
     .folio-masthead {
-      flex-direction: column;
-      align-items: flex-start;
+      @apply flex-col items-start;
     }
   }
 </style>

@@ -11,13 +11,13 @@ const services = [
   {
     n: '02',
     title: 'Bridal Party Coordination',
-    desc: 'Coordinated designs for maids, mothers, and sisters — a unified set that ties the celebration together.',
+    desc: 'Coordinated designs for maids, mothers, and sisters - a unified set that ties the celebration together.',
     note: 'By the party.'
   },
   {
     n: '03',
     title: 'Engagement & Sangeet',
-    desc: 'Occasion designs for engagement nights and sangeet — lighter, faster, made for the evening.',
+    desc: 'Occasion designs for engagement nights and sangeet - lighter, faster, made for the evening.',
     note: 'By the evening.'
   },
   {
@@ -34,9 +34,9 @@ const services = [
   <p class="folio-label label">The Services</p>
   <h2 id="services-heading" class="folio-h2">Four ways Hamna's hand works.</h2>
 
-  <ol class="folio-service-list">
+  <ol class="folio-service-list" aria-label="Service list">
     {services.map((s) => (
-      <li class="folio-service-entry">
+      <li class="folio-service-entry" tabindex="0" role="button" aria-label={s.n} aria-pressed="false" key={s.n}>
         <div class="folio-service-row">
           <span class="folio-service-n">{s.n}</span>
           <h3 class="folio-service-title">{s.title}</h3>
@@ -59,7 +59,7 @@ const services = [
   }
 
   .label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -77,15 +77,19 @@ const services = [
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
   }
 
   .folio-service-entry {
-    padding: 18px 0 20px;
-    border-bottom: 1px solid var(--color-sandline);
+    @apply bg-[var(--color-paper)] border border-[var(--color-sandline)] rounded-xl p-6 transition-all hover:border-[var(--color-henna)] hover:bg-[var(--color-henna)/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-rust)] focus-visible:ring-offset-2;
+    cursor: pointer;
   }
 
-  .folio-service-entry:last-child {
-    border-bottom: none;
+  .folio-service-entry:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
   }
 
   .folio-service-row {
@@ -96,10 +100,11 @@ const services = [
   }
 
   .folio-service-n {
-    font-size: 13px;
+    font-size: 22px;
     font-weight: 600;
-    letter-spacing: 0.1em;
     color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.1em;
   }
 
   .folio-service-title {
@@ -123,5 +128,11 @@ const services = [
     font-style: italic;
     color: var(--color-henna);
     margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .folio-service-list {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

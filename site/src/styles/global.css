@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
-@theme {
-  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+/* ── CSS Architecture: Modular Styles ───────────────────────── */
+@forward '../styles/tokens.css';
+@forward '../styles/base.css';
+@forward '../styles/layout.css';
+@forward '../styles/typography.css';
+@forward '../styles/components/services.css';
+@forward '../styles/components/faq.css';
+@forward '../styles/components/booking.css';
+@forward '../styles/components/toolbar.css';
+@forward '../styles/components/scroll-top.css';
+@forward '../styles/components/micro.css';
+@forward '../styles/dark-mode.css';
+@forward '../styles/legacy.css';
 
-  --color-ivory: #F6EDDD;
-  --color-paper: #FBF4E7;
-  --color-inkbrown: #4A2C16;
-  --color-henna: #8C2E2A;
-  --color-rose: #8C2E2A;
-  --color-rust: #B04A2C;
-  --color-gold: #C29A4B;
-  --color-clay: #6B4A2A;
-  --color-sandline: #DDC9A8;
-  --color-cream: #EFE0C6;
-
-  --shadow-page-fall: 0 1px 0 rgba(74, 44, 22, 0.08), 0 18px 40px -24px rgba(74, 44, 22, 0.35);
-}
+@import '../styles/tokens.css';
+@import '../styles/base.css';
+@import '../styles/layout.css';
+@import '../styles/typography.css';
+@import '../styles/components/services.css';
+@import '../styles/components/faq.css';
+@import '../styles/components/booking.css';
+@import '../styles/components/toolbar.css';
+@import '../styles/components/scroll-top.css';
+@import '../styles/components/micro.css';
+@import '../styles/dark-mode.css';
+@import '../styles/legacy.css';
 
 @layer base {
   html {

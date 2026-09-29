@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "src": "/images/portfolio/bridal-1.jpg",
+    "alt": "Bridal henna design - full hand and foot",
+    "motif": "mandala",
+    "year": 2025
+  },
+  {
+    "src": "/images/portfolio/party-1.jpg",
+    "alt": "Bridal party coordinated henna designs",
+    "motif": "paisley",
+    "year": 2025
+  },
+  {
+    "src": "/images/portfolio/engagement-1.jpg",
+    "alt": "Engagement night henna design",
+    "motif": "curl",
+    "year": 2025
+  },
+  {
+    "src": "/images/portfolio/organic-1.jpg",
+    "alt": "Natural organic henna design",
+    "motif": "vine",
+    "year": 2025
+  }
+]
