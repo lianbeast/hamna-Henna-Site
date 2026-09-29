@@ -1,27 +1,127 @@
 ---
+import Ornament from './Ornament.astro';
+
 const services = [
-  { n: '01', title: 'Service One', desc: 'A short description of the first offering. Replace this text with what you actually deliver.', note: 'Edit in Services.astro.' },
-  { n: '02', title: 'Service Two', desc: 'A second offering. Keep this sentence under two lines so the grid stays balanced.', note: 'Edit in Services.astro.' },
-  { n: '03', title: 'Service Three', desc: 'A third offering. Use this card to highlight an evening or short-form option.', note: 'Edit in Services.astro.' },
-  { n: '04', title: 'Service Four', desc: 'A fourth offering. Remove the entire entry from the array if you do not need four.', note: 'Edit in Services.astro.' }
+  {
+    n: '01',
+    title: 'Bridal Mehndi',
+    desc: 'Full hand and foot artistry, composed to order for the wedding day. Traditional or contemporary motifs tailored to the bride.',
+    note: 'Composed to order.'
+  },
+  {
+    n: '02',
+    title: 'Bridal Party Coordination',
+    desc: 'Coordinated designs for maids, mothers, and sisters — a unified set that ties the celebration together.',
+    note: 'By the party.'
+  },
+  {
+    n: '03',
+    title: 'Engagement & Sangeet',
+    desc: 'Occasion designs for engagement nights and sangeet — lighter, faster, made for the evening.',
+    note: 'By the evening.'
+  },
+  {
+    n: '04',
+    title: 'Natural / Organic Henna',
+    desc: 'Organic, clove-free paste for sensitive brides and skin. Drawn in the same hand, in a gentler formula.',
+    note: 'By arrangement.'
+  }
 ];
 ---
 
-<section class="section-wrap" aria-labelledby="services-heading">
-  <div class="glass-panel">
-    <p class="section-label label">The Services</p>
-    <h2 id="services-heading" class="section-h2">Four ways to work together</h2>
-    <ol class="svc-list">
-      {services.map((s) => (
-        <li class="svc-entry">
-          <div class="svc-row">
-            <span class="svc-n counter" data-count={parseInt(s.n, 10)}>{s.n}</span>
-            <h3 class="svc-title">{s.title}</h3>
-          </div>
-          <p class="svc-desc">{s.desc}</p>
-          <p class="svc-note">{s.note}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
+<section class="folio-services" aria-labelledby="services-heading">
+  <Ornament variant="rule" />
+  <p class="folio-label label">The Services</p>
+  <h2 id="services-heading" class="folio-h2">Four ways Hamna's hand works.</h2>
+
+  <ol class="folio-service-list">
+    {services.map((s) => (
+      <li class="folio-service-entry">
+        <div class="folio-service-row">
+          <span class="folio-service-n">{s.n}</span>
+          <h3 class="folio-service-title">{s.title}</h3>
+        </div>
+        <p class="folio-service-desc">{s.desc}</p>
+        <p class="folio-service-note italic">{s.note}</p>
+      </li>
+    ))}
+  </ol>
 </section>
+
+<style>
+  .folio-services {
+    margin: 56px 0;
+  }
+
+  .folio-label {
+    color: var(--color-henna);
+    margin: 24px 0 8px;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .folio-h2 {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 600;
+    color: var(--color-inkbrown);
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+
+  .folio-service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .folio-service-entry {
+    padding: 18px 0 20px;
+    border-bottom: 1px solid var(--color-sandline);
+  }
+
+  .folio-service-entry:last-child {
+    border-bottom: none;
+  }
+
+  .folio-service-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .folio-service-n {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+  }
+
+  .folio-service-title {
+    font-size: clamp(20px, 3.4vw, 24px);
+    font-weight: 600;
+    color: var(--color-inkbrown);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .folio-service-desc {
+    font-size: 15px;
+    color: var(--color-clay);
+    line-height: 1.55;
+    max-width: 46ch;
+    margin: 6px 0 6px;
+  }
+
+  .folio-service-note {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--color-henna);
+    margin: 0;
+  }
+</style>
