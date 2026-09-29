@@ -41,6 +41,11 @@
     --color-emerald: #123c35;
     --color-forest: #2a6d5c;
     --color-gold: #c6a15b;
+    /* forest/emerald are 2.87/10.65:1 on cream-dark — invisible as dark-mode
+       accent text. Mix toward the dark-mode espresso so they stay legible
+       while still reading as their brand hue. */
+    --color-forest: color-mix(in srgb, #2a6d5c 35%, var(--color-espresso));
+    --color-emerald: color-mix(in srgb, #123c35 30%, var(--color-espresso));
     --color-beige: #8c7a5e;
     --color-espresso: #efe3cf;
   }
