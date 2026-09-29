@@ -844,4 +844,226 @@ html.theme-dark .scroll-hint-text {
   .folio-contact a:hover {
     color: var(--color-henna);
   }
+
+  /* FAQ Accordion */
+  .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-sandline);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-sandline);
+  }
+
+  .faq-heading {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-inkbrown);
+    font-family: inherit;
+    font-size: clamp(16px, 2.4vw, 18px);
+    font-weight: 600;
+  }
+
+  .faq-trigger:hover {
+    color: var(--color-henna);
+  }
+
+  .faq-trigger:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+
+  .faq-q {
+    flex: 1;
+  }
+
+  .faq-icon {
+    font-size: 20px;
+    color: var(--color-henna);
+    font-weight: 600;
+    width: 18px;
+    text-align: center;
+  }
+
+  .faq-answer {
+    padding: 0 0 18px;
+  }
+
+  .faq-answer p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-clay);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  /* Booking Inquiry */
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: var(--color-ivory);
+    border: 1px solid var(--color-sandline);
+    padding: 24px 26px 26px;
+    box-shadow: var(--shadow-page-fall);
+  }
+
+  .booking-title {
+    font-size: clamp(20px, 3vw, 24px);
+    font-weight: 600;
+    color: var(--color-henna);
+    margin: 0;
+  }
+
+  .booking-error-region:empty {
+    display: none;
+  }
+
+  .booking-error {
+    background: rgba(176, 74, 44, 0.10);
+    border-left: 2px solid var(--color-rust);
+    padding: 8px 12px;
+    font-size: 14px;
+    color: var(--color-inkbrown);
+    margin: 0;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 18px;
+  }
+
+  .booking-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .booking-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .booking-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .booking-input,
+  .booking-select,
+  .booking-textarea {
+    font: inherit;
+    color: var(--color-inkbrown);
+    background: var(--color-paper);
+    border: 1px solid var(--color-sandline);
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+
+  .booking-input:focus,
+  .booking-select:focus,
+  .booking-textarea:focus {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 1px;
+  }
+
+  .booking-textarea {
+    resize: vertical;
+    min-height: 96px;
+  }
+
+  .booking-submit {
+    background: var(--color-henna);
+    color: var(--color-ivory);
+    border: none;
+    border-radius: 2px;
+    padding: 14px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.18s ease-out;
+  }
+
+  .booking-submit:hover:not(:disabled) {
+    background: var(--color-inkbrown);
+  }
+
+  .booking-submit:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+
+  .booking-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .booking-success {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-ivory);
+    border: 1px solid var(--color-sandline);
+    padding: 24px 26px;
+    box-shadow: var(--shadow-page-fall);
+  }
+
+  .booking-success-tick {
+    font-size: 22px;
+    color: var(--color-henna);
+  }
+
+  .booking-success-title {
+    font-size: clamp(20px, 3vw, 24px);
+    font-weight: 600;
+    color: var(--color-henna);
+    margin: 0;
+  }
+
+  .booking-success-body {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-clay);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .booking-success-body a {
+    color: var(--color-henna);
+    text-decoration: underline;
+    text-decoration-color: var(--color-rust);
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 600px) {
+    .booking-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-submit {
+    transition: none;
+  }
 }

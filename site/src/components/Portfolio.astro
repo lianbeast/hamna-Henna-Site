@@ -1,120 +1,110 @@
 ---
+import Ornament from './Ornament.astro';
+import MotifPlaceholder from './MotifPlaceholder.astro';
+
 interface PortfolioItem {
   src: string;
   alt: string;
   motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
-  caption?: string;
-  occasion?: string;
 }
 
 const items = (await import('../data/portfolio.json')).default as PortfolioItem[];
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley', 'mandala', 'vine', 'curl', 'paisley'];
 ---
 
-<section class="section-wrap" aria-labelledby="portfolio-heading">
-  <div class="glass-panel">
-    <p class="section-label label">The Portfolio</p>
-    <h2 id="portfolio-heading" class="section-h2">Recent hands, recent days</h2>
+<section class="folio-portfolio" aria-labelledby="portfolio-heading">
+  <Ornament variant="rule" />
+  <p class="folio-label label">The Portfolio</p>
+  <h2 id="portfolio-heading" class="folio-h2">Recent hands, recent days.</h2>
 
-    {items.length === 0 ? (
-      <p class="pf-empty-line">
-        Portfolio arriving soon — follow <a href="https://www.instagram.com/yourhandle/" target="_blank" rel="noopener">@yourhandle</a> for the latest work.
-     </p>
-    ) : (
-      <div class="pf-grid">
-        {items.map((item) => (
-          <figure class="pf-card">
-            <img src={`${base}/${item.src}`} alt={item.alt} loading="lazy" />
-            {(item.caption || item.occasion) && (
-              <figcaption class="pf-cap">
-                {item.caption && <span class="pf-cap-title">{item.caption}</span>}
-                {item.occasion && <span class="pf-cap-occasion">{item.occasion}</span>}
-             </figcaption>
-            )}
-         </figure>
+  {items.length === 0 ? (
+    <div class="folio-portfolio-empty" role="status">
+      <p class="folio-empty-line">
+        Portfolio arriving soon — follow <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a> for the latest work.
+      </p>
+      <div class="folio-portfolio-grid" aria-hidden="true">
+        {motifs.map((m, i) => (
+          <MotifPlaceholder motif={m} label={`Henna motif placeholder ${i + 1}`} />
         ))}
-     </div>
-    )}
-  </div>
+      </div>
+    </div>
+  ) : (
+    <div class="folio-portfolio-grid">
+      {items.map((item, i) => (
+        <figure class="folio-portfolio-card">
+          <img src={item.src} alt={item.alt} loading="lazy" />
+        </figure>
+      ))}
+    </div>
+  )}
 </section>
+
 <style>
-  .pf-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+  .folio-portfolio {
+    margin: 56px 0;
   }
-  .pf-card {
-    position: relative;
-    margin: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(221, 201, 168, 0.45);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.45s ease, border-color 0.45s ease;
+
+  .folio-label {
+    color: var(--color-henna);
+    margin: 24px 0 8px;
   }
-  .pf-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -20px rgba(74, 44, 22, 0.4);
-  }
-  .pf-card img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-  }
-  .pf-cap {
-    position: absolute;
-    inset: auto 0 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 8px;
-    padding: 14px;
-    background: linear-gradient(to top, rgba(74, 44, 22, 0.72), rgba(74, 44, 22, 0));
-    color: #fbf4e7;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .pf-card:hover .pf-cap {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .pf-cap-title {
-    font-size: 14px;
+
+  .label {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
-  .pf-cap-occasion {
-    font-size: 12px;
-    font-style: italic;
-    opacity: 0.85;
+
+  .folio-h2 {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 600;
+    color: var(--color-inkbrown);
+    margin: 0 0 24px;
+    text-wrap: balance;
   }
-  @media (hover: none) {
-    .pf-cap {
-      opacity: 1;
-      transform: none;
-    }
+
+  .folio-portfolio-empty {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
-  .pf-empty-line {
-    font-size: 15px;
+
+  .folio-empty-line {
+    font-size: 14px;
     font-style: italic;
     color: var(--color-clay);
     margin: 0;
   }
-  .pf-empty-line a {
+
+  .folio-empty-line a {
     color: var(--color-henna);
     text-decoration: underline;
     text-decoration-color: var(--color-rust);
     text-underline-offset: 3px;
   }
-  @media (max-width: 768px) {
-    .pf-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+
+  .folio-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
-  @media (max-width: 480px) {
-    .pf-grid {
+
+  .folio-portfolio-card {
+    margin: 0;
+    border: 1px solid var(--color-sandline);
+    background: var(--color-paper);
+    overflow: hidden;
+  }
+
+  .folio-portfolio-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 600px) {
+    .folio-portfolio-grid {
       grid-template-columns: 1fr;
     }
   }

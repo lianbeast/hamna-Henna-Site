@@ -1,74 +1,80 @@
 ---
 import '../styles/global.css';
-import faqs from '../data/faq.json';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Portfolio from '../components/Portfolio.astro';
-import Pricing from '../components/Pricing.astro';
-import Testimonials from '../components/Testimonials.astro';
-import FAQAccordion from '../components/FAQAccordion';
-import BookingInquiry from '../components/BookingInquiry';
-import InstagramFeed from '../components/InstagramFeed.astro';
+import FAQAccordion from '../components/FAQAccordion.tsx';
+import BookingInquiry from '../components/BookingInquiry.tsx';
 import Footer from '../components/Footer.astro';
-import ScrollToTop from '../components/ScrollToTop';
-import FloatingToolbar from '../components/FloatingToolbar';
+import Ornament from '../components/Ornament.astro';
+import faq from '../data/faq.json';
 ---
 
-<Layout
-  title="Henna by Hamna — Henna Artistry for the DMV"
-  description="Henna by Hamna — henna artistry for the DMV. Simple, detailed, special-detailed and Arabic henna for Eid, Chaand-Raat, weddings, showers and special events. Custom designs available. Serving DC, Maryland and Virginia."
->
-  <main class="site-main">
-    <Hero />
+<Layout title="Henna by Hamna — The Craft Book">
+  <Hero />
 
-    <section class="section-wrap" id="about">
-      <About />
-   </section>
+  <About />
 
-    <section class="section-wrap" id="services">
-      <Services />
-   </section>
+  <Services />
 
-    <section class="section-wrap" id="process">
-      <Process />
-   </section>
+  <Process />
 
-    <section class="section-wrap" id="portfolio">
-      <Portfolio />
-   </section>
+  <Portfolio />
 
-    <section class="section-wrap" id="pricing">
-      <Pricing />
-   </section>
+  <section class="folio-faq-section" aria-labelledby="faq-heading">
+    <Ornament variant="rule" />
+    <p class="folio-label label">Questions</p>
+    <h2 id="faq-heading" class="folio-h2">Asked, then answered.</h2>
+    <FAQAccordion client:visible items={faq} />
+  </section>
 
-    <section class="section-wrap" id="testimonials">
-      <Testimonials />
-   </section>
+  <section class="folio-booking-section" aria-labelledby="booking-heading">
+    <Ornament variant="rule" />
+    <p class="folio-label label">Inquire</p>
+    <h2 id="booking-heading" class="folio-h2">A date, a hand, a reply.</h2>
+    <p class="folio-booking-intro">
+      Send a note with your wedding date and what's in mind. Hamna replies within 48 hours.
+    </p>
+    <BookingInquiry client:visible />
+  </section>
 
-    <section class="section-wrap" id="faq">
-      <FAQAccordion client:visible items={faqs} />
-   </section>
-
-    <section class="section-wrap" id="booking">
-      <BookingInquiry client:visible />
-   </section>
-
-    <section class="section-wrap" id="instagram">
-      <InstagramFeed />
-   </section>
-
-    <Footer />
- </main>
-
-  <FloatingToolbar client:load />
-  <ScrollToTop client:idle />
+  <Footer />
 </Layout>
 
 <style>
-  .section-wrap {
-    margin: clamp(48px, 8vw, 96px) 0;
+  .folio-faq-section,
+  .folio-booking-section {
+    margin: 56px 0;
+  }
+
+  .folio-label {
+    color: var(--color-henna);
+    margin: 24px 0 8px;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .folio-h2 {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 600;
+    color: var(--color-inkbrown);
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+
+  .folio-booking-intro {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--color-clay);
+    margin: 0 0 24px;
+    max-width: 46ch;
   }
 </style>
