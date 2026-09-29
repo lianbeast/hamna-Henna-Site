@@ -1,110 +1,86 @@
 ---
-import { getBusinessProfile } from '../lib/supabase';
-
-const profile = await getBusinessProfile();
+import Ornament from './Ornament.astro';
 ---
 
-<header class="hero-zone" id="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow label">{profile.business_name}</p>
-    <h1 class="hero-title">A simple site starts here</h1>
-    <p class="hero-tagline">
-      {profile.tagline}
-    </p>
-    <a href="#booking" class="hero-cta">Get in touch</a>
-    <div class="hero-links">
-      <a href="tel:+13015554321">+1 (000) 000-0000</a>
-      <span class="hero-sep" aria-hidden="true">·</span>
-      <a href={`https://instagram.com/${profile.instagram_handle.replace('@', '')}`} target="_blank" rel="noopener">{profile.instagram_handle}</a>
-    </div>
+<header class="folio-masthead">
+  <div>
+    <h1 class="folio-title">Henna by <span class="henna">Hamna</span></h1>
+    <p class="folio-subtitle">The Craft Book</p>
+  </div>
+  <div class="folio-folio">
+    <b>2026</b>
+    Folio I
   </div>
 </header>
 
+<section class="folio-hero">
+  <div>
+    <p class="folio-tag label">&amp; The Hand</p>
+    <h2 class="folio-headline">A mehndi artist's folio, opened to your day.</h2>
+    <p class="folio-body">
+      Every design starts as one clean line — nothing printed, nothing traced, the hand decides.
+    </p>
+  </div>
+  <Ornament variant="curl" width={140} />
+</section>
+
+<div class="folio-contact">
+  <a href="tel:+13015554321">301.555.4321</a>
+  <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener">@henna-designer</a>
+</div>
+
 <style>
-  .hero-zone {
-    min-height: 70vh;
+  .folio-hero {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: clamp(64px, 10vw, 120px) 24px clamp(48px, 8vw, 96px);
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin: 32px 0 24px;
   }
 
-  .hero-content {
-    max-width: 720px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
+  .folio-tag {
+    color: var(--color-henna);
+    margin: 0 0 8px;
   }
 
-  .hero-eyebrow {
-    color: var(--color-gold);
-    margin: 0;
-    padding: 5px 16px;
-    border: 1px solid var(--color-sandline);
-    border-radius: 999px;
-    background: rgba(251, 244, 231, 0.5);
-  }
-
-  .hero-title {
-    font-size: clamp(40px, 8vw, 72px);
+  .label {
+    font-size: 13px;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--color-inkbrown);
-    margin: 0;
-    text-wrap: balance;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
-  .hero-tagline {
-    font-size: clamp(16px, 2.4vw, 19px);
+  .folio-headline {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 600;
+    color: var(--color-henna);
+    margin: 0 0 12px;
+    text-wrap: balance;
+    text-decoration: underline;
+    text-decoration-color: var(--color-rust);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
+  .folio-body {
+    font-size: 16px;
+    font-style: italic;
     color: var(--color-clay);
     line-height: 1.55;
+    max-width: 46ch;
     margin: 0;
-    max-width: 52ch;
   }
 
-  .hero-cta {
-    margin-top: 10px;
-    padding: 12px 28px;
-    background: var(--color-henna);
-    color: var(--color-paper);
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.04em;
-    border: 1px solid var(--color-henna);
+  @media (max-width: 600px) {
+    .folio-hero {
+      flex-direction: column;
+    }
+    .folio-folio {
+      display: none;
+    }
+    .folio-masthead {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
-  .hero-cta:hover {
-    background: var(--color-rust);
-    border-color: var(--color-rust);
-  }
-  .hero-cta:focus-visible {
-    outline: 2px solid var(--color-rust);
-    outline-offset: 2px;
-  }
-
-  .hero-links {
-    margin-top: 18px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-clay);
-  }
-
-  .hero-links a {
-    color: var(--color-inkbrown);
-    text-decoration: none;
-    font-weight: 600;
-    border-bottom: 1px solid var(--color-rust);
-    padding-bottom: 1px;
-  }
-  .hero-links a:hover { color: var(--color-henna); }
-
-  .hero-sep { color: var(--color-gold); }
 </style>

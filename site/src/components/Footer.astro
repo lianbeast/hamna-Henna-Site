@@ -1,52 +1,54 @@
 ---
-import { getBusinessProfile } from '../lib/supabase';
-const profile = await getBusinessProfile();
 const year = new Date().getFullYear();
 ---
-<footer class="footer-wrap">
-  <div class="glass-panel footer-panel">
-    <div class="footer-row">
-      <p class="footer-quote">{profile.tagline}</p>
-      <div class="footer-contact">
-        <a href="tel:+13015554321" class="footer-phone">+1 (000) 000-0000</a>
-        <a href={`https://instagram.com/${profile.instagram_handle.replace('@', '')}`} target="_blank" rel="noopener" class="footer-ig">{profile.instagram_handle}</a>
-      </div>
+
+<footer class="folio-footer">
+  <div class="folio-footer-rule"></div>
+  <div class="folio-footer-row">
+    <p class="folio-footer-quote">The stain is drawn into the day.</p>
+    <div class="folio-footer-contact">
+      <a href="tel:+13015554321" class="folio-footer-phone">301.555.4321</a>
+      <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="folio-footer-ig">@henna-designer</a>
     </div>
-    <p class="footer-copy">© {year} {profile.business_name}. Built on the plain-jane template.</p>
   </div>
+  <p class="folio-footer-copy">© {year} Henna by Hamna. The Craft Book, Folio I.</p>
 </footer>
+
 <style>
-  /* Extra bottom padding keeps the footer card clear of the floating toolbar */
-  .footer-wrap {
-    margin-top: 80px;
-    padding-bottom: 104px;
+  .folio-footer {
+    margin-top: 56px;
   }
-  .footer-panel {
-    padding: 36px clamp(28px, 5vw, 48px);
-    transition: background-color 0.45s ease, border-color 0.45s ease;
+
+  .folio-footer-rule {
+    height: 2px;
+    background-color: var(--color-inkbrown);
+    margin-bottom: 24px;
   }
-  .footer-row {
+
+  .folio-footer-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
-  .footer-quote {
-    font-size: clamp(22px, 4vw, 32px);
+
+  .folio-footer-quote {
+    font-size: clamp(22px, 3.6vw, 30px);
     font-weight: 600;
     color: var(--color-henna);
     margin: 0;
     text-wrap: balance;
   }
-  .footer-contact {
+
+  .folio-footer-contact {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 4px;
-    flex-shrink: 0;
+    gap: 6px;
   }
-  .footer-phone {
+
+  .folio-footer-phone {
     font-size: 16px;
     font-weight: 600;
     color: var(--color-inkbrown);
@@ -54,34 +56,37 @@ const year = new Date().getFullYear();
     border-bottom: 2px solid var(--color-rust);
     padding-bottom: 2px;
     font-variant-numeric: tabular-nums;
-    transition: color 0.2s;
   }
-  .footer-phone:hover { color: var(--color-henna); }
-  .footer-ig {
-    font-size: 12px;
+
+  .folio-footer-phone:hover {
+    color: var(--color-henna);
+  }
+
+  .folio-footer-ig {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-clay);
     text-decoration: none;
-    transition: color 0.2s;
   }
-  .footer-ig:hover { color: var(--color-henna); }
-  .footer-copy {
+
+  .folio-footer-ig:hover {
+    color: var(--color-henna);
+  }
+
+  .folio-footer-copy {
     font-size: 12px;
     color: var(--color-clay);
-    margin: 0;
+    margin: 24px 0 0;
     letter-spacing: 0.06em;
-    padding-top: 14px;
-    border-top: 1px solid rgba(221, 201, 168, 0.4);
-    transition: border-color 0.45s ease, color 0.45s ease;
   }
-  @media (max-width: 640px) {
-    .footer-row {
+
+  @media (max-width: 600px) {
+    .folio-footer-row {
       flex-direction: column;
-      align-items: flex-start;
     }
-    .footer-contact {
+    .folio-footer-contact {
       align-items: flex-start;
     }
   }
