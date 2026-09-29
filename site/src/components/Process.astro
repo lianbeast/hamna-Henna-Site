@@ -1,101 +1,78 @@
 ---
-import Ornament from './Ornament.astro';
+const steps = [
+  {
+    n: '01',
+    title: 'Reach out',
+    body: 'Send a note with your date and what you have in mind. Hamna replies within 48 hours.'
+  },
+  {
+    n: '02',
+    title: 'Book the date',
+    body: 'Once the date is held, a deposit secures it. Bridal dates are held months in advance.'
+  },
+  {
+    n: '03',
+    title: 'Compose the design',
+    body: 'Hands, feet, and the story they tell are composed to order. Nothing is printed or traced.'
+  },
+  {
+    n: '04',
+    title: 'The day',
+    body: 'The work is drawn by hand in the artist\'s own paste, one bride at a time. Aftercare is included.'
+  }
+];
 ---
-<section class="folio-process" aria-labelledby="process-heading">
-  <Ornament variant="rule" />
-  <p class="folio-label label">The Process</p>
-  <h2 id="process-heading" class="folio-h2">From the first note to the last line.</h2>
 
-  <ol class="folio-process-steps" aria-label="Booking process steps">
+<section class="section" aria-labelledby="process-heading">
+  <p class="eyebrow">The Process</p>
+  <h2 id="process-heading" class="section-title">From the first note to the last line.</h2>
+
+  <ol class="step-list" aria-label="Booking process steps">
     {steps.map((s) => (
-      <li class="folio-process-step" tabindex="0" role="button" aria-expanded="false" key={s.n}>
-        <div class="folio-process-row">
-          <span class="folio-process-n">{s.n}</span>
-          <h3 class="folio-process-title">{s.title}</h3>
+      <li class="step-card" key={s.n}>
+        <div class="step-row">
+          <span class="step-num">{s.n}</span>
+          <div>
+            <h3 class="step-title">{s.title}</h3>
+            <p class="step-body">{s.body}</p>
+          </div>
         </div>
-        <p class="folio-process-desc">{s.body}</p>
       </li>
     ))}
   </ol>
 </section>
 
 <style>
-  .folio-process {
-    margin: 56px 0;
-  }
-
-  .folio-label {
-    color: var(--color-henna);
-    margin: 24px 0 8px;
-  }
-
-  .label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .folio-h2 {
-    font-size: clamp(22px, 3.6vw, 30px);
-    font-weight: 600;
-    color: var(--color-inkbrown);
-    margin: 0 0 24px;
-    text-wrap: balance;
-  }
-
-  .folio-process-steps {
+  .step-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: var(--space-md);
   }
-
-  .folio-process-step {
-    @apply bg-[var(--color-paper)] border border-[var(--color-sandline)] rounded-xl p-6 transition-all hover:border-[var(--color-henna)] hover:bg-[var(--color-henna)/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-rust)] focus-visible:ring-offset-2;
-    cursor: pointer;
+  .step-card {
+    padding: var(--space-lg);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    transition: border-color 0.25s ease, background 0.3s ease, box-shadow 0.25s ease;
   }
-
-  .folio-process-step:focus-visible {
-    outline: 2px solid var(--color-rust);
-    outline-offset: 2px;
+  .step-card:hover {
+    border-color: var(--color-sandline);
+    box-shadow: var(--shadow-card);
   }
-
-  .folio-process-row {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px 20px;
-    align-items: start;
-  }
-
-  .folio-process-n {
-    font-size: 22px;
+  .step-title {
+    font-size: clamp(18px, 2.6vw, 22px);
     font-weight: 600;
-    color: var(--color-gold);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-  }
-
-  .folio-process-title {
-    font-size: clamp(18px, 2.8vw, 22px);
-    font-weight: 600;
-    color: var(--color-henna);
+    color: var(--color-ink);
     margin: 0 0 6px;
   }
-
-  .folio-process-desc {
+  .step-body {
     font-size: 15px;
+    line-height: 1.6;
     color: var(--color-clay);
-    line-height: 1.55;
     margin: 0;
     max-width: 52ch;
-  }
-
-  @media (max-width: 600px) {
-    .folio-process-step {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

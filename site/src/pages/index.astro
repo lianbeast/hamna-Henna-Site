@@ -6,6 +6,8 @@ import About from '../components/About.astro';
 import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Portfolio from '../components/Portfolio.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Pricing from '../components/Pricing.astro';
 import FAQAccordion from '../components/FAQAccordion.tsx';
 import BookingInquiry from '../components/BookingInquiry.tsx';
 import Footer from '../components/Footer.astro';
@@ -23,6 +25,10 @@ import faq from '../data/faq.json';
   <Process />
 
   <Portfolio />
+
+  <Testimonials />
+
+  <Pricing />
 
   <section class="folio-faq-section" aria-labelledby="faq-heading">
     <Ornament variant="rule" />
@@ -65,7 +71,7 @@ import faq from '../data/faq.json';
   .folio-h2 {
     font-size: clamp(22px, 3.6vw, 30px);
     font-weight: 600;
-    color: var(--color-inkbrown);
+    color: var(--color-ink);
     margin: 0 0 24px;
     text-wrap: balance;
   }

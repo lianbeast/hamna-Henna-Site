@@ -1,16 +1,51 @@
+/* ── Design Tokens ────────────────────────────────────────────
+   Single source of truth: colors, fonts, spacing, shadows, radii.
+   Consumed by global.css via @import (CSS custom properties).
+   Dark mode overrides live in dark-mode.css.
+*/
 @theme {
+  /* ── Type ─────────────────────────────────────────────── */
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --color-ivory: #FDFBF7;
-  --color-paper: #F5F0E6;
-  --color-inkbrown: #2D2D2D;
+  /* ── Surfaces (light) ─────────────────────────────────── */
+  --color-ivory: #FBF7F1;
+  --color-paper: #F3EAE0;
+  --color-cream: #EDE0CC;
+
+  /* ── Ink / text ───────────────────────────────────────── */
+  --color-ink: #2C241B;
+  --color-ink-soft: #5C4A38;
+  --color-clay: #8B7355;
+
+  /* ── Brand accents ────────────────────────────────────── */
   --color-henna: #B8553D;
-  --color-rose: #D48C9E;
+  --color-henna-soft: #D48C9E;
   --color-rust: #C96C5D;
-  --color-gold: #D4AF37;
-  --color-clay: #A67B5B;
-  --color-sandline: #C96C5D;
-  --color-cream: #EFE0C6;
+  --color-gold: #B8944A;
 
-  --shadow-page-fall: 0 1px 0 rgba(74, 44, 22, 0.05), 0 18px 40px -24px rgba(74, 44, 22, 0.3);
+  /* ── Lines / dividers ─────────────────────────────────── */
+  --color-sandline: #D9C9B3;
+  --color-line: #E5D9C8;
+
+  /* ── Shadows ──────────────────────────────────────────── */
+  --shadow-soft: 0 1px 2px rgba(44, 36, 27, 0.04), 0 8px 24px -16px rgba(44, 36, 27, 0.18);
+  --shadow-card: 0 1px 2px rgba(44, 36, 27, 0.04), 0 14px 32px -20px rgba(44, 36, 27, 0.22);
+  --shadow-float: 0 22px 50px -24px rgba(44, 36, 27, 0.35);
+
+  /* ── Radius ───────────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* ── Layout ───────────────────────────────────────────── */
+  --max-width: 1120px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
 }

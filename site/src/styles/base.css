@@ -1,23 +1,80 @@
+/* ── Base reset & element defaults ─────────────────────────── */
 @layer base {
   html {
     font-family: var(--font-serif);
     background-color: var(--color-ivory);
-    color: var(--color-clay);
+    color: var(--color-ink);
     scroll-behavior: smooth;
     scroll-padding-top: 4rem;
-    /* Smooth theme transitions */
-    transition: background-color 0.45s ease, color 0.45s ease;
+    color-scheme: light;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   body {
     font-size: 16px;
-    line-height: 1.55;
+    line-height: 1.6;
     margin: 0;
-    background: radial-gradient(ellipse at 20% 10%, rgba(140, 46, 42, 0.14), transparent 55%),
-                radial-gradient(ellipse at 85% 30%, rgba(194, 154, 75, 0.12), transparent 50%),
-                radial-gradient(ellipse at 50% 90%, rgba(140, 46, 42, 0.08), transparent 60%),
-                var(--color-ivory);
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(184, 85, 61, 0.10), transparent 55%),
+      radial-gradient(ellipse at 85% 30%, rgba(184, 148, 74, 0.08), transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(184, 85, 61, 0.06), transparent 60%),
+      var(--color-ivory);
     background-attachment: fixed;
-    transition: background 0.45s ease;
+    transition: background 0.4s ease;
   }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p { margin: 0 0 1em; color: var(--color-clay); }
+
+  a {
+    color: var(--color-henna);
+    text-decoration: none;
+    text-decoration-color: var(--color-rust);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  a:hover { color: var(--color-rust); }
+
+  img, video { max-width: 100%; height: auto; display: block; }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  button:disabled { opacity: 0.55; cursor: default; }
+
+  input, select, textarea {
+    font: inherit;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-sandline);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 15px;
+    transition: border-color 0.2s, background-color 0.3s ease, color 0.3s ease;
+  }
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 1px;
+    border-color: var(--color-rust);
+  }
+
+  /* Focus visible on any interactive element */
+  :focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection { background: rgba(184, 85, 61, 0.25); }
 }

@@ -1,29 +1,135 @@
+/* ── Typography system ─────────────────────────────────────── */
 @layer components {
-  .section-label {
-    color: var(--color-henna);
-    margin: 0 0 4px;
+  /* Masthead: top-of-page brand bar */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--color-ink);
+    margin-bottom: 28px;
   }
-
-  .label {
-    font-size: 12px;
+  .masthead-inner { display: flex; flex-direction: column; gap: 2px; }
+  .brand-name {
+    font-size: clamp(40px, 6vw, 60px);
     font-weight: 600;
-    letter-spacing: 0.14em;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .brand-name .accent { color: var(--color-henna); }
+  .brand-tag {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-gold);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .folio-mark {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-  }
-
-  .section-h2 {
-    font-size: clamp(22px, 3.6vw, 30px);
-    font-weight: 600;
-    color: var(--color-inkbrown);
-    margin: 0 0 20px;
-    text-wrap: balance;
-  }
-
-  .section-body {
-    font-size: 16px;
     color: var(--color-clay);
+    text-align: right;
+  }
+  .folio-mark b {
+    display: block;
+    color: var(--color-henna);
+    font-variant-numeric: tabular-nums;
+    font-size: 16px;
+  }
+
+  /* Hero */
+  .hero-headline {
+    font-size: clamp(40px, 6.4vw, 72px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 16px;
+    max-width: 18ch;
+  }
+  .hero-body {
+    font-size: 17px;
     line-height: 1.65;
+    color: var(--color-clay);
     max-width: 52ch;
     margin: 0;
   }
+
+  /* Section headings */
+  .h2 {
+    font-size: clamp(26px, 3.6vw, 38px);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0 0 24px;
+    max-width: 22ch;
+  }
+  .h3 {
+    font-size: clamp(20px, 2.8vw, 26px);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0 0 12px;
+  }
+
+  /* Body + muted */
+  .body { font-size: 16px; line-height: 1.65; color: var(--color-clay); max-width: 56ch; margin: 0; }
+  .body--lg { font-size: 17px; line-height: 1.65; color: var(--color-clay); max-width: 56ch; margin: 0; }
+  .muted { color: var(--color-clay); }
+  .ink { color: var(--color-ink); }
+  .accent { color: var(--color-henna); }
+
+  /* Contact links */
+  .contact-row {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+  }
+  .contact-row a {
+    color: var(--color-ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-rust);
+    padding-bottom: 2px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .contact-row a:hover { color: var(--color-henna); }
+
+  .phone-link {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-rust);
+    padding-bottom: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .phone-link:hover { color: var(--color-henna); }
+  .ig-link {
+    font-size: 14px;
+    color: var(--color-clay);
+    text-decoration: none;
+  }
+  .ig-link:hover { color: var(--color-henna); }
+
+  /* Pull quote */
+  .pull-quote {
+    font-size: clamp(24px, 3.6vw, 34px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-henna);
+    margin: 0;
+    max-width: 20ch;
+  }
+
+  /* Stat / number */
+  .num { font-variant-numeric: tabular-nums; }
 }

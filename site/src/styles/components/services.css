@@ -1,28 +1,62 @@
+/* ── Services ──────────────────────────────────────────────── */
 @layer components {
-  .services-grid {
+  .service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
   }
-
-  .svc-service-card {
+  .service-entry {
+    position: relative;
+    padding: var(--space-lg);
     background: var(--color-paper);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border: 1px solid var(--color-sandline);
-    transition: all 0.3s ease;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    transition: border-color 0.25s ease, background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
   }
-
-  .svc-service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  .service-entry:hover,
+  .service-entry:focus-visible {
+    border-color: var(--color-henna);
+    background: rgba(184, 85, 61, 0.04);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
   }
-
-  .svc-service-icon {
-    font-size: 2rem;
+  .service-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .service-num {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .service-title {
+    font-size: clamp(20px, 2.8vw, 24px);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .service-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-clay);
+    margin: 0 0 8px;
+    max-width: 46ch;
+  }
+  .service-note {
+    font-size: 13px;
+    font-style: italic;
     color: var(--color-henna);
-    margin-bottom: 1rem;
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    .service-list { grid-template-columns: 1fr; }
   }
 }

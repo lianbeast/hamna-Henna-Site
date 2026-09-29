@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.local
+.env.*.local
+
+# git worktrees created by Claude for parallel module work
+.claude/worktrees/
+
+# build + tooling caches
+.vite/
+*.tsbuildinfo

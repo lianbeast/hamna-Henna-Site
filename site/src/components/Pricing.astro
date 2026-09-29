@@ -1,67 +1,66 @@
 ---
+import Ornament from './Ornament.astro';
+
 interface Tier {
   name: string;
   blurb: string;
   features: string[];
   featured?: boolean;
-  note?: string;
 }
 
 const tiers: Tier[] = [
   {
-    name: 'Starter',
-    blurb: 'Short description of what is included in the smallest package.',
-    features: ['Feature one', 'Feature two', 'Feature three'],
-    note: 'Pricing note for this tier.'
+    name: 'Bridal Essentials',
+    blurb: 'Full hand and foot artistry composed to order. Includes one design with traditional or contemporary motifs tailored to the bride.',
+    features: ['One full-hand design', 'Custom motif consultation', 'Aftercare guide', 'Booking deposit included'],
+    featured: false
   },
   {
-    name: 'Standard',
-    blurb: 'Middle tier description. Two lines works best.',
-    features: ['Feature one', 'Feature two', 'Feature three', 'Feature four'],
-    note: 'Pricing note for this tier.'
+    name: 'Bridal Party Coordination',
+    blurb: 'Coordinated designs for maids, mothers, and sisters — a unified set that ties the celebration together.',
+    features: ['Designs for up to 5 party members', 'Unified motif family', 'Reduced per-hand rate', 'Scheduling coordination'],
+    featured: false
   },
   {
-    name: 'Premium',
-    blurb: 'Top tier description. Most detailed, most expensive.',
-    features: ['Feature one', 'Feature two', 'Feature three', 'Feature four', 'Feature five'],
-    note: 'Pricing note for this tier.',
+    name: 'Elite Experience',
+    blurb: 'Top-tier service with full hand + foot, faster turnaround, and exclusive motif library.',
+    features: ['Hand + foot design', 'Exclusive motif library', 'Expedited schedule', 'Gift box + card'],
     featured: true
   }
 ];
 ---
 
-<section class="section-wrap" aria-labelledby="pricing-heading">
-  <div class="glass-panel">
-    <p class="section-label label">Pricing</p>
-    <h2 id="pricing-heading" class="section-h2">Three tiers, one starting price.</h2>
-    <p class="pricing-intro">
-      Replace this paragraph with how your pricing works.
-      Use the form below to request a quote.
-    </p>
+<section class="section" aria-labelledby="pricing-heading">
+  <p class="eyebrow">Pricing</p>
+  <h2 id="pricing-heading" class="section-title">Three tiers, one starting point.</h2>
+  <p class="intro">
+    Choose a tier or request a custom quote. Each tier includes a deposit to hold the date.
+  </p>
 
-    <div class="pricing-grid">
-      {tiers.map((t) => (
-        <article class={`pricing-card${t.featured ? ' pricing-card--featured' : ''}`}>
-          <div class="pricing-head">
-            <h3 class="pricing-name">{t.name}</h3>
-            <p class="pricing-amount">From $—</p>
-          </div>
-          <p class="pricing-blurb">{t.blurb}</p>
-          <ul class="pricing-feats">
-            {t.features.map((f) => (
-              <li>{f}</li>
-            ))}
-          </ul>
-          <p class="pricing-note">{t.note}</p>
-          <a class="pricing-cta" href="#booking-heading">Choose this tier</a>
-        </article>
-      ))}
-    </div>
-
-    <p class="pricing-foot">
-      See the <a href="#faq-heading">FAQ</a> for booking, deposits, and aftercare.
-    </p>
+  <div class="pricing-grid">
+    {tiers.map((t) => (
+      <article class={`pricing-card${t.featured ? ' pricing-card--featured' : ''}`} aria-labelledby={`card-${t.name.replace(/\s+/g, '-')}`}>
+        <div class="pricing-head">
+          <h3 class="pricing-name">{t.name}</h3>
+          <p class="pricing-amount">From ${t.features.length * 120}</p>
+        </div>
+        <p class="pricing-blurb">{t.blurb}</p>
+        <ul class="pricing-feats">
+          {t.features.map((f) => (
+            <li>{f}</li>
+          ))}
+        </ul>
+        {t.note && <p class="pricing-note">{t.note}</p>}
+        <a class="pricing-cta" href="#booking-heading" aria-label="Select {t.name} tier">
+          Choose this tier
+        </a>
+      </article>
+    ))}
   </div>
+
+  <p class="pricing-foot">
+    See the <a href="#faq-heading">FAQ</a> for booking, deposits, and aftercare.
+  </p>
 </section>
 
 <style>
@@ -69,37 +68,41 @@ const tiers: Tier[] = [
     font-size: 15px;
     font-style: italic;
     color: var(--color-clay);
-    margin: 0 0 22px;
+    margin: 0 0 var(--space-lg);
     max-width: 56ch;
   }
-
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: var(--space-md);
     align-items: stretch;
   }
-
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
   .pricing-card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    background: rgba(251, 244, 231, 0.5);
-    border-radius: 14px;
-    border: 1px solid rgba(221, 201, 168, 0.35);
-    transition: transform 0.3s ease, background-color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    transition: transform 0.25s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-card);
   }
   .pricing-card:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow-float);
   }
-
   .pricing-card--featured {
-    border-color: rgba(194, 154, 75, 0.65);
-    background: linear-gradient(180deg, rgba(251, 244, 231, 0.65), rgba(244, 230, 205, 0.45));
-    box-shadow: 0 18px 40px -24px rgba(140, 46, 42, 0.45);
+    border-color: var(--color-gold);
+    background: linear-gradient(180deg, rgba(243, 234, 224, 0.65), rgba(237, 224, 204, 0.45));
+    box-shadow: 0 18px 40px -24px rgba(184, 148, 74, 0.45);
   }
-
   .pricing-head {
     display: flex;
     flex-direction: column;
@@ -119,14 +122,12 @@ const tiers: Tier[] = [
     color: var(--color-gold);
     margin: 0;
   }
-
   .pricing-blurb {
     font-size: 13.5px;
     line-height: 1.55;
     color: var(--color-clay);
     margin: 0;
   }
-
   .pricing-feats {
     list-style: none;
     margin: 0;
@@ -135,7 +136,7 @@ const tiers: Tier[] = [
     flex-direction: column;
     gap: 6px;
     font-size: 13.5px;
-    color: var(--color-inkbrown);
+    color: var(--color-ink);
   }
   .pricing-feats li {
     padding-left: 18px;
@@ -147,35 +148,35 @@ const tiers: Tier[] = [
     left: 4px;
     color: var(--color-rust);
   }
-
   .pricing-note {
     font-size: 12px;
     font-style: italic;
     color: var(--color-clay);
     margin: 2px 0 0;
   }
-
   .pricing-cta {
     margin-top: auto;
-    display: inline-block;
-    align-self: flex-start;
-    padding: 9px 18px;
-    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
     background: var(--color-henna);
-    color: #fdf8ee;
-    font-size: 13px;
+    color: var(--color-ivory);
+    font-size: 15px;
     font-weight: 600;
+    letter-spacing: 0.02em;
     text-decoration: none;
-    border: 1px solid rgba(194, 154, 75, 0.55);
-    box-shadow: 0 8px 20px -12px rgba(140, 46, 42, 0.6);
-    transition: transform 0.25s ease, background-color 0.45s ease, border-color 0.45s ease;
+    border: none;
+    transition: background 0.18s ease, transform 0.18s ease;
   }
   .pricing-cta:hover {
-    transform: translateY(-2px);
+    background: var(--color-rust);
+    transform: translateY(-1px);
   }
-
   .pricing-foot {
-    margin: 18px 0 0;
+    margin: var(--space-lg) 0 0;
     font-size: 13px;
     font-style: italic;
     color: var(--color-clay);
@@ -185,16 +186,5 @@ const tiers: Tier[] = [
     text-decoration: underline;
     text-decoration-color: var(--color-rust);
     text-underline-offset: 3px;
-  }
-
-  @media (max-width: 900px) {
-    .pricing-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 560px) {
-    .pricing-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

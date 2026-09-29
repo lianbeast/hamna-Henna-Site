@@ -1,4 +1,6 @@
 ---
+import Ornament from './Ornament.astro';
+
 interface Testimonial {
   quote: string;
   name: string;
@@ -8,112 +10,40 @@ interface Testimonial {
 const items = (await import('../data/testimonials.json')).default as Testimonial[];
 ---
 
-<section class="folio-testimonials" aria-labelledby="testimonials-heading">
-  <Ornament variant="rule" />
-  <p class="folio-label label">Testimonials</p>
-  <h2 id="testimonials-heading" class="folio-h2">A few words from clients.</h2>
+<section class="section" aria-labelledby="testimonials-heading">
+  <p class="eyebrow">Testimonials</p>
+  <h2 id="testimonials-heading" class="section-title">A few words from clients.</h2>
 
-  <div class="testi-grid" role="region" aria-label="Testimonial carousel">
-    {items.length === 0 ? (
-      <p class="testi-empty">
-        Add entries to <code>src/data/testimonials.json</code> to populate this section.
-      </p>
-    ) : (
-      <div class="testi-carousel">
-        {items.map((t, i) => (
-          <blockquote class="testi-card" key={t.name} style={`--i: ${i}`}>
-            <p class="testi-quote">“{t.quote}”</p>
-            <footer class="testi-foot">
-              <span class="testi-name">{t.name}</span>
-              <span class="testi-detail">{t.detail}</span>
-            </footer>
-          </blockquote>
-        ))}
-      </div>
-    )}
-  </div>
+  {items.length === 0 ? (
+    <p class="testi-empty">
+      Add entries to <code>src/data/testimonials.json</code> to populate this section.
+    </p>
+  ) : (
+    <div class="testi-grid" role="region" aria-label="Client testimonials">
+      {items.map((t) => (
+        <blockquote class="testi-card" key={t.name}>
+          <p class="testi-quote">“{t.quote}”</p>
+          <footer class="testi-foot">
+            <span class="testi-name">{t.name}</span>
+            <span class="testi-detail">{t.detail}</span>
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  )}
 </section>
 
 <style>
   .testi-grid {
     display: grid;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
-
-  @media (min-width: 768px) {
-    .testi-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  @media (min-width: 640px) {
+    .testi-grid { grid-template-columns: repeat(2, 1fr); }
   }
-
   @media (min-width: 1024px) {
-    .testi-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .testi-carousel {
-    display: flex;
-    gap: 24px;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-  }
-
-  @media (max-width: 600px) {
-    .testi-carousel {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
-    }
-    .testi-card {
-      grid-column: span 1;
-    }
-  }
-
-  .testi-card {
-    @apply bg-[var(--color-paper)] border border-[var(--color-sandline)] rounded-xl p-6 transition-transform hover:translate-y-1 hover:border-[var(--color-henna)/3];
-    flex: 0 0 300px;
-    min-height: 320px;
-  }
-
-  .testi-quote {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--color-inkbrown);
-    position: relative;
-    padding-left: 20px;
-  }
-
-  .testi-quote::before {
-    content: open-quote;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 30px;
-    line-height: 1;
-    opacity: 0.2;
-    color: var(--color-henna);
-    font-family: inherit;
-  }
-
-  .testi-foot {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-top: auto;
-  }
-
-  .testi-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-henna);
-  }
-
-  .testi-detail {
-    font-size: 12px;
-    font-style: italic;
-    color: var(--color-clay);
+    .testi-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   .testi-empty {
@@ -123,9 +53,57 @@ const items = (await import('../data/testimonials.json')).default as Testimonial
     margin: 0;
   }
 
-  @media (max-width: 640px) {
-    .testi-card {
-      min-height: 280px;
-    }
+  .testi-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .testi-card:hover {
+    box-shadow: var(--shadow-float);
+    transform: translateY(-2px);
+    border-color: var(--color-sandline);
+  }
+
+  .testi-quote {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-ink);
+    position: relative;
+    padding-left: 22px;
+  }
+  .testi-quote::before {
+    content: '\201C';
+    position: absolute;
+    left: 0;
+    top: -6px;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--color-henna);
+    font-family: var(--font-serif);
+    opacity: 0.35;
+  }
+
+  .testi-foot {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .testi-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-henna);
+  }
+  .testi-detail {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--color-clay);
   }
 </style>

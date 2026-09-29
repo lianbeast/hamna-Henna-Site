@@ -42,7 +42,7 @@ const services = [
           <h3 class="folio-service-title">{s.title}</h3>
         </div>
         <p class="folio-service-desc">{s.desc}</p>
-        <p class="folio-service-note italic">{s.note}</p>
+        <p class="folio-service-note">{s.note}</p>
       </li>
     ))}
   </ol>
@@ -68,7 +68,7 @@ const services = [
   .folio-h2 {
     font-size: clamp(22px, 3.6vw, 30px);
     font-weight: 600;
-    color: var(--color-inkbrown);
+    color: var(--color-ink);
     margin: 0 0 24px;
     text-wrap: balance;
   }
@@ -83,8 +83,17 @@ const services = [
   }
 
   .folio-service-entry {
-    @apply bg-[var(--color-paper)] border border-[var(--color-sandline)] rounded-xl p-6 transition-all hover:border-[var(--color-henna)] hover:bg-[var(--color-henna)/5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-rust)] focus-visible:ring-offset-2;
+    background: var(--color-paper);
+    border: 1px solid var(--color-sandline);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
+  }
+
+  .folio-service-entry:hover {
+    border-color: var(--color-henna);
+    background: color-mix(in srgb, var(--color-henna) 5%, var(--color-paper));
   }
 
   .folio-service-entry:focus-visible {
@@ -110,7 +119,7 @@ const services = [
   .folio-service-title {
     font-size: clamp(20px, 3.4vw, 24px);
     font-weight: 600;
-    color: var(--color-inkbrown);
+    color: var(--color-ink);
     margin: 0;
     text-wrap: balance;
   }

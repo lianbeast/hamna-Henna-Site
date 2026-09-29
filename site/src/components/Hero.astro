@@ -2,83 +2,48 @@
 import Ornament from './Ornament.astro';
 ---
 
-<header class="folio-masthead" aria-label="Henna by Hamna — hero section">
-  <div class="folio-masthead-inner">
-    <h1 class="folio-title">Henna by <span class="henna">Hamna</span></h1>
-    <p class="folio-subtitle folio-eyebrow">The Craft Book</p>
+<header class="masthead" aria-label="Henna by Hamna — top of page">
+  <div class="masthead-inner">
+    <h1 class="brand-name">Henna by <span class="accent">Hamna</span></h1>
+    <p class="brand-tag">The Craft Book</p>
   </div>
-  <div class="folio-folio">
+  <div class="folio-mark">
     <b>2026</b> Folio I
   </div>
 </header>
 
-<section class="folio-hero">
-  <div>
-    <h2 class="folio-headline">A mehndi artist's folio, opened to your day.</h2>
-    <p class="folio-body">
-      Every design starts as one clean line. Nothing printed, nothing traced, the hand decides.
+<section class="hero" aria-label="Introduction">
+  <div class="hero-copy">
+    <h2 class="hero-headline">A mehndi artist's folio, opened to your day.</h2>
+    <p class="hero-body">
+      Every design starts as one clean line. Nothing printed, nothing traced — the hand decides.
     </p>
+    <nav class="contact-row" aria-label="Contact">
+      <a href="tel:+13015554321" class="phone-link">301.555.4321</a>
+      <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="ig-link">@henna-designer</a>
+    </nav>
   </div>
-  <Ornament variant="curl" width={180} />
+  <Ornament variant="curl" width={200} />
 </section>
 
-<div class="folio-contact" aria-label="Contact information">
-  <a href="tel:+13015554321" class="folio-phone">301.555.4321</a>
-  <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="folio-ig">@henna-designer</a>
-</div>
-
 <style>
-  .folio-hero {
+  .hero {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    margin: 0 0 32px;
+    gap: 32px;
+    margin-bottom: 80px;
   }
-
-  @media (min-width: 640px) {
-    .folio-hero {
+  @media (min-width: 720px) {
+    .hero {
       flex-direction: row;
       align-items: flex-end;
       justify-content: space-between;
     }
+    .hero-copy { max-width: 46ch; }
   }
-
-  .folio-tag {
-    @apply text-[var(--color-henna)] text-sm font-medium uppercase tracking-[0.1em] md:hidden;
-  }
-
-  .folio-headline {
-    @apply text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-none tracking-tighter text-[var(--color-inkbrown)] text-wrap balance mb-4;
-    line-height: 1.1;
-  }
-
-  .folio-body {
-    @apply text-base text-[var(--color-clay)] leading-relaxed max-w-[52ch] mb-6;
-    line-height: 1.6;
-  }
-
-  .folio-contact {
-    @apply flex gap-4;
-  }
-
-  .folio-phone {
-    @apply text-[var(--color-inkbrown)] font-medium text-lg hover:underline block;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .folio-ig {
-    @apply text-[var(--color-clay)] text-sm hover:text-[var(--color-henna)] transition-colors block;
-  }
-
   @media (max-width: 600px) {
-    .folio-hero {
-      flex-direction: column-reverse;
-    }
-    .folio-folio {
-      @apply hidden;
-    }
-    .folio-masthead {
-      @apply flex-col items-start;
-    }
+    .hero { flex-direction: column-reverse; }
+    .folio-mark { display: none; }
+    .masthead { flex-direction: column; align-items: flex-start; }
   }
 </style>
