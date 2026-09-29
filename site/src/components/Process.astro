@@ -1,0 +1,29 @@
+---
+import process from '../data/process.json';
+---
+
+<section id="process" class="section">
+  <div class="shell">
+    <header class="reveal mx-auto max-w-2xl text-center">
+      <p class="eyebrow text-forest">How It Works</p>
+      <h2 class="mt-4 text-4xl text-espresso md:text-5xl">The Process</h2>
+    </header>
+
+    <ol class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        process.map((s) => (
+          <li class="reveal relative text-center">
+            <span
+              class="mx-auto grid h-16 w-16 place-items-center rounded-full border border-gold bg-floral font-[family-name:var(--font-display)] text-2xl text-forest"
+              aria-hidden="true"
+            >
+              {s.step}
+            </span>
+            <h3 class="mt-6 text-2xl text-espresso">{s.title}</h3>
+            <p class="mx-auto mt-3 text-espresso/85">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

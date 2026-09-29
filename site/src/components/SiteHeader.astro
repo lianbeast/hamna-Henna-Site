@@ -1,0 +1,105 @@
+---
+import ThemeToggle from './ThemeToggle.tsx';
+import MobileNav from './MobileNav.tsx';
+import site from '../data/site.json';
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#packages', label: 'Packages' },
+  { href: '#testimonials', label: 'Testimonials' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="shell flex h-[72px] items-center justify-between gap-4">
+    <a href="#top" class="brand" aria-label={`${site.name} — home`}>
+      <span class="script brand-script">Henna</span>
+      <span class="brand-by">by Hamna</span>
+    </a>
+
+    <nav class="hidden lg:block" aria-label="Primary">
+      <ul class="flex items-center gap-7">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} class="nav-link">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="#contact" class="btn btn-primary hidden !min-h-11 !px-5 sm:inline-flex">
+        Book Your Date
+      </a>
+      <ThemeToggle client:load />
+      <MobileNav client:load />
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  if (header) {
+    const onScroll = () => {
+      header.toggleAttribute('data-stuck', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: transparent;
+    transition: background-color 260ms var(--ease-out-soft);
+  }
+
+  .site-header[data-stuck] {
+    background: var(--color-ivory);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    line-height: 1;
+  }
+
+  .brand-script {
+    font-size: 1.65rem;
+    color: var(--color-espresso);
+  }
+
+  .brand-by {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-espresso);
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    color: var(--color-espresso);
+    transition: color 180ms var(--ease-out-soft);
+  }
+
+  .nav-link:hover {
+    color: var(--color-forest);
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import MehndiMotif from './ornaments/MehndiMotif.astro';
+---
+
+<section class="cta relative overflow-hidden" aria-labelledby="cta-heading">
+  <MehndiMotif class="pointer-events-none absolute top-1/2 left-1/2 w-[min(90%,40rem)] -translate-x-1/2 -translate-y-1/2 text-gold opacity-15" />
+
+  <div class="shell relative z-10 py-24 text-center md:py-32">
+    <p class="script text-4xl text-gold md:text-5xl">Your special moment</p>
+    <h2 id="cta-heading" class="mx-auto mt-5 max-w-3xl text-4xl text-floral md:text-5xl">
+      Make Your Moment Unforgettable
+    </h2>
+    <p class="lede mx-auto mt-6 text-floral/90">
+      Your hands deserve a design as beautiful as your story.
+    </p>
+    <a href="#contact" class="btn btn-invert mt-10">Book Your Date</a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background: var(--color-emerald);
+  }
+</style>

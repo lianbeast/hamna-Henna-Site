@@ -1,0 +1,34 @@
+---
+/** Decorative corner botanical. Inherits currentColor. */
+const { class: className = '' } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 200 200"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1"
+  stroke-linecap="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <!-- outer sweep -->
+  <path d="M4 196C4 108 108 4 196 4" opacity=".55" />
+  <path d="M4 196C4 128 128 4 196 4" opacity=".3" />
+  <!-- vine -->
+  <path d="M18 182C46 150 60 116 88 96C112 78 140 66 172 40" />
+  <!-- leaves -->
+  <path d="M52 148c-14 2-24-6-26-18 12-2 22 4 26 18Z" />
+  <path d="M78 108c-14 4-25-3-29-15 12-4 23 1 29 15Z" />
+  <path d="M112 84c-4-14 2-25 14-29 4 12 0 23-14 29Z" />
+  <path d="M148 60c-2-13 5-23 16-25 2 11-3 21-16 25Z" />
+  <!-- blooms -->
+  <circle cx="88" cy="96" r="7" />
+  <path d="M88 82v-8M88 118v-8M74 96h-8M110 96h-8" opacity=".7" />
+  <circle cx="150" cy="52" r="4.5" opacity=".8" />
+  <!-- dots -->
+  <circle cx="40" cy="170" r="2.5" opacity=".6" />
+  <circle cx="64" cy="126" r="2" opacity=".5" />
+  <circle cx="130" cy="72" r="2" opacity=".5" />
+</svg>

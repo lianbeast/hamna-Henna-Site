@@ -1,0 +1,44 @@
+---
+import PhotoSlot from './PhotoSlot.astro';
+import MehndiMotif from './ornaments/MehndiMotif.astro';
+---
+
+<section id="about" class="section">
+  <div class="shell grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <div class="reveal">
+      <p class="eyebrow text-forest">The Artist</p>
+      <h2 class="mt-4 text-4xl text-espresso md:text-5xl">Artistry Rooted in Tradition</h2>
+      <MehndiMotif class="my-7 w-40 text-beige" />
+
+      <div class="lede space-y-5 text-espresso">
+        <p>
+          I learned mehndi the way most of us learn anything that matters — sitting close to
+          someone who had been doing it for thirty years, asking what each part meant before
+          asking how to draw it.
+        </p>
+        <p>
+          Every design begins with a conversation. What you are carrying that day, who matters
+          most in the room, what your mother or grandmother would recognise in it. The patterns
+          are traditional because the tradition earns it, not because it is a trend.
+        </p>
+        <p>
+          I work slowly and I only take a limited number of weddings each season, so nothing I
+          draw is rushed. That is the whole promise: unhurried work, made for one occasion.
+        </p>
+      </div>
+
+      <a href="#contact" class="btn btn-ghost mt-9">Meet the Artist</a>
+    </div>
+
+    <div class="reveal">
+      <PhotoSlot
+        alt="Portrait of Hamna, a mehndi artist at work in her studio"
+        label="Your portrait here"
+        class="aspect-[4/5] w-full"
+      />
+      <p class="mt-4 text-center text-sm text-espresso">
+        Replace with a portrait of Hamna
+      </p>
+    </div>
+  </div>
+</section>

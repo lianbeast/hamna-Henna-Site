@@ -1,0 +1,44 @@
+[
+  {
+    "id": "g1",
+    "alt": "Bridal mehndi covering the full palm and back of the hand in dense traditional motif work",
+    "span": "tall",
+    "placeholder": "Photo: bridal palm, dense traditional work"
+  },
+  {
+    "id": "g2",
+    "alt": "Fine Arabic-style linework trailing down the fingers of an open hand",
+    "span": "short",
+    "placeholder": "Photo: Arabic finger linework"
+  },
+  {
+    "id": "g3",
+    "alt": "Intricate henna detail across the backs of several fingers",
+    "span": "short",
+    "placeholder": "Photo: finger detail, macro"
+  },
+  {
+    "id": "g4",
+    "alt": "A minimal modern mehndi design with fine single-line botanical elements",
+    "span": "tall",
+    "placeholder": "Photo: minimal modern design"
+  },
+  {
+    "id": "g5",
+    "alt": "Henna applied to the feet, photographed against pale fabric",
+    "span": "short",
+    "placeholder": "Photo: feet mehndi"
+  },
+  {
+    "id": "g6",
+    "alt": "A mehndi artist working carefully on a client's open palm",
+    "span": "short",
+    "placeholder": "Photo: artist at work"
+  },
+  {
+    "id": "g7",
+    "alt": "Both hands held open, showing complementary bridal designs on palms and backs",
+    "span": "wide",
+    "placeholder": "Photo: both hands, full bridal set"
+  }
+]

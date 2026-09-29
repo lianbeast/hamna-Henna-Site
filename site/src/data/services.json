@@ -1,0 +1,51 @@
+[
+  {
+    "id": "bridal",
+    "title": "Bridal Mehndi",
+    "blurb": "Full-hand and foot bridal work, drawn around the story of your wedding and the people in it.",
+    "from": "from $450",
+    "placeholder": "Photo: full bridal hand, intricate bridal pattern"
+  },
+  {
+    "id": "bridesmaid",
+    "title": "Bridesmaid Mehndi",
+    "blurb": "Elegant, lighter designs that sit beautifully beside the bride without competing with her.",
+    "from": "from $85",
+    "placeholder": "Photo: bridesmaid hands, delicate motif work"
+  },
+  {
+    "id": "engagement",
+    "title": "Engagement Mehndi",
+    "blurb": "Modern, minimal linework for the engagement day — refined from the first stroke.",
+    "from": "from $120",
+    "placeholder": "Photo: engagement hand, contemporary linework"
+  },
+  {
+    "id": "guest",
+    "title": "Wedding Guest Mehndi",
+    "blurb": "Simple, tasteful henna that photographs beautifully and takes only a short sitting.",
+    "from": "from $40",
+    "placeholder": "Photo: guest hand, simple festive design"
+  },
+  {
+    "id": "appointment",
+    "title": "Private Appointments",
+    "blurb": "A studio session for yourself, at your pace, with no one else waiting in the room.",
+    "from": "from $70",
+    "placeholder": "Photo: studio session, artist working"
+  },
+  {
+    "id": "events",
+    "title": "Events & Celebrations",
+    "blurb": "Mehndi stations and on-call artists for mehndi nights, sangeets, and large gatherings.",
+    "from": "by quote",
+    "placeholder": "Photo: mehndi night, group of guests"
+  },
+  {
+    "id": "custom",
+    "title": "Custom Designs",
+    "blurb": "Your idea, drawn properly. Share references, names, or dates and it becomes a design.",
+    "from": "by quote",
+    "placeholder": "Photo: custom motif detail, macro"
+  }
+]

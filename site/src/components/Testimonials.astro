@@ -1,0 +1,50 @@
+---
+import testimonials from '../data/testimonials.json';
+---
+
+<section id="testimonials" class="section bg-cream">
+  <div class="shell">
+    <header class="reveal mx-auto max-w-2xl text-center">
+      <p class="eyebrow text-forest">Kind Words</p>
+      <h2 class="mt-4 text-4xl text-espresso md:text-5xl">Testimonials</h2>
+    </header>
+
+    <ul class="mt-14 grid gap-6 md:grid-cols-2">
+      {
+        testimonials.map((t) => (
+          <li class="reveal card p-8 md:p-10">
+            <span
+              class="quote-mark block font-[family-name:var(--font-display)] text-5xl leading-none"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <blockquote class="mt-2">
+              <p class="lede text-espresso">{t.quote}</p>
+            </blockquote>
+            <footer class="mt-7 flex items-center gap-3">
+              <span class="h-px w-8 bg-gold" aria-hidden="true" />
+              <div>
+                <p class="text-espresso">{t.name}</p>
+                <p class="text-sm text-espresso/70">{t.event}</p>
+              </div>
+            </footer>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* #C6A15B is 1.91:1 on cream — invisible as a light-mode quote glyph.
+     Mix it toward espresso so it still reads champagne but clears the 3:1
+     non-text bar. Dark mode keeps the pure gold (7.21:1 on its surface). */
+  .quote-mark {
+    color: color-mix(in srgb, var(--color-gold) 60%, var(--color-espresso));
+  }
+
+  :global(.theme-dark) .quote-mark {
+    color: var(--color-gold);
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import PhotoSlot from './PhotoSlot.astro';
+import services from '../data/services.json';
+---
+
+<section id="services" class="section bg-cream">
+  <div class="shell">
+    <header class="reveal mx-auto max-w-2xl text-center">
+      <p class="eyebrow text-forest">What I Offer</p>
+      <h2 class="mt-4 text-4xl text-espresso md:text-5xl">Services</h2>
+      <p class="lede mx-auto mt-5 text-espresso">
+        Every service begins with a conversation about your day. Prices shown are starting
+        points — the quote you receive is based on the design you choose.
+      </p>
+    </header>
+
+    <ul class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((s) => (
+          <li class="reveal card overflow-hidden transition-shadow duration-200 hover:shadow-lg">
+            <PhotoSlot alt={s.placeholder} label="Photo" class="aspect-[5/4] w-full" />
+            <div class="p-6">
+              <h3 class="text-2xl text-espresso">{s.title}</h3>
+              <p class="mt-2 text-espresso/85">{s.blurb}</p>
+              <div class="mt-5 flex items-center justify-between">
+                <span class="text-sm tracking-wider text-forest">{s.from}</span>
+                <a href="#contact" class="text-sm text-forest underline underline-offset-4 hover:text-emerald">
+                  Learn More
+                </a>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

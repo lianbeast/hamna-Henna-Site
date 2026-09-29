@@ -1,0 +1,89 @@
+---
+import site from '../data/site.json';
+import CornerFloral from './ornaments/CornerFloral.astro';
+
+const year = new Date().getFullYear();
+
+const social = [
+  { href: site.instagram, label: 'Instagram', d: 'M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 3.3A6.5 6.5 0 1 0 18.5 12 6.5 6.5 0 0 0 12 5.5Zm0 10.7A4.2 4.2 0 1 1 16.2 12 4.2 4.2 0 0 1 12 16.2Zm6.9-10.9a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5Z' },
+  { href: site.pinterest, label: 'Pinterest', d: 'M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.1-2 .1-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.8 1.5 1.8 1.8 0 3.1-2.3 3.1-5.1a4.2 4.2 0 0 0-4.5-4.3 4.7 4.7 0 0 0-4.9 4.7 4.1 4.1 0 0 0 .8 2.5.3.3 0 0 1 .1.3l-.3 1.2c0 .2-.2.2-.4.1-1.2-.5-1.8-1.9-1.8-3.5A6.2 6.2 0 0 1 12 5.9a5.7 5.7 0 0 0-5.6 5.7 5.3 5.3 0 0 0 1.2 3.4.3.3 0 0 1 0 .3l-.4 1.6c-.1.2-.2.2-.4.1-1.6-.7-2.5-2.5-2.5-4.4A7.7 7.7 0 0 1 12 4.3a7.5 7.5 0 0 1 7.6 7.7c0 5.3-2.9 9.3-7.1 9.3a3.6 3.6 0 0 1-3.1-1.6l-.8 3.3a8.4 8.4 0 0 1-2.5.7A10 10 0 0 0 12 2Z' },
+  { href: site.tiktok, label: 'TikTok', d: 'M16.6 5.8a4.8 4.8 0 0 1-1.2-3.2h-3.2v12.3a2.6 2.6 0 1 1-1.8-2.5V9.1a5.9 5.9 0 1 0 5 5.8V9.2a7.9 7.9 0 0 0 4.6 1.4V7.4a4.7 4.7 0 0 1-3.4-1.6Z' },
+  { href: `mailto:${site.email}`, label: 'Email', d: 'M3 5.5A1.5 1.5 0 0 1 4.5 4h15A1.5 1.5 0 0 1 21 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm2.2.5 6.8 5 6.8-5H5.2Z' },
+];
+---
+
+<footer class="relative overflow-hidden border-t border-gold/30 bg-cream">
+  <CornerFloral class="botanical bottom-0 left-0 w-32 opacity-25 md:w-48" />
+  <CornerFloral class="botanical right-0 bottom-0 w-32 rotate-180 opacity-25 md:w-48" />
+
+  <div class="shell relative z-10 py-16">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <p class="script text-3xl text-espresso">Henna by Hamna</p>
+        <p class="mt-3 max-w-xs text-sm text-espresso/80">
+          Luxury bridal and event mehndi, designed with intention, detail, and tradition.
+        </p>
+        <ul class="mt-6 flex gap-3">
+          {
+            social.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  aria-label={s.label}
+                  rel="noopener me"
+                  class="grid h-11 w-11 place-items-center border border-gold/50 text-espresso transition-colors hover:border-gold hover:text-forest"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d={s.d} />
+                  </svg>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <nav aria-label="Footer">
+        <p class="eyebrow text-forest">Explore</p>
+        <ul class="mt-4 space-y-1">
+          {
+            ['#about', '#services', '#gallery', '#packages', '#testimonials', '#contact'].map((href, i) => (
+              <li>
+                <a href={href} class="footer-link">
+                  {['About', 'Services', 'Gallery', 'Packages', 'Testimonials', 'Contact'][i]}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="eyebrow text-forest">Contact</p>
+        <ul class="mt-4 space-y-1 text-sm text-espresso/85">
+          <li><a href={`mailto:${site.email}`} class="link">{site.email}</a></li>
+          <li><a href={site.phoneHref} class="link">{site.phone}</a></li>
+          <li class="pt-2">{site.serviceArea}</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-14 border-t border-gold/30 pt-7 text-center text-sm text-espresso/70">
+      © {year} {site.name}. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    color: var(--color-espresso);
+    transition: color 180ms var(--ease-out-soft);
+  }
+
+  .footer-link:hover {
+    color: var(--color-forest);
+  }
+</style>

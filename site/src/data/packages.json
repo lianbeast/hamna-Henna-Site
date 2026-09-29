@@ -1,0 +1,61 @@
+[
+  {
+    "id": "guest-experience",
+    "name": "The Guest Experience",
+    "tagline": "A lovely detail, done properly",
+    "description": "For family and friends who want henna that looks considered, without a long appointment.",
+    "includes": [
+      "Simple festive design, front or back",
+      "One sitting, up to 30 minutes",
+      "Fresh cone and aftercare kit"
+    ],
+    "price": "from $40",
+    "featured": false
+  },
+  {
+    "id": "intimate",
+    "name": "The Intimate Celebration",
+    "tagline": "Engagement and intimate occasions",
+    "description": "Contemporary, minimal linework for the smaller celebrations — engagement, mehndi night, reception.",
+    "includes": [
+      "Modern design across one or both hands",
+      "Up to 90 minutes in studio",
+      "Optional name, date, or initial detailing",
+      "Aftercare and longevity guidance"
+    ],
+    "price": "from $120",
+    "featured": false
+  },
+  {
+    "id": "signature",
+    "name": "The Signature Bride",
+    "tagline": "The full bridal experience",
+    "description": "The most requested package. A complete bridal design built around your wedding, drawn over a consultation.",
+    "includes": [
+      "Full bridal mehndi, both hands and feet",
+      "Bridal design consultation and reference review",
+      "Custom motifs from your wedding details",
+      "Long-wear natural henna, mixed for depth",
+      "Two dedicated sittings",
+      "Bridal-party discount for five or more",
+      "Aftercare kit and longevity planning"
+    ],
+    "price": "from $450",
+    "featured": true
+  },
+  {
+    "id": "classic",
+    "name": "The Classic Bride",
+    "tagline": "Traditional, timeless, unhurried",
+    "description": "A full traditional bridal design for brides who want the classic repertoire, executed with care.",
+    "includes": [
+      "Full bridal mehndi, both hands",
+      "Traditional regional motifs of your choosing",
+      "One extended sitting",
+      "Optional simple feet design",
+      "Aftercare kit"
+    ],
+    "price": "from $320",
+    "featured": false
+  }
+]

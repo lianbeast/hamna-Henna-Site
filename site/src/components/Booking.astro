@@ -1,0 +1,129 @@
+---
+import BookingInquiry from './BookingInquiry.tsx';
+import site from '../data/site.json';
+---
+
+<section id="contact" class="section bg-cream">
+  <div class="shell grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+    <div class="reveal">
+      <p class="eyebrow text-forest">Get in Touch</p>
+      <h2 class="mt-4 text-4xl text-espresso md:text-5xl">Book Your Date</h2>
+      <p class="lede mt-6 text-espresso">
+        Tell me about your day and I will come back to you within two days. The more you share,
+        the more useful my first reply will be.
+      </p>
+
+      <dl class="mt-10 space-y-6">
+        <div>
+          <dt class="eyebrow text-forest">Email</dt>
+          <dd class="mt-1"><a href={`mailto:${site.email}`} class="link">{site.email}</a></dd>
+        </div>
+        <div>
+          <dt class="eyebrow text-forest">Phone</dt>
+          <dd class="mt-1"><a href={site.phoneHref} class="link">{site.phone}</a></dd>
+        </div>
+        <div>
+          <dt class="eyebrow text-forest">Service Area</dt>
+          <dd class="mt-1 text-espresso">{site.serviceArea}</dd>
+        </div>
+        <div>
+          <dt class="eyebrow text-forest">Availability</dt>
+          <dd class="mt-1 text-espresso">{site.availability}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="reveal card p-7 md:p-10">
+      <BookingInquiry client:load />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .link {
+    color: var(--color-espresso);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 1px;
+  }
+
+  .link:hover {
+    color: var(--color-forest);
+  }
+
+  .booking-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-espresso);
+  }
+
+  .booking-input {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.625rem 0.875rem;
+    /* UA stylesheets do not inherit font — without this the form reads in Times */
+    font: inherit;
+    color: var(--color-espresso);
+    background: var(--color-ivory);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+    border-radius: 2px;
+    transition: border-color 180ms var(--ease-out-soft);
+  }
+
+  .booking-input:hover {
+    border-color: var(--color-gold);
+  }
+
+  .booking-input[aria-invalid='true'] {
+    border-color: var(--color-espresso);
+    border-width: 2px;
+  }
+
+  .booking-input[type='date'] {
+    color-scheme: light dark;
+  }
+
+  .booking-error {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    color: var(--color-espresso);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 3px;
+  }
+
+  .booking-summary {
+    margin-bottom: 1.75rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-espresso);
+    border-left-width: 3px;
+    background: var(--color-ivory);
+    color: var(--color-espresso);
+  }
+
+  .booking-summary a {
+    color: inherit;
+  }
+
+  .booking-note {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-espresso);
+    opacity: 0.85;
+  }
+
+  .booking-live:not(:empty) {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-gold);
+    background: var(--color-ivory);
+    font-size: 0.9375rem;
+    color: var(--color-espresso);
+  }
+</style>
