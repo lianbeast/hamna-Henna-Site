@@ -36,9 +36,9 @@ const services = [
 
   <ol class="folio-service-list" aria-label="Service list">
     {services.map((s) => (
-      <li class="folio-service-entry" tabindex="0" role="button" aria-label={s.n} aria-pressed="false" key={s.n}>
+      <li class="folio-service-entry" key={s.n}>
         <div class="folio-service-row">
-          <span class="folio-service-n">{s.n}</span>
+          <span class="folio-service-n" aria-hidden="true">{s.n}</span>
           <h3 class="folio-service-title">{s.title}</h3>
         </div>
         <p class="folio-service-desc">{s.desc}</p>
@@ -88,7 +88,6 @@ const services = [
     border-radius: var(--radius-md);
     padding: 24px;
     transition: border-color 0.2s ease, background-color 0.2s ease;
-    cursor: pointer;
   }
 
   .folio-service-entry:hover {
@@ -96,24 +95,30 @@ const services = [
     background: color-mix(in srgb, var(--color-henna) 5%, var(--color-paper));
   }
 
-  .folio-service-entry:focus-visible {
-    outline: 2px solid var(--color-rust);
-    outline-offset: 2px;
-  }
-
   .folio-service-row {
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: 14px;
     margin-bottom: 6px;
   }
 
+  /* Circular plate badge, echoing the hero stamp. Fixed dark plate so it
+     holds its identity in both themes; plate-gold numeral is 8.1:1 on ink. */
   .folio-service-n {
-    font-size: 22px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--plate-gold);
+    background: var(--plate-ink);
+    color: var(--plate-gold);
+    font-size: 17px;
     font-weight: 600;
-    color: var(--color-gold);
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
   }
 
   .folio-service-title {

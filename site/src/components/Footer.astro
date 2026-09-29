@@ -3,27 +3,50 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="footer" role="contentinfo" aria-label="Footer for Henna by Hamna">
-  <div class="footer-rule"></div>
-  <div class="footer-row">
-    <p class="footer-quote">The stain is drawn into the day.</p>
-    <div class="footer-contact">
-      <a href="tel:+13015554321" class="footer-phone">301.555.4321</a>
-      <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="footer-ig">@henna-designer</a>
+  <div class="footer-plate">
+    <div class="footer-row">
+      <p class="footer-quote">The stain is drawn into the day.</p>
+      <div class="footer-contact">
+        <a href="tel:+13015554321" class="footer-phone">301.555.4321</a>
+        <a href="https://www.instagram.com/henna-designer/" target="_blank" rel="noopener" class="footer-ig">@henna-designer</a>
+      </div>
     </div>
+    <p class="footer-copy">© {year} Henna by Hamna. The Craft Book, Folio I.</p>
   </div>
-  <p class="footer-copy">© {year} Henna by Hamna. The Craft Book, Folio I.</p>
 </footer>
 
 <style>
+  /* Full-bleed dark band. The wavy top edge is a ::before that overhangs the
+     plate by 26px and carries the wave as its own background, so the band
+     reads as a torn brush sweep rather than a straight rule. `isolation:
+     isolate` keeps the negative z-index inside this stacking context — without
+     it the pseudo would slip behind <body>'s own background and vanish. */
   .footer {
-    margin-top: var(--space-xl);
-    padding: var(--space-xl) 0 var(--space-md);
+    margin-top: var(--space-3xl);
   }
-  .footer-rule {
-    height: 2px;
-    background: var(--color-sandline);
-    margin-bottom: var(--space-md);
+
+  .footer-plate {
+    position: relative;
+    background: var(--plate-ink);
+    color: var(--plate-gold);
+    padding: calc(var(--space-2xl) + 18px) clamp(20px, 5vw, 56px) var(--space-xl);
+    isolation: isolate;
   }
+
+  .footer-plate::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -26px;
+    height: 26px;
+    z-index: -1;
+    /* ponytail: the wave fill repeats #2C241B because a data-URI SVG cannot
+       read var(--plate-ink). Re-point both when the plate ink changes. */
+    background: var(--plate-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='26' preserveAspectRatio='none' viewBox='0 0 1200 26'%3E%3Cpath d='M0 7C150 19 300 21 450 13S750 2 900 9s200 10 300 4v13H0z' fill='%232C241B'/%3E%3C/svg%3E")
+      center / 100% 100% no-repeat;
+  }
+
   .footer-row {
     display: flex;
     justify-content: space-between;
@@ -44,7 +67,7 @@ const year = new Date().getFullYear();
   .footer-quote {
     font-size: clamp(26px, 4vw, 36px);
     font-weight: 600;
-    color: var(--color-henna);
+    color: var(--plate-gold);
     margin: 0;
     text-wrap: balance;
   }
@@ -57,23 +80,27 @@ const year = new Date().getFullYear();
   .footer-phone {
     font-size: 17px;
     font-weight: 600;
-    color: var(--color-ink);
+    color: var(--plate-gold);
     text-decoration: none;
-    border-bottom: 2px solid var(--color-rust);
+    border-bottom: 2px solid currentColor;
     padding-bottom: 2px;
     font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
   }
-  .footer-phone:hover { color: var(--color-henna); }
+  .footer-phone:hover { color: var(--plate-hi); }
   .footer-ig {
     font-size: 14px;
-    color: var(--color-clay);
+    color: var(--plate-gold);
     text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, color 0.2s ease;
   }
-  .footer-ig:hover { color: var(--color-henna); }
+  .footer-ig:hover { opacity: 1; color: var(--plate-hi); }
   .footer-copy {
     font-size: 12px;
-    color: var(--color-clay);
-    margin: var(--space-xl) 0 0;
+    color: var(--plate-gold);
+    margin: 0;
+    opacity: 0.7;
     letter-spacing: 0.06em;
     text-align: center;
     max-width: 64ch;

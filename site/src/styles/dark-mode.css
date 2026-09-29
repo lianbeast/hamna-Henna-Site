@@ -24,11 +24,15 @@ html.theme-dark {
 }
 
 html.theme-dark body {
-  background:
+  background-color: var(--color-ivory);
+  /* Same layer stack as base.css: washes over the henna tile over ivory.
+     Stroke recoloured to a light warm tone so the line-art reads on dark. */
+  background-image:
     radial-gradient(ellipse at 20% 10%, rgba(232, 154, 122, 0.16), transparent 55%),
     radial-gradient(ellipse at 85% 30%, rgba(201, 168, 76, 0.12), transparent 50%),
     radial-gradient(ellipse at 50% 90%, rgba(232, 154, 122, 0.10), transparent 60%),
-    var(--color-ivory);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23E8C89A' stroke-width='0.9' stroke-linecap='round' opacity='0.5'%3E%3Cpath d='M28 22c9 6 12 17 8 26-4 9-15 12-22 7s-8-16-2-23c6-7 16-7 22-2 6 5 6 14 0 19'/%3E%3Cpath d='M30 30c-5 8-4 17 3 23'/%3E%3Ccircle cx='132' cy='48' r='3'/%3E%3Cpath d='M124 62c8-10 20-12 29-6'/%3E%3Cpath d='M132 70c-6 7-5 17 2 22'/%3E%3Cpath d='M56 128c10-4 21 1 25 11s-2 22-13 25-21-4-24-14'/%3E%3Cpath d='M60 140c6 4 8 12 4 18'/%3E%3Ccircle cx='22' cy='104' r='2.4'/%3E%3Cpath d='M16 114c-5 6-4 15 3 19'/%3E%3Ccircle cx='156' cy='146' r='2.4'/%3E%3Cpath d='M148 154c6-2 12 2 14 8'/%3E%3Cpath d='M96 18c6 3 8 11 5 17'/%3E%3Cpath d='M88 12c10 0 18 8 18 18s-8 18-18 18' opacity='0.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 180px 180px;
   background-attachment: fixed;
 }
 
@@ -102,14 +106,9 @@ html.theme-dark .h3,
 html.theme-dark .section-title,
 html.theme-dark .service-title,
 html.theme-dark .booking-success-title,
-html.theme-dark .pull-quote,
-html.theme-dark .folio-footer-quote {
+html.theme-dark .pull-quote {
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
-
-/* Footer */
-html.theme-dark .footer-rule { background: var(--color-ink); }
-html.theme-dark .footer-copy { border-top-color: var(--color-sandline); }
 
 /* Shortcut help */
 html.theme-dark .help-panel {

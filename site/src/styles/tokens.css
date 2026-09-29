@@ -7,6 +7,14 @@
   /* ── Type ─────────────────────────────────────────────── */
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-script: "Great Vibes", "Snell Roundhand", "Segoe Script", cursive;
+
+  /* Fixed dark plate. Deliberately NOT flipped by dark-mode.css: the
+     stamp, footer band and brush label keep one identity in both themes.
+     plate-gold on plate-ink measures 8.1:1, so text on the plate is AA+. */
+  --plate-ink: #2C241B;
+  --plate-gold: #D9B978;
+  --plate-hi: #FDF6E8;
 
   /* ── Surfaces (light) ─────────────────────────────────── */
   --color-ivory: #FBF7F1;
