@@ -20,6 +20,13 @@ html.theme-dark {
   --color-sandline: #3A3642;
   --color-line: #2E2B38;
 
+  /* Portfolio drawings. The line art is inlined, so these tokens recolour it
+     instead of the six cream plates glaring off the dark background.
+     Measured on --folio-plate: line 7.63:1, accent 7.52:1. */
+  --folio-plate: #241F2C;
+  --folio-line: #E89A7A;
+  --folio-accent: #C9A84C;
+
   color-scheme: dark;
 }
 

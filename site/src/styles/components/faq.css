@@ -34,12 +34,13 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+    display: block;
     color: var(--color-henna);
+    transition: transform 0.25s ease;
   }
+  /* Both bars are always drawn, so opening the panel is one 45deg turn
+     rather than a glyph swap: + becomes −. */
+  .faq-trigger[aria-expanded='true'] .faq-icon { transform: rotate(45deg); }
   .faq-answer { padding: 0 0 16px; }
   .faq-answer p {
     font-size: 15px;

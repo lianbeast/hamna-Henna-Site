@@ -32,7 +32,15 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
                 onClick={() => setOpenIndex(isOpen ? null : i)}
               >
                 <span className="faq-q">{item.q}</span>
-                <span className="faq-icon" aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                {/* Drawn, not typed: a glyph renders at whatever weight the
+                    font carries, which reads as decoration beside a real icon
+                    set. Both bars are always present — the CSS rotates the
+                    cross 45deg to become the minus, so the state change is
+                    one continuous turn instead of a character swap. */}
+                <svg className="faq-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M3 10h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M10 3v14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
               </button>
             </h3>
             {isOpen && (

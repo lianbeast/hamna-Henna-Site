@@ -11,7 +11,6 @@ const items = (await import('../data/testimonials.json')).default as Testimonial
 ---
 
 <section class="section" aria-labelledby="testimonials-heading">
-  <p class="eyebrow">Testimonials</p>
   <h2 id="testimonials-heading" class="section-title">A few words from clients.</h2>
 
   {items.length === 0 ? (

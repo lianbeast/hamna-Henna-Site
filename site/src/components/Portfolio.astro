@@ -1,11 +1,11 @@
 ---
-import Ornament from './Ornament.astro';
+import PortfolioMotif from './PortfolioMotif.astro';
 import MotifPlaceholder from './MotifPlaceholder.astro';
 
 interface PortfolioItem {
-  src: string;
+  svg: string;
   alt: string;
-  motif?: 'curl' | 'paisley' | 'mandala' | 'vine';
+  motif?: string;
   year?: number;
 }
 
@@ -14,7 +14,6 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
 ---
 
 <section class="section" aria-labelledby="portfolio-heading">
-  <p class="eyebrow">The Portfolio</p>
   <h2 id="portfolio-heading" class="section-title">Recent hands, recent days.</h2>
 
   <div class="folio-portfolio-grid" role="list">
@@ -31,8 +30,8 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
       </div>
     ) : (
       items.map((item, i) => (
-        <figure class="folio-portfolio-card" role="listitem" key={item.src}>
-          <img src={item.src} alt={item.alt} loading={i < 3 ? 'eager' : 'lazy'} width={600} height={800} />
+        <figure class="folio-portfolio-card" role="listitem" key={item.svg}>
+          <PortfolioMotif file={item.svg} alt={item.alt} />
           <figcaption class="folio-portfolio-caption">
             <span class="folio-portfolio-caption-motif">{item.motif || 'mixed'}</span>
             {item.year && <span class="folio-portfolio-caption-year">{item.year}</span>}
@@ -89,39 +88,32 @@ const motifs: Array<'curl' | 'paisley' | 'mandala' | 'vine'> = ['curl', 'paisley
   .folio-portfolio-card {
     position: relative;
     border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-paper);
-    border: 1px solid var(--color-line);
-    box-shadow: var(--shadow-soft);
-    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease;
   }
-  .folio-portfolio-card:hover,
-  .folio-portfolio-card:focus-within {
-    box-shadow: var(--shadow-float);
+  .folio-portfolio-card:hover {
     transform: translateY(-2px);
+  }
+  .folio-portfolio-card :global(.folio-plate) {
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .folio-portfolio-card:hover :global(.folio-plate) {
+    box-shadow: var(--shadow-float);
     border-color: var(--color-sandline);
   }
-  .folio-portfolio-card img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-  .folio-portfolio-card:hover img { transform: scale(1.03); }
 
   .folio-portfolio-caption {
     position: absolute;
     inset: auto 0 0 0;
     padding: 14px 18px;
     background: linear-gradient(to top, rgba(44, 36, 27, 0.85), transparent);
-    color: var(--color-ivory);
+    color: var(--plate-hi);
     display: flex;
     align-items: baseline;
     gap: 10px;
     font-size: 13px;
     line-height: 1.5;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
   .folio-portfolio-caption-motif {
     text-transform: uppercase;
