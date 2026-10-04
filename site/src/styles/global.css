@@ -9,12 +9,12 @@
   --color-henna: #8C2E2A;
   --color-rose: var(--color-henna);
   --color-rust: #B04A2C;
-  --color-gold: #C29A4B;
+  --color-gold: #8E6329;
   --color-clay: #6B4A2A;
   --color-sandline: #DDC9A8;
-  --color-cream: #EFE0C6;
 
   --shadow-page-fall: 0 1px 0 rgba(74, 44, 22, 0.08), 0 18px 40px -24px rgba(74, 44, 22, 0.35);
+  --shadow-card-lift: 0 24px 60px -32px rgba(74, 44, 22, 0.45), 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 0 0 1px rgba(221, 201, 168, 0.4);
 }
 
 @layer base {
@@ -385,7 +385,8 @@
   .pricing-cta,
   .ig-follow-btn,
   .pricing-cta.pulse-in,
-  .ig-follow-btn.pulse-in {
+  .ig-follow-btn.pulse-in,
+  .scroll-hint {
     transition: none !important;
     animation: none !important;
     opacity: 1 !important;
@@ -528,10 +529,23 @@
   }
 }
 
-/* Dark mode: tilt shadow */
-html.theme-dark .glass-panel {
-  box-shadow: 0 8px 32px -8px rgba(15, 12, 41, 0.5);
-}0, 46, 42, 0.08);
+/* ── Shortcut Help ─────────────────────────────────────────── */
+@layer components {
+  .help-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-henna);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .help-btn:hover {
+    background: rgba(140, 46, 42, 0.08);
     transform: scale(1.1);
     color: var(--color-inkbrown);
   }
@@ -609,10 +623,9 @@ html.theme-dark {
   --color-henna: #a29bfe;
   --color-rose: #e17055;
   --color-rust: #e17055;
-  --color-gold: #fdcb6e;
+  --color-gold: #e6b84a;
   --color-clay: #b2bec3;
   --color-sandline: #3d3a6e;
-  --color-cream: #2d2a5e;
 
   color-scheme: dark;
 }
@@ -632,6 +645,7 @@ html.theme-dark .glass-panel {
   box-shadow:
     0 24px 60px -32px rgba(15, 12, 41, 0.6),
     inset 0 1px 0 rgba(162, 155, 254, 0.15);
+  --shadow-card-lift: 0 24px 60px -32px rgba(15, 12, 41, 0.6), inset 0 1px 0 rgba(162, 155, 254, 0.15);
 }
 
 html.theme-dark .glass-panel:hover {
