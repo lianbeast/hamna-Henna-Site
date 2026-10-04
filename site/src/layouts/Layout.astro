@@ -39,7 +39,7 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f8f1e5" />
+    <meta name="theme-color" content="#f8f1e5" data-theme-color />
     <title>{title ?? `${site.name} — ${site.tagline}`}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -77,16 +77,17 @@ const jsonLd = {
             saved === 'dark' ||
             (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
           if (dark) document.documentElement.classList.add('theme-dark');
-          var themeColor = document.querySelector('meta[name="theme-color"]');
+          var themeColor = document.querySelector('meta[data-theme-color]');
           if (themeColor) {
             var syncThemeColor = function () {
-              themeColor.setAttribute(
-                'content',
-                document.documentElement.classList.contains('theme-dark') ? '#171310' : '#f8f1e5'
-              );
+              // Read the value straight from the token so the address-bar
+              // colour can never drift from the design system.
+              var root = document.documentElement;
+              var computed = getComputedStyle(root).getPropertyValue('--color-ivory').trim();
+              themeColor.setAttribute('content', computed || '#f8f1e5');
             };
             syncThemeColor();
-            new MutationObserver(syncThemeColor).observe(document.documentElement, {
+            new MutationObserver(syncThemeColor).observe(root, {
               attributes: true,
               attributeFilter: ['class'],
             });

@@ -7,12 +7,14 @@
    ============================================================ */
 
 @theme {
+  /* Page vs section wash: ivory is the page field, cream is the soft section wash */
   --color-ivory: #f8f1e5;
   --color-cream: #efe3cf;
   --color-floral: #fff9ef;
   --color-emerald: #123c35;
   --color-forest: #1f5145;
   --color-gold: #c6a15b;
+  --color-gold-ink: #8e6329;
   --color-beige: #cdb99a;
   --color-espresso: #3b2118;
   --color-surface: #fff9ef;
@@ -29,6 +31,11 @@
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-quick: 180ms;
   --dur-slow: 640ms;
+
+  --shadow-soft: 0 20px 60px -30px color-mix(in srgb, var(--color-emerald) 40%, transparent);
+  --shadow-card: 0 1px 2px color-mix(in srgb, var(--color-espresso) 6%, transparent);
+  --z-header: 50;
+  --z-overlay: 900;
 }
 
 @layer base {
@@ -45,11 +52,11 @@
     --color-emerald: #123c35;
     --color-forest: #1f5145;
     --color-gold: #c6a15b;
-    /* Brand fills remain deep green; ink and surfaces adapt independently. */
-    --color-accent-ink: #a5c8b7;
-    --color-surface: #251e19;
+    --color-gold-ink: #e6b84a;
     --color-beige: #8c7a5e;
     --color-espresso: #efe3cf;
+    --color-surface: #251e19;
+    --color-accent-ink: #a5c8b7;
     --color-selection-ink: #3b2118;
     --color-invert-hover-ink: #3b2118;
   }
@@ -153,7 +160,7 @@
   /* gold as a heading-colour is decorative-only on light grounds;
      it only becomes type on the emerald band or in dark mode */
   .gold-ink {
-    color: var(--color-gold);
+    color: var(--color-gold-ink);
   }
 
   .script {
@@ -346,12 +353,23 @@
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+  /* Kill parallax/lift — the things that move the viewport or lift cards.
+     Preserve opacity fades and state transitions so the UI still
+     communicates hierarchy; it just arrives instantly. */
+  .reveal,
+  .scroll-hint,
+  .pf-card,
+  .arch-panel,
+  .hero-gradient-top,
+  .hero-gradient-bottom,
+  .hero-canvas-wrap,
+  .botanical,
+  .arched,
+  .arch-rule {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
