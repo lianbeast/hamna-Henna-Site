@@ -7,7 +7,7 @@
   --color-paper: #FBF4E7;
   --color-inkbrown: #4A2C16;
   --color-henna: #8C2E2A;
-  --color-rose: #8C2E2A;
+  --color-rose: var(--color-henna);
   --color-rust: #B04A2C;
   --color-gold: #C29A4B;
   --color-clay: #6B4A2A;
@@ -55,9 +55,9 @@
 
   /* Shared glass card for sections */
   .glass-panel {
-    background: rgba(251, 244, 231, 0.62);
-    backdrop-filter: blur(18px) saturate(1.15);
-    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    background: var(--color-paper);
+    backdrop-filter: blur(12px) saturate(0.9);
+    -webkit-backdrop-filter: blur(12px) saturate(0.9);
     border: 1px solid rgba(221, 201, 168, 0.55);
     border-radius: 20px;
     box-shadow:
@@ -277,7 +277,9 @@
     border-color: var(--color-rust);
   }
   .booking-textarea { resize: vertical; min-height: 96px; }
-  .booking-submit {
+  .booking-submit,
+  .pricing-cta,
+  .button-primary {
     background: var(--color-henna);
     color: var(--color-ivory);
     border: none;
@@ -289,12 +291,18 @@
     cursor: pointer;
     transition: background 0.18s ease-out, transform 0.18s ease-out, background-color 0.45s ease, color 0.45s ease;
   }
-  .booking-submit:hover:not(:disabled) {
+  .booking-submit:hover:not(:disabled),
+  .pricing-cta:hover:not(:disabled),
+  .button-primary:hover:not(:disabled) {
     background: var(--color-inkbrown);
     transform: translateY(-1px);
   }
-  .booking-submit:focus-visible { outline: 2px solid var(--color-rust); outline-offset: 2px; }
-  .booking-submit:disabled { opacity: 0.6; cursor: default; }
+  .booking-submit:focus-visible,
+  .pricing-cta:focus-visible,
+  .button-primary:focus-visible { outline: 2px solid var(--color-rust); outline-offset: 2px; }
+  .booking-submit:disabled,
+  .pricing-cta:disabled,
+  .button-primary:disabled { opacity: 0.6; cursor: default; }
   .booking-success {
     display: flex;
     flex-direction: column;
@@ -375,7 +383,9 @@
   .scroll-top,
   .glass-panel,
   .pricing-cta,
-  .ig-follow-btn {
+  .ig-follow-btn,
+  .pricing-cta.pulse-in,
+  .ig-follow-btn.pulse-in {
     transition: none !important;
     animation: none !important;
     opacity: 1 !important;
