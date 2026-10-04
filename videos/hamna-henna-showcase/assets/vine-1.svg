@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <rect width="800" height="800" fill="#fbf4e7"/>
+  <g stroke-linecap="round" fill="none">
+    <!-- main stem -->
+    <path d="M 120,720 C 180,560 220,460 260,400 C 320,310 380,280 400,240 C 430,180 440,120 460,80"
+          stroke="#8C2E2A" stroke-width="7"/>
+    <path d="M 460,80 C 480,40 520,60 505,105" stroke="#8C2E2A" stroke-width="7"/>
+    <!-- left branches with leaves -->
+    <path d="M 210,500 C 150,470 120,430 130,380" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 130,380 C 95,390 70,365 85,330" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 85,330 C 60,335 45,310 60,285" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 130,380 C 130,340 155,310 190,305" stroke="#8C2E2A" stroke-width="5"/>
+    <!-- right branches with leaves -->
+    <path d="M 300,300 C 340,260 350,210 330,170" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 330,170 C 370,160 390,125 370,90" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 330,170 C 300,130 300,90 325,60" stroke="#8C2E2A" stroke-width="5"/>
+    <path d="M 380,240 C 420,230 450,195 440,155" stroke="#8C2E2A" stroke-width="5"/>
+    <!-- leaf shapes (lobed) -->
+    <g stroke="#C29A4B" stroke-width="5">
+      <path d="M 190,305 C 220,300 235,315 230,340 C 225,362 200,370 190,360"/>
+      <path d="M 85,330 C 55,325 40,300 55,275 C 68,255 92,258 96,280"/>
+      <path d="M 325,60 C 345,40 375,40 390,58 C 402,76 385,98 362,92"/>
+      <path d="M 440,155 C 470,150 488,165 482,192 C 477,216 452,220 442,205"/>
+      <path d="M 60,285 C 32,278 20,252 36,228 C 50,208 74,212 78,234"/>
+      <path d="M 370,90 C 390,72 418,74 432,92 C 443,110 427,132 405,126"/>
+    </g>
+    <!-- small dots / buds -->
+    <g fill="#8C2E2A">
+      <circle cx="216" cy="520" r="9"/>
+      <circle cx="250" cy="430" r="7"/>
+      <circle cx="160" cy="450" r="6"/>
+      <circle cx="352" cy="350" r="8"/>
+      <circle cx="416" cy="150" r="7"/>
+      <circle cx="480" cy="300" r="6"/>
+      <circle cx="505" cy="105" r="9"/>
+    </g>
+  </g>
+</svg>

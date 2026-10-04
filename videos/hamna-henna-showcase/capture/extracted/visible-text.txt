@@ -1,0 +1,196 @@
+[a] Skip to content
+[span] Henna
+[span] by Hamna
+[a] Services
+[a] Packages
+[a] Testimonials
+[a] Book Your Date
+[a] Services
+[a] Packages
+[a] Testimonials
+[a] Book Your Date
+[p] Now booking 2026 wedding season
+[span] Intricate Mehndi
+[span] Timeless Beauty
+[p] Luxury bridal and event mehndi artistry designed with intention, detail, and tradition.
+[a] Explore My Work
+[a] Book a Consultation
+[p] The Artist
+[h2] Artistry Rooted in Tradition
+[p] I learned mehndi the way most of us learn anything that matters — sitting close to someone who had been doing it for thirty years, asking what each part meant before asking how to draw it.
+[p] Every design begins with a conversation. What you are carrying that day, who matters most in the room, what your mother or grandmother would recognise in it. The patterns are traditional because the tradition earns it, not because it is a trend.
+[p] I work slowly and I only take a limited number of weddings each season, so nothing I draw is rushed. That is the whole promise: unhurried work, made for one occasion.
+[a] Meet the Artist
+[p] Your portrait here
+[span] Portrait of Hamna, a mehndi artist at work in her studio
+[p] Replace with a portrait of Hamna
+[p] What I Offer
+[h2] Services
+[p] Every service begins with a conversation about your day. Prices shown are starting points — the quote you receive is based on the design you choose.
+[p] Photo
+[span] Photo: full bridal hand, intricate bridal pattern
+[h3] Bridal Mehndi
+[p] Full-hand and foot bridal work, drawn around the story of your wedding and the people in it.
+[span] from $450
+[a] Learn More
+[p] Photo
+[span] Photo: bridesmaid hands, delicate motif work
+[h3] Bridesmaid Mehndi
+[p] Elegant, lighter designs that sit beautifully beside the bride without competing with her.
+[span] from $85
+[a] Learn More
+[p] Photo
+[span] Photo: engagement hand, contemporary linework
+[h3] Engagement Mehndi
+[p] Modern, minimal linework for the engagement day — refined from the first stroke.
+[span] from $120
+[a] Learn More
+[p] Photo
+[span] Photo: guest hand, simple festive design
+[h3] Wedding Guest Mehndi
+[p] Simple, tasteful henna that photographs beautifully and takes only a short sitting.
+[span] from $40
+[a] Learn More
+[p] Photo
+[span] Photo: studio session, artist working
+[h3] Private Appointments
+[p] A studio session for yourself, at your pace, with no one else waiting in the room.
+[span] from $70
+[a] Learn More
+[p] Photo
+[span] Photo: mehndi night, group of guests
+[h3] Events & Celebrations
+[p] Mehndi stations and on-call artists for mehndi nights, sangeets, and large gatherings.
+[span] by quote
+[a] Learn More
+[p] Photo
+[span] Photo: custom motif detail, macro
+[h3] Custom Designs
+[p] Your idea, drawn properly. Share references, names, or dates and it becomes a design.
+[span] by quote
+[a] Learn More
+[p] Selected Work
+[h2] Gallery
+[p] A sample of recent bridal and event work. Follow along for new designs each week.
+[span] Bridal mehndi covering the full palm and back of the hand in dense traditional motif work
+[span] Photo: bridal palm, dense traditional work
+[span] Fine Arabic-style linework trailing down the fingers of an open hand
+[span] Photo: Arabic finger linework
+[span] Intricate henna detail across the backs of several fingers
+[span] Photo: finger detail, macro
+[span] A minimal modern mehndi design with fine single-line botanical elements
+[span] Photo: minimal modern design
+[span] Henna applied to the feet, photographed against pale fabric
+[span] Photo: feet mehndi
+[span] A mehndi artist working carefully on a client's open palm
+[span] Photo: artist at work
+[span] Both hands held open, showing complementary bridal designs on palms and backs
+[span] Photo: both hands, full bridal set
+[a] View Full Gallery
+[p] Collections
+[h2] Packages
+[p] Every package can be adjusted to your day. What you see here is the shape of the work, not a fixed menu.
+[p] Most Requested
+[h3] The Signature Bride
+[p] The full bridal experience
+[p] The most requested package. A complete bridal design built around your wedding, drawn over a consultation.
+[span] Full bridal mehndi, both hands and feet
+[span] Bridal design consultation and reference review
+[span] Custom motifs from your wedding details
+[span] Long-wear natural henna, mixed for depth
+[span] Two dedicated sittings
+[span] Bridal-party discount for five or more
+[span] Aftercare kit and longevity planning
+[span] from $450
+[a] Request a Quote
+[h3] The Guest Experience
+[p] A lovely detail, done properly
+[p] For family and friends who want henna that looks considered, without a long appointment.
+[span] Simple festive design, front or back
+[span] One sitting, up to 30 minutes
+[span] Fresh cone and aftercare kit
+[span] from $40
+[a] Request a Quote
+[h3] The Intimate Celebration
+[p] Engagement and intimate occasions
+[p] Contemporary, minimal linework for the smaller celebrations — engagement, mehndi night, reception.
+[span] Modern design across one or both hands
+[span] Up to 90 minutes in studio
+[span] Optional name, date, or initial detailing
+[span] Aftercare and longevity guidance
+[span] from $120
+[a] Request a Quote
+[h3] The Classic Bride
+[p] Traditional, timeless, unhurried
+[p] A full traditional bridal design for brides who want the classic repertoire, executed with care.
+[span] Full bridal mehndi, both hands
+[span] Traditional regional motifs of your choosing
+[span] One extended sitting
+[span] Optional simple feet design
+[span] Aftercare kit
+[span] from $320
+[a] Request a Quote
+[p] How It Works
+[h2] The Process
+[h3] Inquiry
+[p] Tell me your date, your location, and what you have in mind. I reply within two days with availability.
+[h3] Consultation
+[p] We look at references together, talk through what you want to wear and carry, and settle on a direction.
+[h3] Design Planning
+[p] Your motifs are chosen and drawn out in advance, so the sitting is about the work rather than the decisions.
+[h3] Your Mehndi Experience
+[p] The day itself, unhurried, with everything prepared before you arrive.
+[p] Kind Words
+[h2] Testimonials
+[p] Every detail was more beautiful than I imagined. My bridal mehndi felt completely personal and meaningful.
+[p] Ayesha R.
+[p] Bridal, destination wedding
+[p] The designs were intricate, elegant, and lasted beautifully throughout the wedding celebrations.
+[p] Priya S.
+[p] Engagement and mehndi night
+[p] I brought a photo I had saved for two years. Hamna turned it into something far better than I had pictured.
+[p] Calm, unhurried, and genuinely warm. Our guests still talk about the night.
+[p] Nadia & Omar
+[p] Mehndi night, party of twelve
+[p] Your special moment
+[h2] Make Your Moment Unforgettable
+[p] Your hands deserve a design as beautiful as your story.
+[a] Book Your Date
+[p] Get in Touch
+[h2] Book Your Date
+[p] Tell me about your day and I will come back to you within two days. The more you share, the more useful my first reply will be.
+[dt] Email
+[a] hello@hennabyhamna.com
+[dt] Phone
+[a] +1 (555) 014-2288
+[dt] Service Area
+[dd] Available worldwide for destination weddings
+[dt] Availability
+[dd] Now booking 2026 wedding season
+[label] Name
+[label] Email
+[label] Phone number
+[label] Event date
+[label] Event location
+[label] Type of service
+[option] Please choose…
+[option] Bridal Mehndi
+[option] Bridesmaid Mehndi
+[option] Engagement Mehndi
+[option] Wedding Guest Mehndi
+[option] Private Appointment
+[option] Events & Celebrations
+[option] Custom Design
+[label] Estimated number of guests
+[label] Message
+[button] Send Booking Inquiry
+[p] Submitting this form does not guarantee a booking. I will confirm availability with you personally before anything is reserved.
+[p] Henna by Hamna
+[p] Luxury bridal and event mehndi, designed with intention, detail, and tradition.
+[a] Services
+[a] Packages
+[a] Testimonials
+[a] hello@hennabyhamna.com
+[a] +1 (555) 014-2288
+[li] Available worldwide for destination weddings
+[p] © 2026 Henna by Hamna. All rights reserved.

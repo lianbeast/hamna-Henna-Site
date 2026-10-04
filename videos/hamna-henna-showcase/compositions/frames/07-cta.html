@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 07 — CTA / Outro</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --cream:    #EFE3CF;
+      --gold:     #C6A15B;
+      --henna:    #8C2E2A;
+      --pink-deep:#1F5145;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f07-ground {
+      position: absolute; inset: 0;
+      background: linear-gradient(175deg, var(--pink-deep) 0%, var(--ink) 100%);
+    }
+    .f07-wordmark {
+      position: absolute;
+      top: 50%; left: 50%;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 54px;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+      opacity: 1;
+      transform-origin: center;
+    }
+    .f07-cta-pill {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, var(--gold) 0%, #b04a2c 100%);
+      color: #123C35;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 48px;
+      border-radius: 48px;
+      opacity: 0;
+      scale: 0.8;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    .f07-cursor {
+      position: absolute;
+      top: 50%; left: 32%;
+      width: 24px; height: 24px;
+      z-index: 10;
+    }
+    .f07-cursor-dot {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--cream);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(204, 158, 91, 0.3);
+    }
+    .f07-contact {
+      position: absolute;
+      bottom: 14%; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 48px;
+      opacity: 0;
+    }
+    .f07-contact span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+  </style>
+
+  <div id="root" data-composition-id="07-cta" data-width="1920" data-height="1080">
+    <!-- Full-bleed ground: indigo (matches site's dark CTA section #123C35) -->
+    <div class="f07-ground clip" data-start="0" data-duration="8" id="f0-ground"></div>
+
+    <!-- Brand wordmark (resting mark, center) -->
+    <div class="f07-wordmark">Henna by Hamna</div>
+
+    <!-- The CTA pill that the wordmark condenses into -->
+    <div class="f07-cta-pill">Book Your Date</div>
+
+    <!-- Cursor that arrives from stage-left to click -->
+    <div class="f07-cursor" id="f07-cursor">
+      <div class="f07-cursor-dot"></div>
+    </div>
+
+    <!-- Contact lines beneath -->
+    <div class="f07-contact">
+      <span class="f07-email">hello@hennabyhamna.com</span>
+      <span class="f07-phone">+1 (555) 014-2288</span>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    const wordmark  = document.querySelector('.f07-wordmark');
+    const pill      = document.querySelector('.f07-cta-pill');
+    const cursor    = document.querySelector('.f07-cursor');
+    const contact   = document.querySelector('.f07-contact');
+    const ripple    = document.createElement('div');
+
+    // --- Scene 1 (0.0–2.2s): indigo ground fades up ---
+    tl.to('.f07-ground',
+      { backgroundColor: '#123C35', duration: 0.8, ease: 'power2.out' }, 0.2);
+
+    // --- Scene 2 (2.2–5.0s): wordmark condenses (scale + gold bloom) into CTA pill ---
+    // Color tweens to the pill's gold so the wordmark visibly becomes the pill
+    tl.to(wordmark,
+      { scale: 0.28, y: -160, color: '#C6A15B', duration: 0.5, ease: 'power2.inOut' }, 2.2);
+    tl.fromTo(pill,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.35)' }, 2.5);
+
+    // Gold bloom behind the pill
+    tl.fromTo(pill,
+      { boxShadow: '0 0 0px var(--gold)' },
+      { boxShadow: '0 0 40px 8px rgba(204,158,91,0.45)', duration: 0.4, immediateRender: false }, 2.5);
+
+    // --- Scene 3 (5.0–6.8s): cursor arrives + click ---
+    tl.fromTo(cursor,
+      { opacity: 0, x: -60 },
+      { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }, 5.0);
+    // Click press
+    tl.to(cursor,
+      { scale: 0.85, duration: 0.08, ease: 'power1.inOut' }, 6.2);
+    tl.to(cursor,
+      { scale: 1, duration: 0.12, ease: 'back.out(2)' }, 6.28);
+    // Ripple feedback
+    ripple.style.cssText = 'position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(204,158,91,0.3);transform:translate(-50%,-50%)';
+    document.getElementById('root').appendChild(ripple);
+    tl.fromTo(ripple,
+      { width: 0, height: 0, opacity: 0.5 },
+      { width: 320, height: 320, opacity: 0, duration: 0.5, ease: 'power2.out' }, 6.28);
+
+    // --- Scene 4 (6.8–8.0s): contact lines lift up, hold ---
+    tl.fromTo(contact,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', immediateRender: false }, 6.8);
+    // Final subtle pulse on the pill
+    tl.to(pill,
+      { scale: 1.04, duration: 0.8, yoyo: true, repeat: 1, ease: 'sine.inOut' },
+      7.2);
+
+    window.__timelines['07-cta'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

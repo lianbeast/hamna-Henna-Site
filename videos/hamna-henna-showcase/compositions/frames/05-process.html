@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 05 — Process</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/captured-92zatBhPNqw73oDd4jQmfxIC7w.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --ink-deep:  #123C35;
+      --canvas:    #EFE3CF;
+      --gold:      #C6A15B;
+      --gold-deep: #7A5A2E;
+      --henna:     #8C2E2A;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f05-ground {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(175deg, var(--cream) 0%, #F8F1E5 100%);
+    }
+    .f05-head {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+    }
+    .f05-label {
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+    }
+    .f05-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--ink-deep);
+      letter-spacing: -0.015em;
+    }
+    .f05-line {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1720px;
+      height: 120px;
+      opacity: 0;
+    }
+    .f05-steps {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1720px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .f05-step {
+      position: relative;
+      width: 340px;
+      background: rgba(255, 252, 246, 0.92);
+      box-shadow: 0 2px 18px rgba(59, 33, 24, 0.08);
+      border: 1px solid rgba(160, 128, 88, 0.38);
+      border-radius: 12px;
+      padding: 22px 20px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .f05-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--gold-deep);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .f05-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .f05-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--ink-deep);
+      line-height: 1.44;
+    }
+  </style>
+
+  <div id="root" data-composition-id="05-process" data-width="1920" data-height="1080" data-duration="10.5">
+    <div class="f05-ground clip" data-start="0" data-duration="10.5" data-track-index="1" id="f0-ground"></div>
+
+    <div class="f05-head">
+      <span class="f05-label">How It Works</span>
+      <h2 class="f05-h2">From the first note to the last line.</h2>
+    </div>
+
+    <svg class="f05-line" viewBox="0 0 1720 120" width="1720" height="120">
+      <path class="f05-path"
+        d="M40,60 C200,20 280,100 440,60 C600,20 680,100 840,60 C1000,20 1080,100 1240,60 C1400,20 1480,100 1640,60"
+        fill="none" stroke="var(--henna)" stroke-width="3" stroke-linecap="round"
+        stroke-dasharray="2000" stroke-dashoffset="2000" />
+    </svg>
+
+    <div class="f05-steps">
+      <div class="f05-step" data-i="0" style="--step-x: 440px;">
+        <span class="f05-num">I</span>
+        <h3 class="f05-title">Inquiry</h3>
+        <p class="f05-body">Tell me your date, your location, and what you have in mind.</p>
+      </div>
+      <div class="f05-step" data-i="1" style="--step-x: 760px;">
+        <span class="f05-num">II</span>
+        <h3 class="f05-title">Confirmation</h3>
+        <p class="f05-body">Once dates align, your slot is held. A short consultation follows.</p>
+      </div>
+      <div class="f05-step" data-i="2" style="--step-x: 1080px;">
+        <span class="f05-num">III</span>
+        <h3 class="f05-title">Design</h3>
+        <p class="f05-body">Motifs are chosen and drawn out in advance, so the sitting is about the work.</p>
+      </div>
+      <div class="f05-step" data-i="3" style="--step-x: 1400px;">
+        <span class="f05-num">IV</span>
+        <h3 class="f05-title">Your Mehndi Experience</h3>
+        <p class="f05-body">The day itself, unhurried, with everything prepared before you arrive.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // --- Scene 1 (0.0–1.0s): headline builds ---
+    tl.fromTo('.f05-label',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.2);
+    tl.fromTo('.f05-h2',
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.4);
+
+    // --- Scene 2 (1.0–5.4s): henna line draws itself, pen traveling along ---
+    tl.fromTo('.f05-line',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3 }, 1.0);
+    tl.fromTo('.f05-path',
+      { strokeDashoffset: 2000 },
+      { strokeDashoffset: 0, duration: 3.2, ease: 'power1.inOut' }, 1.2);
+
+    // --- Step cards reveal as the pen reaches them (320ms per station) ---
+    const steps = gsap.utils.toArray('.f05-step');
+    const stationTimes = [2.0, 2.9, 3.8, 4.7];
+    steps.forEach((s, i) => {
+      tl.fromTo(s,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.25)' }, stationTimes[i]);
+    });
+
+    // --- Scene 3 (5.4–9.0s): line holds, steps settle — a held beat ---
+    tl.to('.f05-path',
+      { stroke: 'var(--ink)', duration: 0.6, opacity: 0.9 },
+      5.6);
+
+    window.__timelines['05-process'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

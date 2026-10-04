@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 06 — Testimonials</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --ink-deep:  #123C35;
+      --cream:    #EFE3CF;
+      --gold:     #C6A15B;
+      --henna:    #8C2E2A;
+      --pink-deep:#1F5145;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="06-testimonials" data-width="1920" data-height="1080">
+    <!-- Full-bleed ground -->
+    <div class="f06-ground clip" data-start="0" data-duration="9.5" id="f0-ground"></div>
+
+    <!-- Backdrop: blurred henna detail -->
+    <img class="f06-backdrop" src="assets/peacock-1.svg" alt="" />
+
+    <!-- Dual quote cards in mirrored split-tilt positions -->
+    <div class="f06-split">
+      <div class="f06-card f06-left" data-card="0">
+        <p class="f06-quote">"Every detail was more beautiful than I imagined. My bridal
+          mehndi felt completely personal and meaningful."</p>
+        <p class="f06-attr">Ayesha R. — Bridal, destination wedding</p>
+      </div>
+      <div class="f06-card f06-right" data-card="1">
+        <p class="f06-quote">"The designs were intricate, elegant, and lasted beautifully
+          throughout the wedding celebrations."</p>
+        <p class="f06-attr">Priya S. — Engagement and mehndi night</p>
+      </div>
+    </div>
+
+    <!-- Counter -->
+    <div class="f06-counter">
+      <span class="f06-counter-dot" data-dot="0"></span>
+      <span class="f06-counter-dot" data-dot="1"></span>
+    </div>
+  </div>
+
+  <style>
+    .f06-ground {
+      position: absolute; inset: 0;
+      background: linear-gradient(175deg, var(--pink-deep) 0%, var(--ink) 100%);
+    }
+    .f06-backdrop {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: blur(14px) brightness(0.28) saturate(0.7);
+      opacity: 0.22;
+    }
+    .f06-split {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1600px; height: 620px;
+      display: flex;
+      gap: 24px;
+      perspective: 2000px;
+    }
+    .f06-card {
+      flex: 1;
+      background: rgba(239, 227, 205, 0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(204, 158, 91, 0.3);
+      border-radius: 16px;
+      padding: 28px 32px;
+      opacity: 0;
+      transform: translateX(0) scale(0.88) rotateY(20deg);
+      transform-style: preserve-3d;
+    }
+    .f06-left  { transform-origin: right center; }
+    .f06-right { transform-origin: left center; }
+    .f06-quote {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.42;
+      margin: 0 0 18px;
+    }
+    .f06-attr {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+    .f06-counter {
+      position: absolute;
+      bottom: 9%; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+    }
+    .f06-counter-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(204, 158, 91, 0.4);
+    }
+    .f06-counter-dot.active {
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+    }
+  </style>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    const left  = document.querySelector('.f06-left');
+    const right = document.querySelector('.f06-right');
+
+    // --- Scene 1 (0.0–1.5s): split cards enter mirrored book-open tilt ---
+    tl.fromTo(left,
+      { opacity: 0, scale: 0.88, rotateY: 20 },
+      { opacity: 1, scale: 1, rotateY: 0, duration: 0.5, ease: 'back.out(1.3)' }, 0.8);
+    tl.fromTo(right,
+      { opacity: 0, scale: 0.88, rotateY: -20 },
+      { opacity: 1, scale: 1, rotateY: 0, duration: 0.5, ease: 'back.out(1.3)' }, 1.2);
+
+    // --- Scene 2 (1.7–4.0s): Card 1 blooms forward (tilt + glow) ---
+    tl.to(left, { rotateY: -4, duration: 0.4, ease: 'power2.out' }, 1.7);
+    tl.to(left, { boxShadow: '0 0 30px rgba(204,158,91,0.5)', duration: 0.3 }, 1.8);
+    tl.to(right, { opacity: 0.35, duration: 0.3 }, 1.7);
+    document.querySelector('[data-dot="0"]').classList.add('active');
+
+    // --- Scene 3 (4.0–4.8s): flip to Card 2 ---
+    tl.to([left, right], {
+      opacity: 0, y: -10, duration: 0.3, ease: 'power1.in' }, 4.0);
+    tl.add(() => {
+      left.style.order = '2';
+      right.style.order = '1';
+      document.querySelector('[data-dot="0"]').classList.remove('active');
+      document.querySelector('[data-dot="1"]').classList.add('active');
+    }, 4.3);
+    tl.fromTo([left, right],
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', immediateRender: false }, 4.4);
+    tl.fromTo(left,
+      { opacity: 0.35 },
+      { opacity: 1, duration: 0.2, immediateRender: false }, 4.4);
+    tl.fromTo(right,
+      { opacity: 0.35, scale: 0.88, rotateY: 20 },
+      { opacity: 1, scale: 1, rotateY: 0, duration: 0.5, ease: 'back.out(1.3)', immediateRender: false }, 4.4);
+    tl.to(right, { rotateY: 4, duration: 0.3, ease: 'power2.out', overwrite: 'auto' }, 4.6);
+    tl.to(right, { boxShadow: '0 0 30px rgba(204,158,91,0.5)', duration: 0.2 }, 4.7);
+    tl.to(left, { opacity: 0.35, duration: 0.2, overwrite: 'auto' }, 4.6);
+
+    // --- Scene 4 (4.8–8.0s): hold on Card 2, gentle mirrored idle float ---
+    tl.to([left, right],
+      { y: 3, duration: 2.4, ease: 'sine.inOut', repeat: 1, yoyo: true },
+      5.6);
+
+    window.__timelines['06-testimonials'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

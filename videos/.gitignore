@@ -1,0 +1,8 @@
+# Stray duplicate project dir (superseded by hamna-henna-showcase/)
+hamna-henny-showcase/
+
+# Build artifacts / tooling state
+**/node_modules/
+**/.hyperframes/
+snapshots*/
+**/snapshots*/

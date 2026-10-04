@@ -1,0 +1,186 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "88px",
+      "fontWeight": "400",
+      "lineHeight": "92.4px",
+      "letterSpacing": "normal",
+      "color": "#3B2118",
+      "sampleText": "Intricate MehndiTimeless Beauty"
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "48px",
+      "letterSpacing": "normal",
+      "color": "#3B2118",
+      "sampleText": "Artistry Rooted in Tradition"
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "24px",
+      "fontWeight": "400",
+      "lineHeight": "32px",
+      "letterSpacing": "normal",
+      "color": "#3B2118",
+      "sampleText": "Bridal Mehndi"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Jost",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "lineHeight": "29.75px",
+      "letterSpacing": "normal",
+      "color": "#3B2118",
+      "sampleText": "Luxury bridal and event mehndi artistry designed with intent"
+    },
+    {
+      "role": "link",
+      "fontFamily": "Jost",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "26.4px",
+      "letterSpacing": "normal",
+      "color": "#FFF9EF",
+      "sampleText": "Skip to content"
+    },
+    {
+      "role": "label",
+      "fontFamily": "Jost",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "lineHeight": "21.45px",
+      "letterSpacing": "1.82px",
+      "color": "#3B2118",
+      "sampleText": "Name"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      4,
+      5,
+      6,
+      8,
+      10,
+      12,
+      16,
+      20,
+      24,
+      28,
+      36,
+      40,
+      64,
+      80,
+      128
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "2px"
+  ],
+  "shadows": [
+    {
+      "value": "color(srgb 0.0705882 0.235294 0.207843 / 0.4) 0px 20px 60px -30px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Book Your Date",
+      "background": "#1F5145",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFF9EF",
+      "padding": "12px 20px",
+      "borderRadius": "0px",
+      "border": "1px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "15px",
+      "fontWeight": "500",
+      "height": "50.75px"
+    },
+    {
+      "label": "button",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#3B2118",
+      "padding": "12px 0px",
+      "borderRadius": "0px",
+      "border": "1px solid color(srgb 0.776471 0.631373 0.356863 / 0.7)",
+      "boxShadow": "none",
+      "fontSize": "15px",
+      "fontWeight": "500",
+      "height": "44px"
+    },
+    {
+      "label": "Your special momentMake Your Moment Unfo",
+      "background": "#123C35",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#3B2118",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgb(59, 33, 24)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "516.5px"
+    },
+    {
+      "label": "Book Your Date",
+      "background": "#FFF9EF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#123C35",
+      "padding": "12px 28px",
+      "borderRadius": "0px",
+      "border": "1px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "15px",
+      "fontWeight": "500",
+      "height": "50.75px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#FFF9EF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#3B2118",
+      "padding": "112px 64px 80px",
+      "borderRadius": "999px 999px 0px 0px",
+      "border": "1px solid color(srgb 0.776471 0.631373 0.356863 / 0.45)",
+      "boxShadow": "color(srgb 0.0705882 0.235294 0.207843 / 0.4) 0px 20px 60px -30px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "675.484px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "transparent",
+    "backgroundImage": "",
+    "backdropFilter": "",
+    "color": "#3B2118",
+    "padding": "0px",
+    "borderRadius": "0px",
+    "border": "0px solid rgb(59, 33, 24)",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "72px"
+  },
+  "chips": [],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": []
+}
