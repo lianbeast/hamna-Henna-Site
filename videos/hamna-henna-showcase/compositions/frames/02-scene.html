@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 02 — 3D Scene Reveal</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --canvas:   #EFE3CF;
+      --pink-deep:#1F5145;
+      --purple:   #a29bfe;
+      --gold:     #fdcb6e;
+      --indigo:   #0f0c29;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f02-ground {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--pink-deep) 0%, var(--indigo) 100%);
+    }
+    .f02-backdrop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      filter: grayscale(30%) contrast(0.9);
+    }
+    .f02-viewport {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 720px;
+      height: 720px;
+      transform: translate(-50%, -50%) perspective(1400px);
+      transform-style: preserve-3d;
+    }
+    .f02-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1.5px solid;
+      border-color: var(--purple);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      transform-origin: center;
+    }
+    .f02-ring-1 { width: 240px; height: 240px; }
+    .f02-ring-2 { width: 380px; height: 380px; }
+    .f02-ring-3 { width: 520px; height: 520px; }
+    .f02-form {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 160px;
+      background: conic-gradient(from 20deg, var(--gold) 0 120deg, var(--purple) 120deg 240deg, var(--gold) 240deg 360deg);
+      border-radius: 50% 50% 40% 40%;
+      transform: translate(-50%, -50%) rotateX(60deg);
+      opacity: 0;
+    }
+    .f02-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .f02-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    .f02-hero-card {
+      position: absolute;
+      bottom: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(239, 227, 205, 0.55);
+      backdrop-filter: blur(16px) saturate(1.1);
+      border: 1px solid rgba(204, 158, 91, 0.35);
+      border-radius: 12px;
+      padding: 18px 42px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .f02-eyebrow {
+      font-family: 'Great Vibes', cursive;
+      font-size: 22px;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+    }
+    .f02-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--pink-deep);
+      letter-spacing: -0.01em;
+    }
+  </style>
+
+  <div id="root" data-composition-id="02-scene" data-width="1920" data-height="1080" data-duration="7.5">
+    <div class="f02-ground clip" data-start="0" data-duration="7.5" data-track-index="1" id="f0-ground"></div>
+
+    <img class="f02-backdrop" src="capture/screenshots/scroll-000.png" alt="" />
+
+    <div class="f02-viewport">
+      <div class="f02-ring f02-ring-1"></div>
+      <div class="f02-ring f02-ring-2"></div>
+      <div class="f02-ring f02-ring-3"></div>
+      <div class="f02-form"></div>
+      <div class="f02-particles" id="f02-particles"></div>
+    </div>
+
+    <div class="f02-hero-card">
+      <span class="f02-eyebrow">Henna by Hamna</span>
+      <h1 class="f02-title">The Craft Book</h1>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // --- Particle field (deterministic: index-driven positions) ---
+    const pRoot = document.getElementById('f02-particles');
+    const N = 28;
+    pRoot.innerHTML = '';
+    const pts = [];
+    for (let i = 0; i < N; i++) {
+      const el = document.createElement('div');
+      el.className = 'f02-particle';
+      pRoot.appendChild(el);
+      pts.push(el);
+    }
+
+    // --- Scene 1 (0.0–1.0s): viewport fades in ---
+    tl.fromTo('.f02-viewport',
+      { opacity: 0, scale: 0.92, z: -80 },
+      { opacity: 1, scale: 1, z: 0, duration: 0.9, ease: 'power2.out' }, 0.05);
+
+    // --- Scene 2 (1.0–3.5s): camera dives THROUGH, rings + form reveal ---
+    tl.fromTo('.f02-ring-1',
+      { opacity: 0, scale: 0 },
+      { opacity: 0.85, scale: 1, duration: 0.6, ease: 'back.out(1.3)' }, 1.0);
+    tl.fromTo('.f02-ring-2',
+      { opacity: 0, scale: 0 },
+      { opacity: 0.75, scale: 1, duration: 0.6, ease: 'back.out(1.3)' }, 1.25);
+    tl.fromTo('.f02-ring-3',
+      { opacity: 0, scale: 0 },
+      { opacity: 0.65, scale: 1, duration: 0.6, ease: 'back.out(1.3)' }, 1.5);
+
+    tl.fromTo('.f02-form',
+      { opacity: 0, scale: 0, z: -40 },
+      { opacity: 0.9, scale: 1, z: 0, duration: 0.7, ease: 'back.out(1.5)' }, 1.6);
+
+    tl.to('.f02-viewport',
+      { '--tw-translate-z': '20px', scale: 1.08, duration: 0.9, ease: 'power2.inOut' },
+      1.8);
+
+    tl.to('.f02-ring-1',
+      { rotation: 360, duration: 12, ease: 'none' }, 1.6);
+    tl.to('.f02-ring-2',
+      { rotation: -360, duration: 14, ease: 'none' }, 1.6);
+    tl.to('.f02-ring-3',
+      { rotation: 360, duration: 16, ease: 'none' }, 1.6);
+
+    pts.forEach((p, i) => {
+      const a = (i / N) * Math.PI * 2;
+      const r = 200 + (i % 3) * 40;
+      const x = Math.cos(a) * r;
+      const y = Math.sin(a) * r;
+      gsap.set(p, { x, y, scale: 0 });
+      tl.to(p, {
+        scale: 1, opacity: 1,
+        x: x + (i % 2 ? 20 : -20),
+        y: y + (i % 3 ? -15 : 18),
+        duration: 0.5, ease: 'back.out(1.2)'
+      }, 1.1 + (i % 7) * 0.08);
+      tl.to(p, {
+        x: x + (i % 2 ? -20 : 20),
+        y: y + (i % 3 ? 18 : -15),
+        repeat: 1, yoyo: true,
+        duration: 3 + (i % 5), ease: 'sine.inOut'
+      }, 2.0 + (i % 7) * 0.1);
+    });
+
+    tl.fromTo('.f02-hero-card',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 3.5);
+
+    tl.to('.f02-form',
+      { rotationY: 360, duration: 20, ease: 'none' }, 3.5);
+
+    window.__timelines['02-scene'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

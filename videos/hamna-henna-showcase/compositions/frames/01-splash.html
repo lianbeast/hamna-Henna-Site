@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 01 — Splash</title>
+</head>
+<body>
+<template>
+  <!-- Fonts staged at project root; loaded inside template (transport contract) -->
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:   #3B2118;
+      --ink-deep:#123C35;
+      --canvas: #EFE3CF;
+      --gold:  #C6A15B;
+      --pink-deep: #1F5145;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f01-ground {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(175deg, var(--pink-deep) 0%, var(--ink) 100%);
+    }
+    .f01-mandala {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      margin-left: -210px;
+      margin-top: -210px;
+      transform-origin: 50% 50%;
+    }
+    .f01-wordmark-wrap {
+      position: absolute;
+      top: 72%;
+      left: 50%;
+      margin-left: -340px;
+      width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .f01-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 62px;
+      font-weight: 300;
+      color: var(--canvas);
+      letter-spacing: 0.01em;
+      line-height: 1.1;
+    }
+    .f01-sub {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-splash" data-width="1920" data-height="1080">
+    <!-- Full-bleed ground: a class="clip" layer, never #root background -->
+    <div class="f01-ground clip" data-start="0" data-duration="8" id="f0-ground"></div>
+    <!-- Mandala reconstructed from site/src/layouts/Layout.astro splash SVG -->
+    <svg class="f01-mandala" viewBox="0 0 200 200" width="420" height="420"
+         data-mandala="root">
+      <!-- Outer ring (12 petals) #b48232 -->
+      <g class="f01-ring-outer" fill="none" stroke="#b48232" stroke-width="1.2" opacity="0.7">
+        <path class="f01-outer-path"
+          d="M100,40 C113,38 127,38 140,40" stroke-dasharray="40 1000" stroke-linecap="round"/>
+        <!-- 11 more paths via JS build below -->
+      </g>
+      <!-- Middle ring (8 petals) #a0522d -->
+      <g class="f01-ring-mid" fill="none" stroke="#a0522d" stroke-width="1.4" opacity="0.8"></g>
+      <!-- Dot ring #c87533 -->
+      <g class="f01-dots" fill="#c87533" opacity="0.6"></g>
+      <!-- Inner teardrops -->
+      <ellipse class="f01-teardrop-1" cx="100" cy="92" rx="16" ry="24" fill="#a0522d" opacity="0.6"/>
+      <ellipse class="f01-teardrop-2" cx="100" cy="95" rx="9" ry="14" fill="#d4a060" opacity="0.5"/>
+      <!-- Center dot -->
+      <circle class="f01-center" cx="100" cy="100" r="0" fill="#b48232"/>
+      <!-- Outer guide ring -->
+      <circle class="f01-guide" cx="100" cy="100" r="90" fill="none" stroke="#b48232" stroke-width="1" opacity="0.4"/>
+    </svg>
+
+    <div class="f01-wordmark-wrap">
+      <span class="f01-wordmark">Henna by Hamna</span>
+      <span class="f01-sub">The Craft Book</span>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // --- Build mandala geometry (deterministic: index-derived) ---
+    const root = document.querySelector('[data-mandala="root"]');
+    const outerG = root.querySelector('.f01-ring-outer');
+    const midG   = root.querySelector('.f01-ring-mid');
+    const dotG   = root.querySelector('.f01-dots');
+    outerG.innerHTML = '';
+    midG.innerHTML = '';
+    dotG.innerHTML = '';
+
+    // Outer ring: 12 petals
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * 30) * Math.PI / 180;
+      const x1 = 100 + 60 * Math.cos(angle);
+      const y1 = 100 + 60 * Math.sin(angle);
+      const x2 = 100 + 85 * Math.cos(angle);
+      const y2 = 100 + 85 * Math.sin(angle);
+      const cx1 = 100 + 75 * Math.cos(angle - 0.3);
+      const cy1 = 100 + 75 * Math.sin(angle - 0.3);
+      const cx2 = 100 + 75 * Math.cos(angle + 0.3);
+      const cy2 = 100 + 75 * Math.sin(angle + 0.3);
+      outerG.innerHTML += `<path class="f01-op" data-i="${i}" d="M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}" />`;
+    }
+    // Middle ring: 8 petals
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * 45 + 22.5) * Math.PI / 180;
+      const x1 = 100 + 35 * Math.cos(angle);
+      const y1 = 100 + 35 * Math.sin(angle);
+      const x2 = 100 + 58 * Math.cos(angle);
+      const y2 = 100 + 58 * Math.sin(angle);
+      const cx1 = 100 + 48 * Math.cos(angle - 0.35);
+      const cy1 = 100 + 48 * Math.sin(angle - 0.35);
+      const cx2 = 100 + 48 * Math.cos(angle + 0.35);
+      const cy2 = 100 + 48 * Math.sin(angle + 0.35);
+      midG.innerHTML += `<path class="f01-mp" data-i="${i}" d="M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}" />`;
+    }
+    // Dot ring: 20 dots
+    for (let i = 0; i < 20; i++) {
+      const angle = (i * 18) * Math.PI / 180;
+      const cx = 100 + 72 * Math.cos(angle);
+      const cy = 100 + 72 * Math.sin(angle);
+      dotG.innerHTML += `<circle class="f01-dp" data-i="${i}" cx="${cx}" cy="${cy}" r="0" />`;
+    }
+
+    const outerPaths = gsap.utils.toArray('.f01-op');
+    const midPaths   = gsap.utils.toArray('.f01-mp');
+    const dots       = gsap.utils.toArray('.f01-dp');
+
+    // --- Scene 1 (0.0–1.2s): outer ring draws itself, stroke-dash sweep ---
+    outerPaths.forEach((p, i) => {
+      const len = Math.round(p.getTotalLength());
+      gsap.set(p, { strokeDasharray: len + ' ' + len, strokeDashoffset: len });
+      tl.to(p, {
+        strokeDashoffset: 0,
+        opacity: 1,
+        duration: 0.35,
+        ease: 'none'
+      }, 0.0 + i * 0.02 + 0.04);
+    });
+
+    // --- Scene 2 (1.2–3.8s): mid ring + dots assemble spring-pop + wordmark lifts ---
+    // Pre-measure mid-ring paths synchronously (no DOM measurement in callbacks)
+    midPaths.forEach((p) => {
+      const len = Math.round(p.getTotalLength());
+      gsap.set(p, { strokeDasharray: len + ' ' + len, strokeDashoffset: len, opacity: 1 });
+    });
+    midPaths.forEach((p, i) => {
+      tl.to(p, {
+        strokeDashoffset: 0,
+        duration: 0.3,
+        ease: 'power2.out'
+      }, 1.2 + i * 0.03);
+    });
+
+    dots.forEach((d, i) => {
+      tl.fromTo(d,
+        { r: 0, opacity: 0 },
+        { r: 2.5, opacity: 1, duration: 0.25, ease: 'back.out(1.4)' },
+        1.5 + i * 0.02
+      );
+    });
+
+    // Center dot + teardrops bloom
+    tl.fromTo('.f01-center',
+      { r: 0, opacity: 0 },
+      { r: 4, opacity: 1, duration: 0.3, ease: 'back.out(1.6)' }, 1.8);
+    tl.fromTo('.f01-teardrop-1',
+      { opacity: 0, scale: 0 },
+      { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.5)' }, 1.75);
+    tl.fromTo('.f01-teardrop-2',
+      { opacity: 0, scale: 0 },
+      { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.5)' }, 1.8);
+
+    // Wordmark lifts from below (Great Vibes for sub-title, Cormorant Garamond for brand)
+    tl.fromTo('.f01-wordmark-wrap',
+      { opacity: 0, y: 60 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 2.0);
+
+    // --- Scene 3 (3.8–8.0s): hold, gentle pulse, slow spin ---
+    tl.to('.f01-mandala',
+      { rotation: 360, duration: 6.0, ease: 'none' }, 2.2);
+    tl.to('.f01-guide',
+      { opacity: 0.7, duration: 0.4 }, 2.2);
+    // Gentle scale pulse every ~1.5s (site's splashPulse analog)
+    tl.to('.f01-mandala',
+      { scale: 1.035, duration: 0.9, yoyo: true, repeat: 2, ease: 'sine.inOut' },
+      3.8);
+
+    window.__timelines['01-splash'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

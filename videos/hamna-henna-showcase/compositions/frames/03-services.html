@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 03 — Services</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/captured-92zatBhPNqw73oDd4jQmfxIC7w.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --ink-deep:  #123C35;
+      --canvas:    #EFE3CF;
+      --gold:      #C6A15B;
+      --gold-deep: #7A5A2E;
+      --cream:     #EFE3CF;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f03-ground {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(175deg, var(--cream) 0%, #F8F1E5 100%);
+    }
+    .f03-head {
+      position: absolute;
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+    }
+    .f03-label {
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .f03-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--ink-deep);
+      letter-spacing: -0.015em;
+      margin-top: 4px;
+    }
+    .f03-grid {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      width: 1400px;
+    }
+    .f03-card {
+      background: rgba(255, 252, 246, 0.92);
+      box-shadow: 0 2px 18px rgba(59, 33, 24, 0.08);
+      border: 1px solid rgba(160, 128, 88, 0.38);
+      border-radius: 12px;
+      padding: 28px 26px;
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    .f03-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--gold-deep);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .f03-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin: 10px 0 10px;
+    }
+    .f03-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink-deep);
+      line-height: 1.42;
+    }
+    .f03-note {
+      font-family: 'Great Vibes', cursive;
+      font-size: 17px;
+      color: var(--gold-deep);
+      display: block;
+      margin-top: 14px;
+    }
+    .f03-rule {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-services" data-width="1920" data-height="1080" data-duration="10.5">
+    <div class="f03-ground clip" data-start="0" data-duration="10.5" data-track-index="1" id="f0-ground"></div>
+
+    <div class="f03-head">
+      <span class="f03-label">The Services</span>
+      <h2 class="f03-h2">Four ways Hamna's hand works.</h2>
+    </div>
+
+    <div class="f03-grid">
+      <div class="f03-card" data-i="0">
+        <div class="f03-num">01</div>
+        <h3 class="f03-title">Bridal Mehndi</h3>
+        <p class="f03-desc">Full hand and foot artistry, composed to order for the wedding day.</p>
+        <span class="f03-note">Composed to order.</span>
+      </div>
+      <div class="f03-card" data-i="1">
+        <div class="f03-num">02</div>
+        <h3 class="f03-title">Bridal Party</h3>
+        <p class="f03-desc">Coordinated designs for maids, mothers, and sisters.</p>
+        <span class="f03-note">By the party.</span>
+      </div>
+      <div class="f03-card" data-i="2">
+        <div class="f03-num">03</div>
+        <h3 class="f03-title">Engagement &amp; Sangeet</h3>
+        <p class="f03-desc">Occasion designs for engagement nights and sangeet.</p>
+        <span class="f03-note">By the evening.</span>
+      </div>
+      <div class="f03-card" data-i="3">
+        <div class="f03-num">04</div>
+        <h3 class="f03-title">Natural / Organic</h3>
+        <p class="f03-desc">Organic, clove-free paste for sensitive skin.</p>
+        <span class="f03-note">By arrangement.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // --- Scene 1 (0.0–1.2s): label + h2 build in ---
+    tl.fromTo('.f03-label',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.2);
+    tl.fromTo('.f03-h2',
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.45);
+
+    // --- Scene 2 (1.2–4.6s): cards cascade along the vine arc with spring pop counters ---
+    const cards = gsap.utils.toArray('.f03-card');
+    cards.forEach((c, i) => {
+      const t = 1.2 + i * 0.28;
+      tl.fromTo(c,
+        { opacity: 0, y: 40, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1,
+          duration: 0.5, ease: 'back.out(1.3)' }, t);
+      tl.fromTo(c.querySelector('.f03-num'),
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.28, ease: 'back.out(1.7)' }, t - 0.05);
+    });
+
+    // --- Scene 4 (7.0–9.0s): hold — subtle golden rule line draws under the row ---
+    const rule = document.createElement('div');
+    rule.className = 'f03-rule';
+    document.querySelector('.f03-head').appendChild(rule);
+    tl.fromTo(rule,
+      { width: 0 },
+      { width: '120px', opacity: 0.8, duration: 0.6, ease: 'power2.out' }, 7.0);
+
+    window.__timelines['03-services'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>

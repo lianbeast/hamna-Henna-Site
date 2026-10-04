@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Frame 04 — Portfolio</title>
+</head>
+<body>
+<template>
+  <style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('assets/fonts/captured-co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('assets/fonts/captured-RWmMoKWR9v4ksMfaWd_JN9XKiaQoDmlrMlY.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    :root {
+      --ink:      #3B2118;
+      --ink-deep:  #123C35;
+      --canvas:    #EFE3CF;
+      --gold:      #C6A15B;
+      --gold-deep: #7A5A2E;
+      --henna:     #8C2E2A;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .f04-ground {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(175deg, var(--cream) 0%, #F8F1E5 100%);
+    }
+    .f04-head {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+    }
+    .f04-label {
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+    }
+    .f04-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--ink-deep);
+      letter-spacing: -0.015em;
+      margin-top: 6px;
+    }
+    .f04-grid {
+      position: absolute;
+      top: 28%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      width: 1440px;
+    }
+    .f04-item {
+      opacity: 0;
+      text-align: center;
+    }
+    .f04-img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(59, 33, 24, 0.08));
+    }
+    .f04-cap {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink);
+      display: block;
+      margin-top: 12px;
+    }
+    .f04-occ {
+      font-family: 'Great Vibes', cursive;
+      font-size: 16px;
+      color: var(--gold-deep);
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-portfolio" data-width="1920" data-height="1080" data-duration="11.5">
+    <div class="f04-ground clip" data-start="0" data-duration="11.5" data-track-index="1" id="f0-ground"></div>
+
+    <div class="f04-head">
+      <span class="f04-label">Selected Work</span>
+      <h2 class="f04-h2">Recent hands, recent days.</h2>
+    </div>
+
+    <div class="f04-grid">
+      <div class="f04-item" data-i="0">
+        <img class="f04-img" src="assets/paisley-1.svg" alt="" />
+        <span class="f04-cap">Classic paisley</span>
+        <span class="f04-occ">Bridal mehndi</span>
+      </div>
+      <div class="f04-item" data-i="1">
+        <img class="f04-img" src="assets/mandala-1.svg" alt="" />
+        <span class="f04-cap">Layered mandala</span>
+        <span class="f04-occ">Engagement</span>
+      </div>
+      <div class="f04-item" data-i="2">
+        <img class="f04-img" src="assets/peacock-1.svg" alt="" />
+        <span class="f04-cap">Peacock feather</span>
+        <span class="f04-occ">Bridal mehndi</span>
+      </div>
+      <div class="f04-item" data-i="3">
+        <img class="f04-img" src="assets/bridal-hand-1.svg" alt="" />
+        <span class="f04-cap">Full hand glove</span>
+        <span class="f04-occ">Bridal mehndi</span>
+      </div>
+      <div class="f04-item" data-i="4">
+        <img class="f04-img" src="assets/floral-1.svg" alt="" />
+        <span class="f04-cap">Lotus bloom</span>
+        <span class="f04-occ">Bridal party</span>
+      </div>
+      <div class="f04-item" data-i="5">
+        <img class="f04-img" src="assets/vine-1.svg" alt="" />
+        <span class="f04-cap">Climbing vine</span>
+        <span class="f04-occ">Sangeet night</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // --- Scene 1 (0.0–1.4s): headline builds ---
+    tl.fromTo('.f04-label',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+    tl.fromTo('.f04-h2',
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.5);
+
+    // --- Scene 2 (1.4–6.8s): SVGs assemble in reading order with stain-deepen ---
+    const items = gsap.utils.toArray('.f04-item');
+    items.forEach((it, i) => {
+      const t = 1.4 + i * 0.24;
+      tl.fromTo(it,
+        { opacity: 0, scale: 0.88, y: 24 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: 'back.out(1.35)' }, t);
+      const img = it.querySelector('.f04-img');
+      tl.fromTo(img,
+        { filter: 'brightness(0.8) saturate(1.2)' },
+        { filter: 'brightness(1) saturate(1) drop-shadow(0 0 0px rgba(140,46,42,0))',
+          duration: 0.5, ease: 'power2.out' }, t + 0.1);
+      tl.fromTo(it.querySelector('.f04-occ'),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, t + 0.35);
+    });
+
+    // --- Scene 3 (6.8–10.0s): full gallery holds — subtle idle parallax on items ---
+    items.forEach((it, i) => {
+      tl.to(it,
+        { y: i % 2 ? -4 : 4, duration: 4, ease: 'sine.inOut', repeat: 1, yoyo: true },
+        6.8 + (i % 3) * 0.3
+      );
+    });
+
+    window.__timelines['04-portfolio'] = tl;
+    tl.seek(0);
+  </script>
+</template>
+</body>
+</html>
