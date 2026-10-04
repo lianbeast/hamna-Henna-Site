@@ -13,6 +13,7 @@ const links = [
 ];
 ---
 
+<div class="header-sentinel" data-header-sentinel aria-hidden="true"></div>
 <header class="site-header" data-header>
   <div class="shell flex h-[72px] items-center justify-between gap-4">
     <a href="#top" class="brand" aria-label={`${site.name} — home`}>
@@ -21,7 +22,7 @@ const links = [
     </a>
 
     <nav class="hidden lg:block" aria-label="Primary">
-      <ul class="flex items-center gap-7">
+      <ul class="flex items-center gap-4 xl:gap-7">
         {
           links.map((l) => (
             <li>
@@ -46,21 +47,30 @@ const links = [
 
 <script>
   const header = document.querySelector('[data-header]');
-  if (header) {
-    const onScroll = () => {
-      header.toggleAttribute('data-stuck', window.scrollY > 24);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+  const sentinel = document.querySelector('[data-header-sentinel]');
+  if (header && sentinel) {
+    const observer = new IntersectionObserver(([entry]) => {
+      header.toggleAttribute('data-stuck', !entry.isIntersecting);
+    });
+    observer.observe(sentinel);
   }
 </script>
 
 <style>
+  .header-sentinel {
+    position: absolute;
+    top: 24px;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
     z-index: 50;
     background: transparent;
+    border-bottom: 1px solid transparent;
     transition: background-color 260ms var(--ease-out-soft);
   }
 
@@ -74,6 +84,7 @@ const links = [
     align-items: baseline;
     gap: 0.4rem;
     line-height: 1;
+    flex-shrink: 0;
   }
 
   .brand-script {
@@ -100,6 +111,6 @@ const links = [
   }
 
   .nav-link:hover {
-    color: var(--color-forest);
+    color: var(--color-accent-ink);
   }
 </style>

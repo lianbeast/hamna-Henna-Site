@@ -11,47 +11,66 @@ const LINKS = [
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDialogElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-        buttonRef.current?.focus();
-        return;
-      }
-      if (e.key !== 'Tab' || !panelRef.current) return;
-
-      // keep tabbing inside the open panel
-      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled])'
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
+    const panel = panelRef.current;
+    if (!panel) return;
+    // The native modal keeps the background inert and restores trigger focus.
+    panel.showModal();
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+      const controls = panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
       }
     };
-
+    panel.addEventListener('keydown', trapFocus);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', onKey);
-    panelRef.current?.querySelector<HTMLElement>('a[href]')?.focus();
+    const desktop = window.matchMedia('(min-width: 64rem)');
+    const onResize = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    desktop.addEventListener('change', onResize);
+    onResize();
 
     return () => {
-      document.removeEventListener('keydown', onKey);
+      desktop.removeEventListener('change', onResize);
+      panel.removeEventListener('keydown', trapFocus);
+      panel.close();
       document.body.style.overflow = prevOverflow;
+      if (desktop.matches) {
+        document.querySelector<HTMLElement>('.brand')?.focus({ preventScroll: true });
+      } else {
+        buttonRef.current?.focus({ preventScroll: true });
+      }
     };
   }, [open]);
+
+  const navigate = (href: string) => {
+    setOpen(false);
+    requestAnimationFrame(() => {
+      const target = document.querySelector<HTMLElement>(href);
+      if (!target) return;
+      const previousTabIndex = target.getAttribute('tabindex');
+      target.tabIndex = -1;
+      target.focus({ preventScroll: true });
+      target.addEventListener('blur', () => {
+        if (previousTabIndex === null) target.removeAttribute('tabindex');
+        else target.setAttribute('tabindex', previousTabIndex);
+      }, { once: true });
+    });
+  };
 
   return (
     <>
@@ -61,6 +80,7 @@ export default function MobileNav() {
         className="btn btn-ghost h-11 w-11 !px-0 lg:hidden"
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
+        aria-haspopup="dialog"
         aria-controls="mobile-nav"
         onClick={() => setOpen((v) => !v)}
       >
@@ -83,12 +103,30 @@ export default function MobileNav() {
         </svg>
       </button>
 
-      <div
+      <dialog
         id="mobile-nav"
         ref={panelRef}
-        hidden={!open}
-        className="fixed inset-0 top-[72px] z-40 overflow-y-auto bg-[var(--color-ivory)] px-6 py-10 lg:hidden"
+        aria-label="Site navigation"
+        onCancel={(event) => {
+          event.preventDefault();
+          setOpen(false);
+        }}
+        className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain border-0 bg-ivory px-6 pt-5 pb-10 text-espresso backdrop:bg-espresso/20 lg:hidden"
       >
+        <div className="mb-8 flex items-center justify-between gap-4">
+          <span className="script text-2xl">Henna by Hamna</span>
+          <button
+            type="button"
+            autoFocus
+            className="btn btn-ghost !px-4"
+            onClick={() => setOpen(false)}
+          >
+            Close
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
         <nav aria-label="Mobile">
           <ul className="space-y-1">
             {LINKS.map((l) => (
@@ -96,7 +134,7 @@ export default function MobileNav() {
                 <a
                   href={l.href}
                   className="block min-h-11 py-3 font-[family-name:var(--font-display)] text-3xl text-espresso transition-colors hover:text-forest"
-                  onClick={() => setOpen(false)}
+                  onClick={() => navigate(l.href)}
                 >
                   {l.label}
                 </a>
@@ -106,12 +144,12 @@ export default function MobileNav() {
         </nav>
         <a
           href="#contact"
-          onClick={() => setOpen(false)}
+          onClick={() => navigate('#contact')}
           className="btn btn-primary mt-10 w-full"
         >
           Book Your Date
         </a>
-      </div>
+      </dialog>
     </>
   );
 }

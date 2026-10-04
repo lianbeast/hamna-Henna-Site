@@ -1,8 +1,6 @@
-import { createRequire } from 'node:module';
-const require = createRequire('/home/arch/.local/lib/node_modules/');
-const { chromium } = require('playwright');
+import { chromium } from 'playwright';
 
-const URL = 'http://localhost:4322/hamna-Henna-Site/';
+const URL = process.env.AUDIT_URL || 'http://127.0.0.1:4322/hamna-Henna-Site/';
 const browser = await chromium.launch();
 const fails = [];
 const ok = (cond, label, extra = '') => {
@@ -72,7 +70,7 @@ const ok = (cond, label, extra = '') => {
   const openState = await page.evaluate(() => ({
     expanded: document.querySelector('header button[aria-expanded]')?.getAttribute('aria-expanded'),
     locked: document.body.style.overflow,
-    focusInside: !!document.activeElement?.closest('header'),
+    focusInside: !!document.activeElement?.closest('#mobile-nav'),
   }));
   ok(openState.expanded === 'true', 'mobile nav: opens', `aria-expanded=${openState.expanded}`);
   ok(openState.locked === 'hidden', 'mobile nav: body scroll locked', `overflow=${openState.locked}`);
@@ -81,7 +79,7 @@ const ok = (cond, label, extra = '') => {
   let escaped = false;
   for (let i = 0; i < 14; i++) {
     await page.keyboard.press('Tab');
-    const inside = await page.evaluate(() => !!document.activeElement?.closest('header'));
+    const inside = await page.evaluate(() => !!document.activeElement?.closest('#mobile-nav'));
     if (!inside) { escaped = true; break; }
   }
   ok(!escaped, 'mobile nav: Tab stays trapped in panel');
@@ -126,7 +124,7 @@ const ok = (cond, label, extra = '') => {
   await ctx.close();
 }
 
-// ---------- 5. Form: mailto URI on valid submit ----------
+// ---------- 5. Form: prepare a draft without claiming delivery ----------
 // Listen for the mailto: request instead of stubbing window.location —
 // window.location is non-configurable in Chromium, so redefining it throws.
 {
@@ -150,7 +148,11 @@ const ok = (cond, label, extra = '') => {
       el.dispatchEvent(new Event('change', { bubbles: true }));
     };
     for (const el of f.querySelectorAll('input, select, textarea')) {
-      if (el.type === 'date') set(el, '2026-11-14');
+      if (el.type === 'date') {
+        const future = new Date();
+        future.setFullYear(future.getFullYear() + 1);
+        set(el, `${future.getFullYear()}-11-14`);
+      }
       else if (el.type === 'email') set(el, 'bride@example.com');
       else if (el.type === 'tel') set(el, '+92 300 1234567');
       else if (el.type === 'number') set(el, '120');
@@ -163,18 +165,42 @@ const ok = (cond, label, extra = '') => {
   await form.locator('button[type="submit"]').click();
   await page.waitForTimeout(600);
 
-  ok(!!uri && uri.startsWith('mailto:'), 'form: builds mailto on valid submit', (uri || '(none)').slice(0, 60));
+  uri = await form.locator('a[href^="mailto:"]').getAttribute('href');
+  ok(!!uri && uri.startsWith('mailto:'), 'form: prepares email link without sending', (uri || '(none)').slice(0, 60));
   if (uri) {
     const q = uri.split('?')[1] || '';
     const subj = decodeURIComponent((q.match(/subject=([^&]*)/) || [])[1] || '');
     const body = decodeURIComponent((q.split('body=')[1] || '').replace(/\+/g, ' '));
-    ok(body.includes('bride@example.com') && body.includes('2026-11-14'), 'form: body carries submitted values');
+    ok(body.includes('bride@example.com') && body.includes('-11-14'), 'form: body carries submitted values');
     ok(subj.length > 0, 'form: subject present', subj);
-    const live = await page.evaluate(() => document.querySelector('.booking-live')?.textContent?.trim().slice(0, 40));
-    ok(!!live, 'form: aria-live confirmation shown', live);
+    ok(await form.getByText('Nothing has been sent.', { exact: false }).isVisible(), 'form: honest draft status');
+    ok((await form.locator('#inquiry-text').inputValue()).includes('bride@example.com'), 'form: manual copy fallback');
+    await form.locator('#f-name').fill('Updated name');
+    ok(await form.locator('#inquiry-text').count() === 0, 'form: editing clears stale draft');
   }
+  await ctx.close();
+}
+
+// ---------- 6. Responsive layout and deployed assets ----------
+for (const dark of [false, true]) {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto(URL, { waitUntil: 'networkidle' });
+  await page.evaluate((dark) => document.documentElement.classList.toggle('theme-dark', dark), dark);
+  for (const width of [320, 375, 414, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    const fits = await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
+    ok(fits, `layout: ${width}px ${dark ? 'dark' : 'light'} has no horizontal overflow`);
+  }
+  const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+  const deployedPath = new globalThis.URL(image).pathname;
+  const response = await ctx.request.get(new globalThis.URL(deployedPath, URL).href);
+  ok(response.ok() && response.headers()['content-type']?.includes('image/png'), 'social preview: base-aware PNG resolves');
+  const texture = await page.evaluate(() => getComputedStyle(document.body).getPropertyValue('--paisley-texture'));
+  ok(texture.includes('/hamna-Henna-Site/textures/'), 'texture: deployment base included');
   await ctx.close();
 }
 
 await browser.close();
 console.log(fails.length ? `\n${fails.length} FAILED` : '\nall passed');
+process.exitCode = fails.length ? 1 : 0;

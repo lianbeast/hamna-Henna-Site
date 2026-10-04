@@ -7,6 +7,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "test": "node --experimental-strip-types --test src/lib/booking.test.ts",
+    "audit": "node audit.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4"
+    "@types/react-dom": "^19.2.4",
+    "playwright": "^1.63.0"
   }
 }
