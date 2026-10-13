@@ -16,7 +16,7 @@ import site from '../data/site.json';
 
       <div class="relative">
         <h1 class="hero-title">
-          <span class="script block text-forest">Intricate Mehndi</span>
+          <span class="hero-serif block text-terracotta">Intricate Mehndi,</span>
           <span class="block text-espresso">Timeless Beauty</span>
         </h1>
 
@@ -68,6 +68,16 @@ import site from '../data/site.json';
     font-family: var(--font-script);
     font-size: 0.88em;
     line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  /* serif-italic lead: the expressive voice without script-legibility cost */
+  .hero-title .hero-serif {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.94em;
+    line-height: 1.25;
     letter-spacing: 0;
   }
 

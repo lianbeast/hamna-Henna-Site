@@ -15,6 +15,8 @@
   --color-forest: #1f5145;
   --color-gold: #c6a15b;
   --color-gold-ink: #8e6329;
+  --color-terracotta: #b04a2c;
+  --color-aubergine: #4a2530;
   --color-beige: #cdb99a;
   --color-espresso: #3b2118;
   --color-surface: #fff9ef;
@@ -45,9 +47,9 @@
     color-scheme: light;
 
     /* Semantic role bindings */
-    --role-primary:   var(--color-forest);
+    --role-primary:   var(--color-espresso);
     --role-secondary: var(--color-gold);
-    --role-tertiary:  var(--color-rust, #B04A2C);
+    --role-tertiary:  var(--color-terracotta);
     --role-bg:        var(--color-ivory);
     --role-surface:   var(--color-paper, var(--color-floral));
     --role-text:      var(--color-espresso);
@@ -106,6 +108,8 @@
     --color-forest: #1f5145;
     --color-gold: #c6a15b;
     --color-gold-ink: #e6b84a;
+    --color-terracotta: #d08a6a;
+    --color-aubergine: #4a2530;
     --color-beige: #8c7a5e;
     --color-espresso: #efe3cf;
     --color-surface: #251e19;
@@ -333,12 +337,12 @@
   }
 
   .btn-primary {
-    background: var(--color-forest);
+    background: var(--color-espresso);
     color: var(--color-floral);
   }
 
   .btn-primary:hover {
-    background: var(--color-emerald);
+    background: var(--color-aubergine);
   }
 
   .btn-ghost {
@@ -351,10 +355,10 @@
     background: color-mix(in srgb, var(--color-gold) 12%, transparent);
   }
 
-  /* on the emerald band the primary inverts to ivory */
+  /* on the aubergine band the primary inverts to ivory */
   .btn-invert {
     background: var(--color-floral);
-    color: var(--color-emerald);
+    color: var(--color-aubergine);
   }
 
   .btn-invert:hover {
@@ -392,6 +396,18 @@
     box-shadow: var(--shadow-card);
   }
 
+  /* --color-espresso flips light in dark mode, so the primary button
+     anchors to aubergine (stable across themes) instead. */
+  :root.theme-dark .btn-primary {
+    background: var(--color-aubergine);
+    color: var(--color-floral);
+    border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  }
+
+  :root.theme-dark .btn-primary:hover {
+    background: color-mix(in srgb, var(--color-aubergine) 72%, var(--color-floral));
+  }
+
   .card-featured {
     border-color: var(--color-gold);
     border-width: 2px;
@@ -427,6 +443,10 @@
 @layer utilities {
   .text-forest {
     color: var(--color-accent-ink);
+  }
+
+  .text-terracotta {
+    color: var(--color-terracotta);
   }
 
   .text-tertiary {
