@@ -133,7 +133,7 @@ export default function MobileNav() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="block min-h-11 py-3 font-[family-name:var(--font-display)] text-3xl text-espresso transition-colors hover:text-forest"
+                  className="block min-h-11 py-3 font-[family-name:var(--font-display)] text-3xl text-espresso transition-standard hover:text-forest"
                   onClick={() => navigate(l.href)}
                 >
                   {l.label}

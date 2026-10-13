@@ -60,11 +60,31 @@
     --type-headline-size: 1.5rem;
     --type-headline-weight: 500;
     --type-body-size: 1rem;
+    --type-body-weight: 400;
     --type-label-size: 0.75rem;
     --type-label-weight: 500;
+    --type-caption-size: 0.8125rem;
+    --type-caption-weight: 400;
+
+    /* Spacing tokens — named scale pulled from design.json breakpoints */
+    --space-3xs: 0.25rem;   /* 4px  */
+    --space-2xs: 0.5rem;    /* 8px  */
+    --space-xs:  0.75rem;   /* 12px */
+    --space-sm:  1rem;      /* 16px */
+    --space-md:  1.25rem;   /* 20px */
+    --space-lg:  1.5rem;    /* 24px */
+    --space-xl:  2rem;      /* 32px */
+    --space-2xl: 2.5rem;   /* 40px */
+    --space-3xl: 3rem;      /* 48px */
+
+    /* Breakpoint tokens — matches the spec's sm/md/lg */
+    --breakpoint-sm: 480px;
+    --breakpoint-md: 760px;
+    --breakpoint-lg: 900px;
 
     --transition-standard: background var(--dur-quick) var(--ease-out-soft),
-                           color var(--dur-quick) var(--ease-out-soft);
+                           color var(--dur-quick) var(--ease-out-soft),
+                           border-color var(--dur-quick) var(--ease-out-soft);
     --shadow-card-lift: 0 4px 12px color-mix(in srgb, var(--color-espresso) 8%, transparent);
   }
 
@@ -238,6 +258,20 @@
     text-transform: uppercase;
   }
 
+  .type-body {
+    font-family: var(--font-body);
+    font-size: var(--type-body-size);
+    font-weight: var(--type-body-weight);
+    line-height: 1.65;
+  }
+
+  .type-caption {
+    font-family: var(--font-body);
+    font-size: var(--type-caption-size);
+    font-weight: var(--type-caption-weight);
+    line-height: 1.5;
+  }
+
   /* ---------- ornament frame ---------- */
 
   .arched {
@@ -395,8 +429,16 @@
     color: var(--color-accent-ink);
   }
 
+  .text-tertiary {
+    color: var(--color-gold-ink);
+  }
+
   .bg-floral {
     background-color: var(--color-surface);
+  }
+
+  .transition-standard {
+    transition: var(--transition-standard);
   }
 
   @media (hover: hover) {
